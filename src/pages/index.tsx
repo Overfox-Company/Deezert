@@ -1,13 +1,16 @@
 import Header from '../components/header/Header'
 import Image from 'next/image'
-import styles from '../../styles/Home.module.css'
-
-const inter = {fontFamily: 'verdana'}
-
+import styles from '../styles/Home.module.css'
+import { useEffect } from 'react';
+import { ConnectServer } from '../functions/ApiFunctions';
+import styled from '@emotion/styled';
 export default function Home() {
+  useEffect(() => {
+    ConnectServer()
+  },[])
   return (
-    <>
-<Header/>
+      <>
+      <Header/>
       <main className={styles.main}>
         <div className={styles.center}>
           <Image
@@ -29,6 +32,6 @@ export default function Home() {
           </div>
         </div>
       </main>
-    </>
+      </>
   )
 }

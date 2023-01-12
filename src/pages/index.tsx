@@ -9,7 +9,8 @@ export default function Home() {
     ConnectServer()
   },[])
   return (
-      <>
+    <>
+      
       <Header/>
       <main className={styles.main}>
         <div className={styles.center}>

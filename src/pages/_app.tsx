@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-
+import AppRouter from './App'
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return <AppRouter><Component {...pageProps} /></AppRouter>
 }

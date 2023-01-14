@@ -1,38 +1,33 @@
+import React from 'react';
 import Header from '../components/header/Header'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { useEffect } from 'react';
-import { ConnectServer } from '../functions/ApiFunctions';
 import styled from '@emotion/styled';
+import { ThemeProvider } from '@mui/material';
+import {ThemeLight, ThemeDark} from '../theme/Theme';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import { CONTAINER_DARK } from '../constants/Color';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { AppProvider , AppContext} from '../context/AppContext';
 export default function Home() {
-  useEffect(() => {
-    ConnectServer()
-  },[])
+  const { darkMode } = React.useContext(AppContext)
+  let theme =darkMode ?ThemeDark:ThemeLight
   return (
     <>
-      
-      <Header/>
+      <ThemeProvider theme={darkMode ?ThemeDark:ThemeLight}>
+        <Header/>
       <main className={styles.main}>
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
+          <div style={{width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <Typography>
+           Deezert
+          </Typography>
           </div>
-        </div>
-      </main>
+        </main>
+      </ThemeProvider>
       </>
   )
 }

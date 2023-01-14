@@ -1,6 +1,7 @@
+import React from 'react';
 import { type ProviderProps } from '../types/app';
 import { AppProvider } from '../context/AppContext';
-const App:React.FC<ProviderProps>=({children})=> {
+const App: React.FC<ProviderProps> = ({ children }) => {
   return (
     <AppProvider>
       {children}

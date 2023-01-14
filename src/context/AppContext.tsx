@@ -6,7 +6,7 @@ export const AppContext = createContext<ContextData>({
     setDarkMode: () => {}
 });
 export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
-    const [darkMode, setDarkMode] = useState(true);
+    const [darkMode, setDarkMode] = useState(false);
 
     return (
         <AppContext.Provider value={{ darkMode, setDarkMode }}>

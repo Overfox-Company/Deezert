@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles';
-import { PRIMARY_COLOR, PRIMARY_COLOR_HOVER, PAPER_DARK, CONTAINER_DARK,PAPER, CONTAINER,TEXT_DARK,SECONDARY_COLOR,SECONDARY_COLOR_HOVER } from '../constants/Color';
+import { PRIMARY_COLOR, PRIMARY_COLOR_HOVER, PAPER_DARK, CONTAINER_DARK,PAPER, CONTAINER,TEXT_DARK,TEXT,TEXT_GRAY } from '../constants/Color';
 export const ThemeDark= createTheme({
   palette: {
     mode: 'dark',
@@ -34,8 +34,8 @@ export const ThemeDark= createTheme({
         contrastText: '#ffffff',
     },
     text: {
-      primary: 'rgb(255,2,2)',
-      secondary: 'rgb(255,255,2)',
+      primary: TEXT_DARK,
+      secondary: TEXT_GRAY,
       disabled: '#cccccc',
     },
     background: {
@@ -86,8 +86,8 @@ export const ThemeLight= createTheme({
         contrastText: '#ffffff',
     },
     text: {
-      primary: 'rgb(255,2,2)',
-      secondary: 'rgb(255,255,2)',
+      primary: TEXT,
+      secondary: TEXT_GRAY,
       disabled: '#cccccc',
     },
     background: {

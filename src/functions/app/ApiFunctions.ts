@@ -1,4 +1,4 @@
-import ApiController from "../connection/ApiController";
+import ApiController from "../../connection/ApiController";
 
 // Define the ConnectServer function
 export const ConnectServer = () => {

@@ -27,11 +27,11 @@ api.interceptors.response.use(
     console.log(error);
   }
 );
-
 // Create an object to hold API methods
 const ApiController = {
   // Define a method to GET the server using axios
   getServer: () => api.get(Route),
+  signIn:() =>api.post(Route + '/signIn')
 };
 
 // Export the ApiController object as the default export

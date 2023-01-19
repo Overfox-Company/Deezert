@@ -1,9 +1,12 @@
 import express from "express";
 import next from "next";
+import { Request, Response, NextFunction } from "express";
 import router from "./src/api/routes/Api.routes";
 import { type ServerType } from "./src/types/server";
 import { jsonParser, urlEncodedParser } from "./src/api/middlewares/bodyParser";
-
+import Dotenv from "dotenv";
+// Carga las variables de entorno desde el archivo .env
+Dotenv.config();
 // Define the port to run the server on
 const port = parseInt(process.env.PORT || "3000", 10);
 

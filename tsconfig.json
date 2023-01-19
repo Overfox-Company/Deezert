@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/hooks/google/Google.js", "src/hooks/google/Google.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/hooks/google/Google.js", "src/hooks/google/Google.js", "src/functions/server/TokenVerify.js", "src/functions/server/TokenVerify.js"],
   "exclude": ["node_modules"]
 }

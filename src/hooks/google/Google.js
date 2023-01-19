@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import GoogleLogin from "react-google-login";
 import styled from "@emotion/styled";
 import { IconButton } from "@mui/material";
@@ -14,22 +14,22 @@ const SignInGoogleButton = styled(IconButton)({
   fontSize: 16,
   marginTop: 15,
 });
-const clientId =
-  "16204758163-alpoqht12u045encgb0f5qd6026i7up1.apps.googleusercontent.com";
+const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+const gapi = import("gapi-script").then((pack) => pack.gapi);
 const GoogleLoginButton = () => {
   useEffect(() => {
-    const gapi = import("gapi-script").then((pack) => pack.gapi);
     async function start() {
       await gapi?.client?.init({
         clientId: clientId,
-        scope: "",
+        scope: "https://www.googleapis.com/auth/plus.login",
       });
     }
     gapi.then((d) => d.load("client:auth2", start));
   }, []);
   const successGoogle = (response) => {
     const token = response.tokenId;
-
+    console.log(response)
+    console.log(token)
     localStorage.setItem("token", token);
   };
   const failureGoogle = (response) => {

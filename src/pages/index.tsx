@@ -7,7 +7,7 @@ import { P } from "../components/BasicComponents";
 import GoogleLoginButotn from "../hooks/google/Google";
 import { AppContext } from "../context/AppContext";
 import Button from "@mui/material/Button";
-import { ConnectServer } from "../functions/ApiFunctions";
+import { ConnectServer } from "../functions/app/ApiFunctions";
 export default function Home() {
   const { token } = React.useContext(AppContext);
   React.useEffect(() => {

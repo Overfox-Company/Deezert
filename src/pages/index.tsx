@@ -9,11 +9,6 @@ import { AppContext } from "../context/AppContext";
 import Button from "@mui/material/Button";
 import { ConnectServer } from "../functions/app/ApiFunctions";
 export default function Home() {
-  const { token } = React.useContext(AppContext);
-  React.useEffect(() => {
-    ConnectServer();
-    console.log(token);
-  }, [token]);
   return (
     <>
       <Header />

@@ -17,9 +17,10 @@ export const ConnectServer = async (
     // If an error occurs, log the error
     .catch((err) => {
       console.log(err?.response?.data);
-      if (err?.response?.data === "Unauthorized") {
+      if (err?.response?.data === "unauthorized") {
         logout();
         localStorage.removeItem("token");
+        console.log(localStorage.getItem("token"));
       }
     });
 };

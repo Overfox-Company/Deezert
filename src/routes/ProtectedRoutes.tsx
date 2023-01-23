@@ -16,7 +16,11 @@ const ProtectedRoutes: React.FC<Props> = ({ children }) => {
     if (token) {
       ConnectServer(logout, login, setUser);
       console.log("verificando token");
-    }
+    }else {
+        if (!isAuthenticated) {
+          router.push("/");
+        }
+      }
     const intervalId = setInterval(() => {
       if (token) {
         ConnectServer(logout, login, setUser);

@@ -4,6 +4,7 @@ import router from "./src/api/routes/Api.routes";
 import { type ServerType } from "./src/types/server";
 import { jsonParser, urlEncodedParser } from "./src/api/middlewares/bodyParser";
 import Dotenv from "dotenv";
+import cors from "cors";
 // Carga las variables de entorno desde el archivo .env
 Dotenv.config();
 // Define the port to run the server on
@@ -25,7 +26,7 @@ app.prepare().then(() => {
   // Use the json and url encoded parser middlewares
   server.use(jsonParser);
   server.use(urlEncodedParser);
-
+  server.use(cors());
   // Use the router for the '/api' endpoint
   server.use("/api", router);
 

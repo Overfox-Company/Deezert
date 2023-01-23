@@ -1,4 +1,5 @@
 import axios from "axios";
+import {type userType } from "../types/global";
 // Define the base URL for the API
 const Domain = "http://localhost:3000/";
 
@@ -22,16 +23,13 @@ api.interceptors.request.use(async (config: any) => {
 api.interceptors.response.use(
   (response) => {
     return response;
-  },
-  (error) => {
-    console.log(error);
   }
 );
 // Create an object to hold API methods
 const ApiController = {
   // Define a method to GET the server using axios
   getServer: () => api.get(Route),
-  signIn:() =>api.post(Route + '/signIn')
+  signIn:(user:userType) =>api.post(Route + '/signIn',user)
 };
 
 // Export the ApiController object as the default export

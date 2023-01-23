@@ -1,7 +1,7 @@
 export const PRIMARY_COLOR = 'rgb(0,230,100)';
 export const PRIMARY_COLOR_HOVER = 'rgba(0,230,100,0.75)';
-export const SECONDARY_COLOR = 'rgb(185,185,190)';
-export const SECONDARY_COLOR_HOVER = 'rgba(185,185,190,0.75)';
+export const SECONDARY_COLOR = 'rgb(10,10,10)';
+export const SECONDARY_COLOR_HOVER = 'rgba(80,80,190,0.75)';
 export const TEXT_GRAY = 'rgb(185,185,190)';
 
 //-------------------Dark mode---------------------------//

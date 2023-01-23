@@ -12,7 +12,7 @@ async function verify(verifyToken) {
       });
 
       if (await ticket.getPayload()?.iss == 'accounts.google.com') {
-        return 'validate whit google';
+        return ticket.getPayload();
       } else {
         return 'token no valido'
       }
@@ -20,7 +20,8 @@ async function verify(verifyToken) {
     }
     throw new Error("Invalid Token Type");
   } catch (error) {
-    throw error;
+    console.log('error validando el token xq es viejo')
+    return '401'
   }
 }
 

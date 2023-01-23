@@ -1,9 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useContext } from "react";
 import GoogleLogin from "react-google-login";
 import styled from "@emotion/styled";
 import { IconButton } from "@mui/material";
+import { SignIn } from '../../functions/app/ApiFunctions'
+import { AppContext } from "../../context/AppContext";
+import Router from "next/router";
 const GoogleIcon = styled.img({
-  width: "5%",
+  width: "100%",
   marginRight: 5,
   objectFit: "cover",
 });
@@ -17,6 +20,7 @@ const SignInGoogleButton = styled(IconButton)({
 const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 const gapi = import("gapi-script").then((pack) => pack.gapi);
 const GoogleLoginButton = () => {
+  const {login,setUser}=useContext(AppContext)
   useEffect(() => {
     async function start() {
       await gapi?.client?.init({
@@ -26,14 +30,21 @@ const GoogleLoginButton = () => {
     }
     gapi.then((d) => d.load("client:auth2", start));
   }, []);
+  const UpdateContext=(e) => {
+    console.log(e)
+    setUser(e)
+    login()
+    Router.push('/addCompany')
+  }
   const successGoogle = (response) => {
     const token = response.tokenId;
-    console.log(response)
-    console.log(token)
     localStorage.setItem("token", token);
+    const user = response.profileObj
+    SignIn(user,UpdateContext)
   };
   const failureGoogle = (response) => {
     console.log(response);
+    console.log('error de google')
   };
   return (
     <GoogleLogin

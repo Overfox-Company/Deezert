@@ -4,6 +4,8 @@ import {
   HOVER_GRAY,
   PRIMARY_COLOR,
   PRIMARY_COLOR_HOVER,
+  SECONDARY_COLOR,
+  SECONDARY_COLOR_HOVER,
   PAPER_DARK,
   CONTAINER_DARK,
   PAPER,
@@ -19,6 +21,12 @@ export const ThemeDark = createTheme({
       main: PRIMARY_COLOR,
       light: "rgb(25,200,250)",
       dark: PRIMARY_COLOR_HOVER,
+      contrastText: TEXT_DARK,
+    },
+    secondary: {
+      main: SECONDARY_COLOR,
+      light: "rgb(25,200,250)",
+      dark: SECONDARY_COLOR_HOVER,
       contrastText: TEXT_DARK,
     },
     error: {

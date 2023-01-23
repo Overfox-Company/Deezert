@@ -10,14 +10,14 @@ export const Div: React.FC<ProviderProps> = ({ children }) => {
 };
 export const P: React.FC<ProviderProps> = ({ children }) => {
     return (
-        <Typography gutterBottom>
+        <Typography style={{fontFamily: 'Comfortaa, cursive',textAlign: 'center'}} gutterBottom>
             {children}
         </Typography>
     )
 };
-export const Wrapper: React.FC<ProviderProps> = ({ children }) => {
+export const Wrapper: React.FC<ProviderProps> = ({ children, className }) => {
     return (
-        <Box sx={{ bgcolor: 'background.default',}}>
+        <Box className ={className} sx={{ bgcolor: 'background.default',}}>
             {children}
         </Box >
     )

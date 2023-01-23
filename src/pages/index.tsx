@@ -18,14 +18,7 @@ export default function Home() {
     <>
       <Header />
       <main className={styles.main}>
-        <Paper>
-          <P>Deezert</P>
-          <GoogleLoginButotn />
-          <Switch />
-          <Button onClick={ConnectServer}>
-            <p>enviar</p>
-          </Button>
-        </Paper>
+
       </main>
     </>
   );

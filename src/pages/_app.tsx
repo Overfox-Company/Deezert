@@ -15,9 +15,6 @@ const publicRoutes: string[] = ['index', 'login']
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <AppRouter>
-        <Head>
-        <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&family=Roboto:wght@300&display=swap" rel="stylesheet"/>
-      </Head>
       <ThemeContainer>
         <Wrapper className={styles.main}>
           {publicRoutes.includes(Component.name) ? 

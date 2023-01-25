@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-export type ServerType = (req: Request, res: Response) => void;
+import type { NextApiRequest, NextApiResponse } from "next";
+export type ServerType = (req: NextApiRequest, res: NextApiResponse) => void;
 export type VerifyToken = {
   token: string;
   type: string;

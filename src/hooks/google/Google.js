@@ -41,6 +41,7 @@ const GoogleLoginButton = () => {
     const token = response.tokenId;
     localStorage.setItem("token", token);
     const user = response.profileObj;
+    console.log(user);
     SignIn(user, UpdateContext);
   };
   const failureGoogle = (response) => {

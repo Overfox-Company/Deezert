@@ -30,7 +30,7 @@ const ProtectedRoutes: React.FC<Props> = ({ children }) => {
           router.push("/");
         }
       }
-    }, 20000); // Este setInterval se ejecutará cada 5 segundos
+    }, 60000); // Este setInterval se ejecutará cada 5 segundos
     return () => clearInterval(intervalId);
   }, [isAuthenticated]);
   return <>{children}</>;

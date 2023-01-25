@@ -1,4 +1,4 @@
-import { SignInController } from "@/api/controllers";
+import { SignInController } from "../../api/controllers";
 import { NextApiRequest, NextApiResponse } from "next";
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   SignInController(req, res);

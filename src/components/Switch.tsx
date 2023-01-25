@@ -62,12 +62,12 @@ const SwitchDarkMode= ()=>{
     setDarkMode(event.target.checked);
 };
     return (
-        <Grid container justifyContent={'flex-end'}>
+        <Grid container justifyContent={'flex-end'} alignItems={'center'}>
             <Grid item xs={5}>
                 <CustomSwitch size="small" checked={darkMode} onChange={handleChange} color="secondary" />
             </Grid>
             <Grid item xs={4}>
-                {darkMode?<DarkModeIcon color='primary'/>:<LightModeIcon color='primary'/>}
+                {darkMode?<DarkModeIcon style={{marginTop:5}} color='primary'/>:<LightModeIcon style={{marginTop:5}} color='primary'/>}
             </Grid>
         </Grid>
 

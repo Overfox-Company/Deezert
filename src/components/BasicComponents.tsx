@@ -1,6 +1,11 @@
 import React from 'react';
 import { ProviderProps } from '../types/app';
-import { Paper,Typography,Box } from '@mui/material';
+import { Paper, Typography, Box } from '@mui/material';
+import { useTheme, ThemeProvider } from '@mui/material';
+import styled from '@emotion/styled';
+const CustomTypography = styled(Typography)({
+    fontFamily: 'Comfortaa, cursive',textAlign: 'center'
+});
 export const Div: React.FC<ProviderProps> = ({ children }) => {
     return (
         <Paper>
@@ -8,12 +13,19 @@ export const Div: React.FC<ProviderProps> = ({ children }) => {
         </Paper>
     )
 };
-export const P: React.FC<ProviderProps> = ({ children }) => {
-    return (
-        <Typography style={{fontFamily: 'Comfortaa, cursive',textAlign: 'center'}} gutterBottom>
+type PTypes = {
+    children: React.ReactNode;
+    style?: any;
+}
+export const P: React.FC<PTypes> = ({ children,style }) => {
+  const theme = useTheme();
+  return (
+    <ThemeProvider theme={theme}>
+      <CustomTypography style={style} color={theme.palette.mode === 'dark' ? 'white' : 'textPrimary'} gutterBottom>
             {children}
-        </Typography>
-    )
+      </CustomTypography>
+    </ThemeProvider>
+  )
 };
 export const Wrapper: React.FC<ProviderProps> = ({ children, className }) => {
     return (

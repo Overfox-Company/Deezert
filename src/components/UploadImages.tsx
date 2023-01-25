@@ -1,0 +1,163 @@
+import React from "react";
+import ImageUploading, { type ImageListType } from "react-images-uploading";
+import { Grid } from "@mui/material";
+import styled from "@emotion/styled";
+import DeleteIcons from "./icons/DeleteIcon";
+import ChangeIcon from "./icons/ChangeIcon";
+
+import { type UploadImagesType } from "../types/app";
+import { AadFilesBig, AadFilesSmall } from "./icons/AadFile";
+const Container = styled.div({
+  width: "100%",
+  height: "15vw",
+  padding: 0,
+  borderRadius: 2,
+  overflow: "auto",
+  backgroundColor: "rgb(50,50,50)",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+});
+const Image = styled.img({
+  width: "auto",
+  height: "auto",
+  maxWidth: " 5vw",
+  maxHeight: "100%",
+  margin: 0,
+});
+const ContainerIcons = styled.div({
+  width: "100%",
+  display: "flex",
+  justifyContent: "space-around",
+  alignItems: "center",
+});
+const Label = styled.p({
+  color: "rgb(240,240,240)",
+  textAlign: "left",
+  fontSize: 12,
+  fontFamily: "verdana",
+});
+const ContainerImage = styled.div({
+  height: "8vw",
+  width: "100%",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  margin: 0,
+});
+const Card = styled.div({
+  backgroundColor: "rgb(30,30,30)",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  padding: "2px 5px",
+  borderRadius: 5,
+  boxShadow: "0 1px 5px 0 rgb(0,0,0)",
+});
+const UploadImages = ({
+  maxNumber,
+  label,
+  images,
+  setImages,
+  textButton,
+}: UploadImagesType) => {
+  const onChange = (
+    imageList: ImageListType,
+    addUpdateIndex: number[] | undefined
+  ) => {
+    setImages(imageList as never[]);
+  };
+
+  return (
+    <Grid container justifyContent={"center"}>
+      <Grid item xs={12}>
+        <Label>{label}</Label>
+      </Grid>
+      <Grid item xs={12}>
+        <ImageUploading
+          multiple
+          maxFileSize={10000000} // 5MB
+          value={images}
+          onChange={onChange}
+          maxNumber={maxNumber}
+          dataURLKey="path"
+        >
+          {({
+            imageList,
+            onImageUpload,
+            onImageRemoveAll,
+            onImageUpdate,
+            onImageRemove,
+            isDragging,
+            dragProps,
+          }) => (
+            <>
+              <Container
+                style={
+                  imageList.length === 0 ? { cursor: "pointer" } : undefined
+                }
+                onClick={images ? undefined : onImageUpload}
+              >
+                {imageList.length > 0 ? (
+                  <>
+                    <Grid
+                      container
+                      justifyContent={"center"}
+                      alignItems={"center"}
+                      rowSpacing={4}
+                      columnSpacing={2}
+                    >
+                      {imageList.map((image: any, index: number) => (
+                        <Grid key={index} item xs={5}>
+                          <Card>
+                            <Grid
+                              container
+                              justifyContent={"center"}
+                              alignItems={"center"}
+                              rowSpacing={1}
+                            >
+                              <Grid item xs={12}>
+                                <ContainerImage>
+                                  <Image src={image.path} alt="" />
+                                </ContainerImage>
+                              </Grid>
+                              <Grid item xs={12}>
+                                <ContainerIcons>
+                                  <ChangeIcon
+                                    onClick={() => {
+                                      onImageUpdate(index);
+                                    }}
+                                  />
+                                  <DeleteIcons
+                                    onClick={() => {
+                                      onImageRemove(index);
+                                    }}
+                                  />
+                                </ContainerIcons>
+                              </Grid>
+                            </Grid>
+                          </Card>
+                        </Grid>
+                      ))}
+                      {maxNumber === imageList.length ? (
+                        <></>
+                      ) : (
+                        <Grid item xs={12}>
+                          <AadFilesSmall onClick={onImageUpload} />
+                        </Grid>
+                      )}
+                    </Grid>
+                  </>
+                ) : (
+                  <AadFilesBig onClick={onImageUpload} />
+                )}
+              </Container>
+            </>
+          )}
+        </ImageUploading>
+      </Grid>
+    </Grid>
+  );
+};
+
+export default UploadImages;

@@ -1,4 +1,39 @@
 import React from "react";
+import {
+  type CSSProperties,
+  type MouseEventHandler,
+  type ReactNode,
+} from "react";
+export type AddCompanyTypes = {
+  name: string;
+};
+export type UploadImagesType = {
+  maxNumber: number;
+  label?: string;
+  images: any[];
+  setImages: any;
+  textButton: string;
+};
+export type InputProps = {
+  name?: string | undefined;
+  label?: string | undefined;
+  error?: string | undefined;
+  touched?: boolean | undefined;
+  placeholder?: string | undefined;
+  type?: string | undefined;
+  as?: string | undefined;
+  rows?: number | undefined;
+  cols?: number | undefined;
+  children?: React.ReactNode;
+};
+export type Props = {
+  children?: ReactNode;
+  onClick?: MouseEventHandler | undefined;
+  style?: CSSProperties | undefined;
+};
+export type AddFile = {
+  onClick?: MouseEventHandler;
+};
 export type ContextData = {
   user: UserType;
   setUser: React.Dispatch<React.SetStateAction<any>>;

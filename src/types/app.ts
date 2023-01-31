@@ -42,6 +42,8 @@ export type ContextData = {
   token: string;
   setToken: React.Dispatch<React.SetStateAction<string>>;
   isAuthenticated: boolean;
+  loader: boolean;
+  setLoader: React.Dispatch<React.SetStateAction<boolean>>;
   login: () => void;
   logout: () => void;
 };

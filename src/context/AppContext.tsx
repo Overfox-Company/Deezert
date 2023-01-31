@@ -32,13 +32,16 @@ export const AppContext = createContext<ContextData>({
     token:'',
     setToken: ()=>{ },
     isAuthenticated: false,
+    loader:false,
+    setLoader:()=>{},
     login: () => {},
     logout: () => {}
 });
 
 export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
     const [darkMode, setDarkMode] = useState(true);
-    const [token,setToken]=useState('')
+    const [token, setToken] = useState('')
+    const [loader,setLoader]=useState(false)
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState(InitialUser);
     const login = () => {
@@ -50,7 +53,7 @@ export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
     };
 
     return (
-        <AppContext.Provider value={{user, setUser, darkMode, setDarkMode,token,setToken, isAuthenticated, login, logout }}>
+        <AppContext.Provider value={{user, setUser, darkMode, setDarkMode,token,setToken, isAuthenticated, login, logout ,loader,setLoader}}>
             {children}
         </AppContext.Provider>
     );

@@ -10,6 +10,7 @@ import ProtectedRoutes from "../routes/ProtectedRoutes";
 import Link from "next/link";
 import Header from "../components/header/Header";
 import Head from "next/head";
+import Loader from "../components/Loader";
 const publicRoutes: string[] = ['index', 'login']
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -17,6 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <AppRouter>
       <ThemeContainer>
         <Wrapper className={styles.main}>
+           <Loader/>
           {publicRoutes.includes(Component.name) ? 
             <>
               <Header/>

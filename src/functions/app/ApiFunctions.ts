@@ -12,6 +12,7 @@ export const ConnectServer = async (
     .then((e) => {
       console.log(e);
       setUser(e.data);
+      localStorage.setItem("id", e.data.id);
       login();
     })
     // If an error occurs, log the error
@@ -20,15 +21,19 @@ export const ConnectServer = async (
       if (err?.response?.data === "unauthorized") {
         logout();
         localStorage.removeItem("token");
+        localStorage.removeItem("id");
         console.log(localStorage.getItem("token"));
       }
     });
 };
-export const SignIn = (user: userType, UpdateContext: (_data: any) => void) => {
+export const SignIn = (
+  user: userType,
+  UpdateContext: (_data: any, setLoader: boolean) => void
+) => {
   ApiController.signIn(user)
     .then((e) => {
       if (e.status === 200) {
-        UpdateContext(e.data);
+        UpdateContext(e.data, false);
       }
     })
     .catch((err) => {

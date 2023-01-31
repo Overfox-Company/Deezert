@@ -21,7 +21,7 @@ const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 
 const GoogleLoginButton = () => {
   const gapi = import("gapi-script").then((pack) => pack.gapi);
-  const { login, setUser } = useContext(AppContext);
+  const { login, setUser, setLoader } = useContext(AppContext);
   useEffect(() => {
     async function start() {
       await gapi?.client?.init({
@@ -31,14 +31,16 @@ const GoogleLoginButton = () => {
     }
     gapi.then((d) => d.load("client:auth2", start));
   }, []);
-  const UpdateContext = (e) => {
+  const UpdateContext = (e, f) => {
     console.log(e);
     setUser(e);
     login();
+    setLoader(f);
     Router.push("/addCompany");
   };
   const successGoogle = (response) => {
     const token = response.tokenId;
+    setLoader(true);
     localStorage.setItem("token", token);
     const user = response.profileObj;
     console.log(user);

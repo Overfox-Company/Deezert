@@ -38,7 +38,7 @@ const Header = ({version =1 }:Props) => {
               </Grid>
               {version !== 1 &&
                 <Grid item xs={3} md={5}>
-                  <Avatar src={user.avatar}/>
+                  <Avatar src={user?.avatar}/>
                   </Grid>
               }
 </Grid>

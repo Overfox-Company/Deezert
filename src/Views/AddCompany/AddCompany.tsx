@@ -4,7 +4,7 @@ import Header from "../../components/header/Header";
 import { P } from "../../components/BasicComponents";
 import Paper from "@mui/material/Paper";
 import styled from "@emotion/styled";
-import FormAddCompany from "./Form";
+import FormAddCompany from "./Form.jsx";
 import { Grid } from "@mui/material";
 const Container = styled(Paper)({
   width: "100%",

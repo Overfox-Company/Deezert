@@ -5,7 +5,6 @@ const Domain = process.env.NEXT_PUBLIC_PRODUCTION == 'true'?"https://deezert.ver
 
 // Define the base route for the API
 const Route = `${Domain}api`;
-
 const api = axios.create({
   baseURL: Route,
 });
@@ -29,7 +28,8 @@ api.interceptors.response.use(
 const ApiController = {
   // Define a method to GET the server using axios
   getServer: () => api.get(Route),
-  signIn:(user:userType) =>api.post(Route + '/signIn',user)
+  signIn: (user: userType) => api.post(Route + '/signIn', user),
+  AddCompany: (data:any)=>api.post(Route + '/addCompany', data)
 };
 
 // Export the ApiController object as the default export

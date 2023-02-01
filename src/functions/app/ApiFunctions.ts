@@ -12,7 +12,7 @@ export const ConnectServer = async (
     .then((e) => {
       console.log(e);
       setUser(e.data);
-      localStorage.setItem("id", e.data.id);
+      localStorage.setItem("id", e.data._id);
       login();
     })
     // If an error occurs, log the error

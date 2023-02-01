@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react';
 import { ProviderProps } from '../types/app';
 import { ContextData } from '../types/app';
 const InitialUser = {
-    
+    _id:'',
                 name: '',
                 user: '',
                 lastName:  '',
@@ -22,7 +22,8 @@ const InitialUser = {
                 income:'',
                 joinDate:  '',
                 verified: false,
-                methodRegister:  ''
+                methodRegister: '',
+                firstTime: true,
 }
 export const AppContext = createContext<ContextData>({
     user:InitialUser,

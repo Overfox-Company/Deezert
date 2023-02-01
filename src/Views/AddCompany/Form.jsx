@@ -6,22 +6,22 @@ import * as Yup from "yup";
 import { AppContext } from "../../context/AppContext";
 import UploadImages from "../../components/UploadImages";
 import ApiController from "../../connection/ApiController";
-
+import { useRouter } from "next/router";
 
 const FormAddCompany = () => {
   const [images,setImages]= React.useState([])
   const [emails, setEmails] = React.useState(["",""]);
-const {setLoader}=React.useContext(AppContext)
+  const { setLoader } = React.useContext(AppContext);
+  const router = useRouter();
   const initialValues = {
     name: '',
-    emails: emails.map(() => ''),
+    emails: [],
   };
 
   const uploadSchema = Yup.object().shape({
     name: Yup.string().required("El nombre es requerido"),
-    emails: Yup.array().of(
-      Yup.string().email("Ingrese un email válido").min(10)
-    ),
+    email: Yup.string().email("Ingrese un email válido").min(10)
+    ,
   });
 
   return (
@@ -30,10 +30,10 @@ const {setLoader}=React.useContext(AppContext)
       validationSchema={uploadSchema}
       onSubmit={(values) => {
         setLoader(true)
-        console.log({ values, img: images });
         ApiController.AddCompany({ values, img: images,id:localStorage.getItem("id") }).then((e) => {
           console.log(e)
-           setLoader(false)
+          setLoader(false)
+          router.push('dashBoard')
         })
       }}
     >
@@ -60,23 +60,18 @@ const {setLoader}=React.useContext(AppContext)
                 type={"textarea"}
               />
             </Grid>
-            <Grid item xs={10}>
-              {emails.map((item, index) => {
-                return (
-                  <>
+                       <Grid item xs={10}>
+            
                                       <Input
-                    key={index}
-                    name={`emails.${index}`}
-                    label={`Correo ${index + 1}`}
-                    error={errors.emails && errors?.emails[index]}
-                    touched={touched.emails && touched.emails[index] ? touched.emails[index] : false}
-                    placeholder={`Correo ${index + 1}`}
+            
+                    name={`email`}
+                    label={`Correo`}
+                    error={errors.emails && errors?.email}
+                    touched={touched.emails && touched.email ? touched.email : false}
+                    placeholder={`Correo`}
                     type={"text"}
                     />
-                  </>
-
-                );
-              })}
+  
             </Grid>
             <Grid item xs={12}>
                 <Button

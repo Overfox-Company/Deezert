@@ -68,6 +68,7 @@ type UserType = {
   joinDate: string;
   verified: boolean;
   methodRegister: string;
+  _id: string;
 };
 export type ProviderProps = {
   children?: React.ReactNode;

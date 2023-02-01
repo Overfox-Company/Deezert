@@ -29,7 +29,8 @@ const ApiController = {
   // Define a method to GET the server using axios
   getServer: () => api.get(Route),
   signIn: (user: userType) => api.post(Route + '/signIn', user),
-  AddCompany: (data:any)=>api.post(Route + '/addCompany', data)
+  AddCompany: (data: any) => api.post(Route + '/addCompany', data),
+  FirstSession:(id:string)=>api.post(Route + '/firstSession', id)
 };
 
 // Export the ApiController object as the default export

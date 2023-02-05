@@ -9,12 +9,14 @@ const Avatar = styled.img({
 
 })
 const ContainerAvatar = styled.div({
-    position:'relative',
+    position: 'relative',
     minWidth: '10vw',
     minHeight: '10vw',
+    maxWidth: '10vw',
+    maxHeight: '10vw',
     margin:'0vw 1vw',
     backgroundColor: 'rgba(10,10,10,0.1)',
-    borderRadius: '10vw',
+    borderRadius: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems:'center'
@@ -25,7 +27,7 @@ const ContainerIcon = styled.div({
     minHeight: '10vw',
     margin:'0vw 1vw',
     backgroundColor: PRIMARY_COLOR,
-    borderRadius: '10vw',
+    borderRadius: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems:'center'

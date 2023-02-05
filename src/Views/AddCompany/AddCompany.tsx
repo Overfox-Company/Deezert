@@ -17,8 +17,9 @@ const AddCompany = () => {
   const { user, setLoader } = React.useContext(AppContext);
     const router = useRouter();
   const handleSkip = () => {
+    console.log(user._id)
     setLoader(true)
-    ApiController.FirstSession(user._id).then((e) => {
+    ApiController.FirstSession({id:user._id}).then((e) => {
       console.log('respuesta de fist session')
       console.log(e)
       setLoader(false)

@@ -79,11 +79,31 @@ export const FirstSession: ServerType = async (req, res) => {
       throw new Error("Invalid Token");
     }
     const id = req.body.id;
+    console.log("first session");
+    console.log(req.body.id);
     axios
-      .post(DeezertManagement + "/firstSession", id)
-      .then((e) => res.status(200).send("Primera sesion!"));
+      .post(DeezertManagement + "/firstSession", { id: id })
+      .then((e) => res.status(200).json(e.data));
   } catch (error) {
     console.log(error);
     res.status(404).send("token no valido");
   }
 };
+
+export const GetCompanys: ServerType = async (req, res) => {
+    try {
+    if (!req.headers.authorization) {
+      res.status(404).send("token no valido");
+      throw new Error("Invalid Token");
+    }
+    const id = req.body.id;
+    console.log("get companys");
+    console.log(req.body.id);
+    axios
+      .post(DeezertManagement + "/getCompanys", { id: id })
+      .then((e) => res.status(200).json(e.data));
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("token no valido");
+  }
+}

@@ -9,12 +9,12 @@ interface Props {
 const ProtectedRoutes: React.FC<Props> = ({ children }) => {
   const { isAuthenticated } = useContext(AppContext);
   const router = useRouter();
-  const { logout, login, setUser } = useContext(AppContext);
+  const { logout, login, setUser,user } = useContext(AppContext);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      ConnectServer(logout, login, setUser);
+      ConnectServer(logout, login, setUser,user);
       console.log("verificando token");
       console.log(localStorage.getItem('id'))
     }else {
@@ -24,7 +24,7 @@ const ProtectedRoutes: React.FC<Props> = ({ children }) => {
       }
     const intervalId = setInterval(() => {
       if (token) {
-        ConnectServer(logout, login, setUser);
+        ConnectServer(logout, login, setUser,user);
         console.log("verificando token");
       } else {
         if (!isAuthenticated) {

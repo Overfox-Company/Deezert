@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react';
 import { ProviderProps } from '../types/app';
 import { ContextData } from '../types/app';
 const InitialUser = {
-    _id:'',
+                _id:'',
                 name: '',
                 user: '',
                 lastName:  '',
@@ -36,7 +36,11 @@ export const AppContext = createContext<ContextData>({
     loader:false,
     setLoader:()=>{},
     login: () => {},
-    logout: () => {}
+    logout: () => { },
+    panel:0,
+    setPanel: () => { },
+    companys: [],
+    setCompanys: ()=>{}
 });
 
 export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
@@ -45,6 +49,8 @@ export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
     const [loader,setLoader]=useState(false)
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState(InitialUser);
+    const [panel, setPanel] = useState(0)
+    const [companys,setCompanys]=useState([])
     const login = () => {
         setIsAuthenticated(true);
     };
@@ -54,8 +60,26 @@ export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
     };
 
     return (
-        <AppContext.Provider value={{user, setUser, darkMode, setDarkMode,token,setToken, isAuthenticated, login, logout ,loader,setLoader}}>
-            {children}
-        </AppContext.Provider>
+      <AppContext.Provider
+        value={{
+          companys,
+          setCompanys,
+          panel,
+          setPanel,
+          user,
+          setUser,
+          darkMode,
+          setDarkMode,
+          token,
+          setToken,
+          isAuthenticated,
+          login,
+          logout,
+          loader,
+          setLoader,
+        }}
+      >
+        {children}
+      </AppContext.Provider>
     );
 };

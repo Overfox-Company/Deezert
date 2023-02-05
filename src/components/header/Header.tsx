@@ -1,9 +1,11 @@
 import React from "react";
 import { AppContext } from "../../context/AppContext";
 import styled from "@emotion/styled";
-import { Grid } from "@mui/material";
+import { Grid, Badge } from "@mui/material";
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import Switch from "../Switch";
-import { P } from "../BasicComponents";
+import SideMenu from "../SideMenu/SideMenu";
+import Search from "../Search";
 const light = "../../../static/images/logoDark.png";
 const dark = "../../../static/images/logoLight.png";
 const Logo = styled.img({
@@ -18,37 +20,74 @@ const Avatar = styled.img({
 const Container = styled.div({
   padding: 15,
   width: "100%",
+  position: 'fixed',
+  top:0,
 });
 type Props = {
   version?: number | unknown;
 }
-const Header = ({version =1 }:Props) => {
-  const { darkMode,user } = React.useContext(AppContext);
+const Header = ({ version = 1 }: Props) => {
+  const { darkMode, user } = React.useContext(AppContext);
   return (
     <>
-        <Container>
-      <Grid container justifyContent={'space-between'} alignItems={'center'}>
-        <Grid item xs={4} md={1}>
-          <Logo src={darkMode ? dark : light} />
+      <Container>
+        <Grid sx={{ display: { xs: 'none', md: 'flex' } }} container justifyContent={"space-between"} alignItems={"center"}>
+          <Grid item xs={4} md={1}>
+            <Logo src={darkMode ? dark : light} />
+          </Grid>
+          <Grid item md={6}>
+            <Search />
           </Grid>
           <Grid item xs={4} md={2}>
-            <Grid container alignItems={'center'}>
-                <Grid item xs={6} md={6}>
-        <Switch/>
+            <Grid container alignItems={"center"}>
+              <Grid item xs={6} md={4}>
+                <Switch />
               </Grid>
-              {version !== 1 &&
-                <Grid item xs={3} md={5}>
-                  <Avatar src={user?.avatar}/>
-                  </Grid>
-              }
-</Grid>
+              {version === 3 && (
+                <Grid item xs={3} md={4}>
+                  <Badge color="primary" variant="dot">
+                    <NotificationsIcon />
+                  </Badge>
+                </Grid>
+              )}
+              {version !== 1 && (
+                <Grid item xs={3} md={4}>
+                  <Avatar src={user.avatar} />
+                </Grid>
+              )}
+            </Grid>
           </Grid>
-
-  
-      </Grid>
-      </Container> 
+        </Grid>
+                <Grid sx={{ display: { xs: 'flex', md: 'none' } }} container justifyContent={"space-between"} alignItems={"center"}>
+        {version === 3 ?    <Grid item xs={2} md={1}>
+           <SideMenu />
+            
+          </Grid>: <Grid item xs={4} md={1}>
+                      <Logo src={darkMode ? dark : light} />
+            
+          </Grid>  }
+          <Grid item xs={6}>
+           {version === 3 &&  <Search />}
+          </Grid>
+          <Grid item xs={4} md={2}>
+            <Grid container alignItems={"center"} justifyContent={'space-around'}>
+              {version === 3 && (
+                <Grid item xs={3} md={4}>
+                  <Badge color="primary" variant="dot">
+                    <NotificationsIcon />
+                  </Badge>
+                </Grid>
+              )}
+              {version !== 1 && (
+                <Grid item xs={3} md={4}>
+                  <Avatar src={user.avatar} />
+                </Grid>
+              )}
+            </Grid>
+          </Grid>
+        </Grid>
+      </Container>
     </>
-
   );
 };
 export default Header;

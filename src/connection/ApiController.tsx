@@ -30,7 +30,8 @@ const ApiController = {
   getServer: () => api.get(Route),
   signIn: (user: userType) => api.post(Route + '/signIn', user),
   AddCompany: (data: any) => api.post(Route + '/addCompany', data),
-  FirstSession:(id:string)=>api.post(Route + '/firstSession', id)
+  FirstSession: (id: any) => api.post(Route + '/firstSession', id),
+  getCompanys:(id:any)=>api.post(Route+'/getCompanys',id)
 };
 
 // Export the ApiController object as the default export

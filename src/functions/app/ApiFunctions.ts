@@ -4,13 +4,15 @@ import { type userType } from "../../types/global";
 export const ConnectServer = async (
   logout: () => void,
   login: () => void,
-  setUser: any
+  setUser: any,
+  user:any
 ) => {
   // Use the ApiController to get the server
   ApiController.getServer()
     // If the server is successfully obtained, log the data
     .then((e) => {
-      console.log(e);
+      console.log('usuario en el context');
+      console.log(user)
       setUser(e.data);
       localStorage.setItem("id", e.data._id);
       login();

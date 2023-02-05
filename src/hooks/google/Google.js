@@ -36,7 +36,7 @@ const GoogleLoginButton = () => {
     setUser(e);
     login();
     setLoader(f);
-    if (user.firstTime === true) {
+    if (e.firstTime === true) {
       Router.push("/addCompany");
     } else {
       Router.push("/dashBoard");

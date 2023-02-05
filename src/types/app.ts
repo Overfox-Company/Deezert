@@ -46,6 +46,10 @@ export type ContextData = {
   setLoader: React.Dispatch<React.SetStateAction<boolean>>;
   login: () => void;
   logout: () => void;
+  panel: number;
+  setPanel: React.Dispatch<React.SetStateAction<number>>;
+  companys: any[];
+  setCompanys: React.Dispatch<React.SetStateAction<any>>;
 };
 type UserType = {
   name: string;

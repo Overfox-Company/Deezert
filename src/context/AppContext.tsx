@@ -40,7 +40,12 @@ export const AppContext = createContext<ContextData>({
     panel:0,
     setPanel: () => { },
     companys: [],
-    setCompanys: ()=>{}
+  setCompanys: () => { },
+  staff:[],
+  setStaff: () => { },
+  selectedCompany:{},
+  setSelectedCompany:()=>{}
+    
 });
 
 export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
@@ -50,7 +55,9 @@ export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState(InitialUser);
     const [panel, setPanel] = useState(0)
-    const [companys,setCompanys]=useState([])
+    const [companys, setCompanys] = useState([])
+    const [staff, setStaff] = useState([])
+    const [selectedCompany,setSelectedCompany]=useState({})
     const login = () => {
         setIsAuthenticated(true);
     };
@@ -62,6 +69,10 @@ export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
     return (
       <AppContext.Provider
         value={{
+          selectedCompany,
+          setSelectedCompany,
+          staff,
+          setStaff,
           companys,
           setCompanys,
           panel,

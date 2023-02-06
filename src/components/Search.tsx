@@ -21,7 +21,7 @@ const Search = () => {
                     <SearchIcon style={{marginTop:5}} />
                 </Grid>
                 <Grid item xs={10} md={11}>
-                    <Input style={{width: '100%'}} />
+                    <Input style={{width: '100%'}} placeholder="Buscar"/>
                 </Grid>
 </Grid>
         </Container>

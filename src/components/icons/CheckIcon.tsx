@@ -7,7 +7,7 @@ const Icon = styled(CheckTwoToneIcon)({
 	color: 'rgb(10,10,10)',
 	padding: 2,
 	borderRadius: 20,
-	fontSize: 10,
+	fontSize: 15,
 });
 const CheckIcon = () => (
 	<>

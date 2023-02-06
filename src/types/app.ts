@@ -15,6 +15,7 @@ export type UploadImagesType = {
   textButton: string;
 };
 export type InputProps = {
+  icon?: boolean | undefined;
   name?: string | undefined;
   label?: string | undefined;
   error?: string | undefined;
@@ -50,6 +51,10 @@ export type ContextData = {
   setPanel: React.Dispatch<React.SetStateAction<number>>;
   companys: any[];
   setCompanys: React.Dispatch<React.SetStateAction<any>>;
+  staff: any[];
+  setStaff: React.Dispatch<React.SetStateAction<any>>;
+  selectedCompany: any;
+  setSelectedCompany: React.Dispatch<React.SetStateAction<any>>;
 };
 type UserType = {
   name: string;

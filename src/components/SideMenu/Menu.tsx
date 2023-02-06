@@ -14,13 +14,16 @@ const Logo = styled.img({
 });
 const Menu = ({ close }: any) => {
     const { darkMode, user, panel, setPanel} = React.useContext(AppContext);
-    
+    const handleClick = (index:number) => {
+        setPanel(index)
+    }
     return (
         <>
             <Box
                 style={{paddingTop:10}}
       sx={{ width:  250 }}
-      role="presentation"
+                role="presentation"
+                
       onKeyDown={close('left', false)}
             >
                 <Grid container justifyContent={'space-around'} alignItems={'center'}>
@@ -40,9 +43,11 @@ const Menu = ({ close }: any) => {
       <List>
         {['Proyectos', 'Personal', 'Configuracion'].map((text, index) => (
             
-          <ListItem key={text} disablePadding>
+            <ListItem key={text} disablePadding
+            onClick={close('left', false)}
+            >
                 <ListItemButton
-                    onClick={()=>setPanel(index)}
+                    onClick={() =>handleClick(index)}
                     style={{ borderLeft: panel === index ? `solid 4px ${PRIMARY_COLOR}` : `solid 4px rgba(0,0,0,0)` }}>
               <ListItemText primary={text} />
             </ListItemButton>

@@ -39,6 +39,7 @@ const Container = styled.div({
 });
 
 const Input: React.FC<InputProps> = ({
+  icon,
   name,
   label,
   error,
@@ -66,7 +67,7 @@ const Input: React.FC<InputProps> = ({
         alignItems={"center"}
         columnSpacing={3}
       >
-        <Grid item xs={12}>
+       {label&& <Grid item xs={12}>
           <P
 						style={{
 			width: '100%',
@@ -76,8 +77,8 @@ const Input: React.FC<InputProps> = ({
           >
             {label}
           </P>
-        </Grid>
-        <Grid item xs={10}>
+        </Grid>}
+        <Grid item xs={11}>
           <TextInput
             className="Input"
             style={{
@@ -93,10 +94,10 @@ const Input: React.FC<InputProps> = ({
             {children}
           </TextInput>
         </Grid>
-        <Grid item xs={1}>
+       {icon && <Grid item xs={1}>
           {error && touched && <ErrorIcon />}
           {touched && !error && <CheckIcon />}
-        </Grid>
+        </Grid>}
       </Grid>
     </Container>
     {error && touched ? <Error>{error}</Error> : null}

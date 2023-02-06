@@ -36,7 +36,7 @@ const Header = ({ version = 1 }: Props) => {
             <Logo src={darkMode ? dark : light} />
           </Grid>
           <Grid item md={6}>
-            <Search />
+           { version === 3 &&<Search />}
           </Grid>
           <Grid item xs={4} md={2}>
             <Grid container alignItems={"center"}>

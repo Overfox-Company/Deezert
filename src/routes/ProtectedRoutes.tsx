@@ -15,8 +15,6 @@ const ProtectedRoutes: React.FC<Props> = ({ children }) => {
     const token = localStorage.getItem("token");
     if (token) {
       ConnectServer(logout, login, setUser,user);
-      console.log("verificando token");
-      console.log(localStorage.getItem('id'))
     }else {
         if (!isAuthenticated) {
           router.push("/");

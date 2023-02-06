@@ -89,7 +89,6 @@ export const FirstSession: ServerType = async (req, res) => {
     res.status(404).send("token no valido");
   }
 };
-
 export const GetCompanys: ServerType = async (req, res) => {
   try {
     if (!req.headers.authorization) {

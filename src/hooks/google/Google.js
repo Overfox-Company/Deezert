@@ -21,15 +21,21 @@ const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 
 const GoogleLoginButton = () => {
   const gapi = import("gapi-script").then((pack) => pack.gapi);
-  const { login, setUser, setLoader, user } = useContext(AppContext);
+  const { login, setUser, setLoader, user, setSnackbarOpen } =
+    useContext(AppContext);
   useEffect(() => {
+    let isMounted = true;
     async function start() {
+      if (!isMounted) return;
       await gapi?.client?.init({
         clientId: clientId,
         scope: "https://www.googleapis.com/auth/plus.login",
       });
     }
     gapi.then((d) => d.load("client:auth2", start));
+    return () => {
+      isMounted = false;
+    };
   }, []);
   const UpdateContext = (e, f) => {
     console.log(e);
@@ -53,6 +59,11 @@ const GoogleLoginButton = () => {
   const failureGoogle = (response) => {
     console.log(response);
     console.log("error de google");
+    setSnackbarOpen({
+      message:
+        "si no puedes iniciar sesion recarga la pagina, o abrela en una pestañana distinta",
+      type: "error",
+    });
   };
   return (
     <GoogleLogin

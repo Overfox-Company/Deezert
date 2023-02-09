@@ -55,6 +55,12 @@ export type ContextData = {
   setStaff: React.Dispatch<React.SetStateAction<any>>;
   selectedCompany: any;
   setSelectedCompany: React.Dispatch<React.SetStateAction<any>>;
+  isSnackbarOpen: Snackbar;
+  setSnackbarOpen: React.Dispatch<React.SetStateAction<any>>;
+};
+type Snackbar = {
+  message: string;
+  type: "error" | "warning" | "info" | "success" | undefined;
 };
 type UserType = {
   name: string;

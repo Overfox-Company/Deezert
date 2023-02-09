@@ -9,8 +9,8 @@ import { type UploadImagesType } from "../types/app";
 import { AadFilesBig, AadFilesSmall } from "./icons/AadFile";
 const Container = styled.div({
   width: "100%",
-  height: "15vw",
-  padding: 0,
+  height: "100%",
+  padding: 20,
   borderRadius: 2,
   overflow: "auto",
   backgroundColor: "rgb(50,50,50)",
@@ -21,7 +21,7 @@ const Container = styled.div({
 const Image = styled.img({
   width: "auto",
   height: "auto",
-  maxWidth: " 5vw",
+  maxWidth: " 100%",
   maxHeight: "100%",
   margin: 0,
 });
@@ -34,11 +34,11 @@ const ContainerIcons = styled.div({
 const Label = styled.p({
   color: "rgb(240,240,240)",
   textAlign: "left",
-  fontSize: 12,
+  fontSize: 14,
   fontFamily: "verdana",
 });
 const ContainerImage = styled.div({
-  height: "8vw",
+  height: "15vh",
   width: "100%",
   display: "flex",
   justifyContent: "center",
@@ -52,6 +52,7 @@ const Card = styled.div({
   alignItems: "center",
   padding: "2px 5px",
   borderRadius: 5,
+  height: "20vh",
   boxShadow: "0 1px 5px 0 rgb(0,0,0)",
 });
 const UploadImages = ({
@@ -108,7 +109,7 @@ const UploadImages = ({
                       columnSpacing={2}
                     >
                       {imageList.map((image: any, index: number) => (
-                        <Grid key={index} item xs={5}>
+                        <Grid key={index} item xs={10} md={5}>
                           <Card>
                             <Grid
                               container
@@ -121,7 +122,7 @@ const UploadImages = ({
                                   <Image src={image.path} alt="" />
                                 </ContainerImage>
                               </Grid>
-                              <Grid item xs={12}>
+                              <Grid item xs={10} md={12}>
                                 <ContainerIcons>
                                   <ChangeIcon
                                     onClick={() => {

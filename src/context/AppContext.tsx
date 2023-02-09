@@ -25,6 +25,10 @@ const InitialUser = {
                 methodRegister: '',
                 firstTime: true,
 }
+const SnackbarInitial = {
+  message: '',
+  type: "error" as "error" | "warning" | "info" | "success"
+}
 export const AppContext = createContext<ContextData>({
     user:InitialUser,
     setUser: () => { },
@@ -44,7 +48,9 @@ export const AppContext = createContext<ContextData>({
   staff:[],
   setStaff: () => { },
   selectedCompany:{},
-  setSelectedCompany:()=>{}
+  setSelectedCompany: () => { },
+  isSnackbarOpen:SnackbarInitial,
+  setSnackbarOpen: () => { },
     
 });
 
@@ -57,7 +63,11 @@ export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
     const [panel, setPanel] = useState(0)
     const [companys, setCompanys] = useState([])
     const [staff, setStaff] = useState([])
-    const [selectedCompany,setSelectedCompany]=useState({})
+  const [selectedCompany, setSelectedCompany] = useState({})
+  const [isSnackbarOpen, setSnackbarOpen] = useState({
+    message: '',
+    type: "error" as "error" | "warning" | "info" | "success"
+  })
     const login = () => {
         setIsAuthenticated(true);
     };
@@ -69,6 +79,8 @@ export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
     return (
       <AppContext.Provider
         value={{
+          isSnackbarOpen,
+          setSnackbarOpen,
           selectedCompany,
           setSelectedCompany,
           staff,

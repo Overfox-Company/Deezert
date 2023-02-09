@@ -62,7 +62,7 @@ const SwitchDarkMode= ()=>{
     setDarkMode(event.target.checked);
 };
     return (
-        <Grid container justifyContent={'flex-end'} alignItems={'center'}>
+        <Grid container justifyContent={'space-between'} alignItems={'center'}>
             <Grid item xs={5}>
                 <CustomSwitch size="small" checked={darkMode} onChange={handleChange} color="secondary" />
             </Grid>

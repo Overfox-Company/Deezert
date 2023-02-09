@@ -6,7 +6,7 @@ import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import {type AddFile } from '../../types/app';
 const Container = styled.div({
 	width: '96%',
-	height: '14vw',
+	height: '25vh',
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'center',

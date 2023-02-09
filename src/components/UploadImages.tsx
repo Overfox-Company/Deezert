@@ -10,7 +10,7 @@ import { AadFilesBig, AadFilesSmall } from "./icons/AadFile";
 const Container = styled.div({
   width: "100%",
   height: "100%",
-  padding: 20,
+  padding: '6px 0',
   borderRadius: 2,
   overflow: "auto",
   backgroundColor: "rgb(50,50,50)",

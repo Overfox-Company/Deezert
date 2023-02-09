@@ -104,7 +104,7 @@ const Header = ({ version = 1 }: Props) => {
                   </Badge>
                 </Grid>
               )}
-              {version !== 1 && (
+              {version === 2 && (
                 <Grid item xs={7} md={4}>
                   <Switch />
                 </Grid>

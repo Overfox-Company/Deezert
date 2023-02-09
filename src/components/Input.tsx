@@ -71,7 +71,7 @@ const Input: React.FC<InputProps> = ({
           <P
 						style={{
 			width: '100%',
-              fontSize: 10,
+              fontSize: '2vh',
               textAlign: "left",
             }}
           >
@@ -82,7 +82,7 @@ const Input: React.FC<InputProps> = ({
           <TextInput
             className="Input"
             style={{
-              borderColor: error && touched ? ERROR : touched && CORRECT,
+              borderColor: error && touched ? ERROR : touched && CORRECT,fontSize:'2vh'
             }}
             name={name}
             placeholder={placeholder}

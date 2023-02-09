@@ -4,7 +4,9 @@ import { Paper, Typography, Box } from '@mui/material';
 import { useTheme, ThemeProvider } from '@mui/material';
 import styled from '@emotion/styled';
 const CustomTypography = styled(Typography)({
-    fontFamily: 'Comfortaa, cursive',textAlign: 'center'
+    fontFamily: 'Comfortaa, cursive',
+    textAlign: 'center',
+    fontSize:'3vh'
 });
 export const Div: React.FC<ProviderProps> = ({ children }) => {
     return (

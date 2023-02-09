@@ -34,7 +34,7 @@ const ContainerIcons = styled.div({
 const Label = styled.p({
   color: "rgb(240,240,240)",
   textAlign: "left",
-  fontSize: 14,
+  fontSize: '2vh',
   fontFamily: "verdana",
 });
 const ContainerImage = styled.div({

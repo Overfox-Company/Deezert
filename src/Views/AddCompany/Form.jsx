@@ -94,12 +94,12 @@ const FormAddCompany = () => {
               <Grid item xs={12}>
                 <Grid container justifyContent={'space-between'} alignItems={'center'} rowSpacing={2}>
                   <Grid item xs={12}md={6}>
-                    <Button type="submit" variant="contained">
+                    <Button type="submit" style={{fontSize:'1.9vh'}} variant="contained">
                       Crear nueva compañia
                     </Button>
                   </Grid>
                   <Grid item xs={12}md={4}>
-                    <Button variant="contained" onClick={() => handleSkip()}>
+                    <Button variant="contained" style={{fontSize:'1.9vh'}} onClick={() => handleSkip()}>
                       Omitir este paso
                     </Button>
                   </Grid>

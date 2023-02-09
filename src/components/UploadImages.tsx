@@ -52,7 +52,7 @@ const Card = styled.div({
   alignItems: "center",
   padding: "2px 5px",
   borderRadius: 5,
-  height: "20vh",
+  minHeight: "20vh",
   boxShadow: "0 1px 5px 0 rgb(0,0,0)",
 });
 const UploadImages = ({

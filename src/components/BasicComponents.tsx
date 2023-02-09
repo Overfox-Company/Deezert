@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 const CustomTypography = styled(Typography)({
     fontFamily: 'Comfortaa, cursive',
     textAlign: 'center',
-    fontSize:'3vh'
+    fontSize:'2.5vh'
 });
 export const Div: React.FC<ProviderProps> = ({ children }) => {
     return (

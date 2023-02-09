@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 const Container = styled(Paper)({
   width: "100%",
   marginTop: "20%",
+  paddingTop:10
 });
 const AddCompany = () => {
   const { user, setLoader } = React.useContext(AppContext);

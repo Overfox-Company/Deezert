@@ -12,7 +12,7 @@ const Container = styled.div({
   marginTop: 20,
   borderRadius: 5,
   border: "solid 1px rgba(100,100,100,0.1)",
-  width: "90%",
+  width: "100%",
   backgroundColor: "rgba(20,20,30,0.2)",
   padding: "2% 1%",
   display: "flex",
@@ -22,6 +22,7 @@ const Container = styled.div({
 const ContainerTittle = styled.div({
   borderBottom: "solid 1px rgba(100,100,100,0.1)",
   marginBottom: 10,
+  paddingBottom:10
 });
 const initialValues = {
   email: "",
@@ -37,7 +38,10 @@ const Staff = () => {
     React.useContext(AppContext);
   const [update, setUpdate] = React.useState(true);
   React.useEffect(() => {
+    console.log('compañia seleccionada')
+    console.log(selectedCompany)
     if (update === true) {
+       setLoader(true);
       ApiController.GetInvitations({ id: selectedCompany._id }).then((e) => {
         setStaff(e.data);
         setLoader(false);
@@ -51,9 +55,24 @@ const Staff = () => {
         <Grid container justifyContent={"space-between"} alignItems={"center"}>
           <Grid item xs={12}>
             <ContainerTittle>
-              <P style={{ textAlign: "left", fontSize: 14 }}>
+              <Grid container justifyContent={'space-around'}>
+                <Grid item xs={10}>
+                                <P style={{ textAlign: "left", fontSize: 14 }}>
                 Personal añadido
               </P>
+                </Grid>
+                <Grid item xs={1}>
+                  <Button
+                    onClick={()=>setUpdate(true) }
+                          style={{ width: "100%",fontSize:10 }}
+                          size={"small"}
+                          variant="outlined"
+                        >
+                          Actualizar
+                        </Button>
+                </Grid>
+              </Grid>
+
             </ContainerTittle>
           </Grid>
           <Grid item xs={12}>
@@ -119,7 +138,7 @@ const Staff = () => {
                 return (
                     <>
                                     
-                    <Grid style={{marginBottom:15}} item xs={12}>
+                    <Grid key={index} style={{marginBottom:15}} item xs={12}>
                       <Grid
                                 container
                         alignItems={"center"}

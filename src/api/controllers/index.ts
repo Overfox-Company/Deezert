@@ -97,9 +97,9 @@ export const GetCompanys: ServerType = async (req, res) => {
     }
     const id = req.body.id;
     console.log(req.body.id);
-    axios
-      .post(DeezertManagement + "/getCompanys", { id: id })
-      .then((e) => res.status(200).json(e.data));
+    axios.post(DeezertManagement + "/getCompanys", { id: id }).then((e) => {
+      res.status(200).json(e.data);
+    });
   } catch (error) {
     console.log(error);
     res.status(404).send("token no valido");

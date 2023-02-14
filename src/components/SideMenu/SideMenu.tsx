@@ -11,7 +11,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import Menu from './Menu';
+import {MenuMobile} from './Menu';
 import { AppContext } from '../../context/AppContext';
 import { CONTAINER, CONTAINER_DARK } from '../../constants/Color';
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
@@ -49,7 +49,7 @@ const {darkMode}=React.useContext(AppContext)
             open={state[anchor]}
             onClose={toggleDrawer(anchor, false)}
           >
-           <Menu close={toggleDrawer}/>
+           <MenuMobile close={toggleDrawer}/>
           </Drawer>
         </React.Fragment>
       ))}

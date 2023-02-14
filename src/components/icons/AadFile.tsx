@@ -3,25 +3,26 @@ import React from 'react';
 import styled from '@emotion/styled';
 import {Grid} from '@mui/material';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
-import {type AddFile } from '../../types/app';
+import { type AddFile } from '../../types/app';
+import { CONTAINER_DARK,PAPER_DARK } from '../../constants/Color';
 const Container = styled.div({
 	width: '96%',
 	height: '25vh',
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'center',
-	backgroundColor: 'rgb(50,50,50)',
-	border: 'dashed 2px rgb(60,60,60)',
+	backgroundColor: 'rgba(50,50,50,0)',
+	border: `dashed 2px ${CONTAINER_DARK}`,
 	cursor: 'pointer',
 	transition: '0.15s',
 
 	'&: hover': {
-		backgroundColor: 'rgb(42,42,42)',
+		backgroundColor: PAPER_DARK,
 	},
 });
 
 const Text = styled.div({
-	color: 'rgb(200,200,200)',
+	color: CONTAINER_DARK,
 	fontFamily: 'verdana',
 	textAlign: 'center'
 });
@@ -33,7 +34,7 @@ const TextSmall = styled.div({
 const Icon = styled(NoteAddIcon)({
 	fontSize: 60,
 	width: '100%',
-	color: 'rgb(80,80,80)',
+	color: CONTAINER_DARK,
 		textAlign: 'center'
 });
 const IconSmall = styled(NoteAddIcon)({
@@ -46,8 +47,8 @@ const Card = styled.div({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'center',
-	backgroundColor: 'rgb(50,50,50)',
-	border: 'dashed 2px rgb(60,60,60)',
+	backgroundColor: 'rgb(250,50,50)',
+	border: `dashed 2px ${CONTAINER_DARK}`,
 	cursor: 'pointer',
 	transition: '0.15s',
 

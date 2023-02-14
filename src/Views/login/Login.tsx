@@ -6,7 +6,7 @@ import styled from "@emotion/styled";
 const Container = styled(Paper)({
   minHeight: '12vw',
   alignItems: 'center',
-  display:'flex'
+  display: 'flex',
 })
 const Login = () => (
   <Grid style={{minHeight: '80vh'}} container justifyContent={"center"} alignItems={'center'}>

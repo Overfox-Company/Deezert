@@ -4,7 +4,7 @@ import { Grid } from "@mui/material";
 import styled from "@emotion/styled";
 import DeleteIcons from "./icons/DeleteIcon";
 import ChangeIcon from "./icons/ChangeIcon";
-
+import { PAPER,PAPER_DARK } from "../constants/Color";
 import { type UploadImagesType } from "../types/app";
 import { AadFilesBig, AadFilesSmall } from "./icons/AadFile";
 const Container = styled.div({
@@ -13,7 +13,6 @@ const Container = styled.div({
   padding: '6px 0',
   borderRadius: 2,
   overflow: "auto",
-  backgroundColor: "rgb(50,50,50)",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -35,6 +34,7 @@ const Label = styled.p({
   color: "rgb(240,240,240)",
   textAlign: "left",
   fontSize: '2vh',
+  marginBottom:8,
   fontFamily: "verdana",
 });
 const ContainerImage = styled.div({
@@ -46,14 +46,14 @@ const ContainerImage = styled.div({
   margin: 0,
 });
 const Card = styled.div({
-  backgroundColor: "rgb(30,30,30)",
+  backgroundColor: "rgba(25,30,40,0.2)",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   padding: "2px 5px",
   borderRadius: 5,
   minHeight: "20vh",
-  boxShadow: "0 1px 5px 0 rgb(0,0,0)",
+  boxShadow: "0 1px 5px 0 rgba(0,0,0,0.3)",
 });
 const UploadImages = ({
   maxNumber,

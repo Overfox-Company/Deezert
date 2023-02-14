@@ -14,7 +14,7 @@ const Container = styled.div({
 const FormAddCompany = () => {
   const [images,setImages]= React.useState([])
   const [emails, setEmails] = React.useState(["",""]);
-  const { setLoader } = React.useContext(AppContext);
+  const { setLoader,user } = React.useContext(AppContext);
   const router = useRouter();
   const initialValues = {
     name: '',
@@ -27,7 +27,6 @@ const FormAddCompany = () => {
     ,
   });
   const handleSkip = () => {
-    console.log(user._id)
     setLoader(true)
     ApiController.FirstSession({id:user._id}).then((e) => {
       console.log('respuesta de fist session')
@@ -94,12 +93,12 @@ const FormAddCompany = () => {
               <Grid item xs={12}>
                 <Grid container justifyContent={'space-between'} alignItems={'center'} rowSpacing={2}>
                   <Grid item xs={12}md={6}>
-                    <Button type="submit" style={{fontSize:'1.9vh'}} variant="contained">
+                    <Button type="submit" disabled={user._id?false:true} style={{fontSize:'1.9vh'}} variant="contained">
                       Crear nueva compañia
                     </Button>
                   </Grid>
                   <Grid item xs={12}md={4}>
-                    <Button variant="contained" style={{fontSize:'1.9vh'}} onClick={() => handleSkip()}>
+                    <Button variant="contained" disabled={user._id?false:true} style={{fontSize:'1.9vh'}} onClick={() => handleSkip()}>
                       Omitir este paso
                     </Button>
                   </Grid>

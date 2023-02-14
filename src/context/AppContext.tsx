@@ -63,8 +63,8 @@ export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
     const [panel, setPanel] = useState(0)
     const [companys, setCompanys] = useState([])
     const [staff, setStaff] = useState([])
-  const [selectedCompany, setSelectedCompany] = useState({})
-  const [isSnackbarOpen, setSnackbarOpen] = useState({
+    const [selectedCompany, setSelectedCompany] = useState({})
+    const [isSnackbarOpen, setSnackbarOpen] = useState({
     message: '',
     type: "error" as "error" | "warning" | "info" | "success"
   })

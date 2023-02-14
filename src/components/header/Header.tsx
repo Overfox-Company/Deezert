@@ -6,6 +6,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import Switch from "../Switch";
 import SideMenu from "../SideMenu/SideMenu";
 import Search from "../Search";
+import { PAPER,PAPER_DARK,CONTAINER_DARK,CONTAINER } from "../../constants/Color";
 const light = "../../../static/images/logoDark.png";
 const dark = "../../../static/images/logoLight.png";
 const Logo = styled.img({
@@ -25,9 +26,11 @@ const ContainerAvatar = styled.div({
 });
 const Container = styled.div({
   padding: 15,
+  height:'10vh',
   width: "100%",
   position: "fixed",
   top: 0,
+  zIndex:99,
 });
 type Props = {
   version?: number | unknown;
@@ -36,83 +39,43 @@ const Header = ({ version = 1 }: Props) => {
   const { darkMode, user } = React.useContext(AppContext);
   return (
     <>
-      <Container>
+      <Container style={{backgroundColor: darkMode?CONTAINER_DARK:CONTAINER}}>
         <Grid
-          sx={{ display: { xs: "none", md: "flex" } }}
           container
           justifyContent={"space-between"}
           alignItems={"center"}
         >
-          <Grid item xs={4} md={1}>
-            <Logo src={darkMode ? dark : light} />
-          </Grid>
-          <Grid item md={6}>
-            {version === 3 && <Search />}
-          </Grid>
-          <Grid item xs={4} md={2}>
-            <Grid container alignItems={"center"}>
-              <Grid item xs={6} md={4}>
-                <Switch />
-              </Grid>
-              {version === 3 && (
-                <Grid item xs={3} md={4}>
-                  <Badge color="primary" variant="dot">
-                    <NotificationsIcon />
-                  </Badge>
-                </Grid>
-              )}
-              {version !== 1 && (
-                <Grid item xs={3} md={4}>
-                  <ContainerAvatar>
-                  <Avatar src={user.avatar} />
-                  </ContainerAvatar>
-                </Grid>
-              )}
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid
-          sx={{ display: { xs: "flex", md: "none" } }}
-          container
-          justifyContent={"space-between"}
-          alignItems={"center"}
-        >
-          {version === 3 ? (
-            <Grid item xs={2} md={1}>
-              <SideMenu />
+                    {version === 3 ? (
+            <Grid item xs={2} md={1} sx={{ display: { xs: "flex", md: "none" } }}>
+              <SideMenu/>
             </Grid>
           ) : (
             <Grid item xs={5} md={1}>
               <Logo src={darkMode ? dark : light} />
             </Grid>
           )}
-          {version === 3 && (
-            <Grid item xs={6}>
-              <Search />
-            </Grid>
-          )}
-          <Grid item xs={4} md={2}>
-            <Grid
-              container
-              alignItems={"center"}
-              justifyContent={"space-around"}
-            >
+           {version === 3 && <Grid item md={1}  sx={{ display: { xs: "none", md: "flex" } }}>
+              <Logo src={darkMode ? dark : light} />
+            </Grid>}
+           {version === 3 &&  <Grid item xs={6} md={3}>
+          <Search />
+          </Grid>}
+          <Grid item xs={3}>
+            <Grid container alignItems={"center"} justifyContent={'space-between'}>
+            <Grid item md={3} sx={{ display: { xs: "none", md: "flex" } }}>
+                <Switch />
+              </Grid>
               {version === 3 && (
-                <Grid item xs={3} md={4}>
+                <Grid item xs={5} md={4}>
                   <Badge color="primary" variant="dot">
-                    <NotificationsIcon />
+                    <NotificationsIcon style={{color:darkMode?PAPER:PAPER_DARK}} />
                   </Badge>
                 </Grid>
               )}
-              {version === 2 && (
-                <Grid item xs={7} md={4}>
-                  <Switch />
-                </Grid>
-              )}
               {version !== 1 && (
-                <Grid item xs={4} md={5}>
+                <Grid item xs={7} md={4}>
                   <ContainerAvatar>
-                    <Avatar src={user.avatar} />
+                  <Avatar src={user.avatar} />
                   </ContainerAvatar>
                 </Grid>
               )}

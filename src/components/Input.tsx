@@ -10,10 +10,11 @@ import ErrorIcon from './icons/ErrorIcon';
 import { InputProps } from '../types/app';
 import Grid from '@mui/material/Grid';
 import { P } from './BasicComponents';
+//Deezert es una aplicacion para la gestion empresarial, tanto del lado de recursos humanos como la gestion administrativa y la gestion de proyectos
 const TextInput = styled(Field)({
 	padding: 5,
 	paddingRight: 20,
-	backgroundColor: 'rgba(20,20,20,0)',
+	backgroundColor: 'rgba(20,20,30,0.2)',
 	borderRadius: 4,
 	border: 'solid 1.8px rgba(200,200,200,0)',
 	outline: 'none',
@@ -22,7 +23,7 @@ const TextInput = styled(Field)({
 });
 const Error = styled.p({
 	color: ERROR,
-	fontSize: 10,
+	fontSize: 12,
 	margin: 0,
 	marginTop: 5,
 	textAlign: 'left',

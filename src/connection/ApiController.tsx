@@ -33,7 +33,9 @@ const ApiController = {
   FirstSession: (id: any) => api.post(Route + '/firstSession', id),
   getCompanys: (id: any) => api.post(Route + '/getCompanys', id),
   SendInvitations: (data: any[]) => api.post(Route + '/sendMails', data),
-  GetInvitations:(id:any)=>api.post(Route + '/getInvitations',id)
+  GetInvitations: (id: any) => api.post(Route + '/getInvitations', id),
+  AddWorkspaces: (data: any) => api.post(Route + '/addWorkspace', data),
+  GetWorkspace:(id:any)=>api.post(Route + '/getWorkspace',{id:id})
 };
 
 // Export the ApiController object as the default export

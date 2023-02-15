@@ -1,6 +1,10 @@
 import type { ServerType } from "../../types/server";
 import verify from "../../functions/server/TokenVerify";
-import { DeezertSessions, DeezertManagement } from "../config/Microservices";
+import {
+  DeezertSessions,
+  DeezertManagement,
+  DeezerWorkspaces,
+} from "../config/Microservices";
 import axios from "axios";
 // Define the FirstRoute function as a ServerType
 export const FirstRoute: ServerType = async (req, res) => {
@@ -132,6 +136,36 @@ export const GetInvitations: ServerType = async (req, res) => {
     console.log(req.body);
     axios
       .post(DeezertManagement + "/getInvitations", { id: id })
+      .then((e) => res.status(200).json(e.data));
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("token no valido");
+  }
+};
+export const AddWorkspaceController: ServerType = async (req, res) => {
+  try {
+    if (!req.headers.authorization) {
+      res.status(404).send("token no valido");
+      throw new Error("Invalid Token");
+    }
+    const data = req.body;
+    axios
+      .post(DeezerWorkspaces + "/createWorkspace", data)
+      .then((e) => res.status(200).json(e.data));
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("token no valido");
+  }
+};
+export const GetWorkspaceController: ServerType = async (req, res) => {
+  try {
+    if (!req.headers.authorization) {
+      res.status(404).send("token no valido");
+      throw new Error("Invalid Token");
+    }
+    const id = req.body.id;
+    axios
+      .post(DeezerWorkspaces + "/getWorkspace", id)
       .then((e) => res.status(200).json(e.data));
   } catch (error) {
     console.log(error);

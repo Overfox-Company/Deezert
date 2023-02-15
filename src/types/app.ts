@@ -13,6 +13,7 @@ export type UploadImagesType = {
   images: any[];
   setImages: any;
   textButton: string;
+  variant?: number;
 };
 export type InputProps = {
   icon?: boolean | undefined;
@@ -57,6 +58,8 @@ export type ContextData = {
   setSelectedCompany: React.Dispatch<React.SetStateAction<any>>;
   isSnackbarOpen: Snackbar;
   setSnackbarOpen: React.Dispatch<React.SetStateAction<any>>;
+  invitations: any[];
+  setInvitations: React.Dispatch<React.SetStateAction<any>>;
 };
 type Snackbar = {
   message: string;

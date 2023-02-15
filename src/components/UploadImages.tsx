@@ -4,9 +4,8 @@ import { Grid } from "@mui/material";
 import styled from "@emotion/styled";
 import DeleteIcons from "./icons/DeleteIcon";
 import ChangeIcon from "./icons/ChangeIcon";
-import { PAPER,PAPER_DARK } from "../constants/Color";
 import { type UploadImagesType } from "../types/app";
-import { AadFilesBig, AadFilesSmall } from "./icons/AadFile";
+import { AadFilesBig, AadFilesSmall,AddIMageCircle } from "./icons/AadFile";
 const Container = styled.div({
   width: "100%",
   height: "100%",
@@ -61,6 +60,7 @@ const UploadImages = ({
   images,
   setImages,
   textButton,
+  variant = 0
 }: UploadImagesType) => {
   const onChange = (
     imageList: ImageListType,
@@ -94,9 +94,6 @@ const UploadImages = ({
           }) => (
             <>
               <Container
-                style={
-                  imageList.length === 0 ? { cursor: "pointer" } : undefined
-                }
                 onClick={images ? undefined : onImageUpload}
               >
                 {imageList.length > 0 ? (
@@ -110,7 +107,7 @@ const UploadImages = ({
                     >
                       {imageList.map((image: any, index: number) => (
                         <Grid key={index} item xs={10} md={5}>
-                          <Card>
+                         <Card>
                             <Grid
                               container
                               justifyContent={"center"}
@@ -118,9 +115,10 @@ const UploadImages = ({
                               rowSpacing={1}
                             >
                               <Grid item xs={12}>
-                                <ContainerImage>
+                            <ContainerImage>
                                   <Image src={image.path} alt="" />
                                 </ContainerImage>
+                           
                               </Grid>
                               <Grid item xs={10} md={12}>
                                 <ContainerIcons>
@@ -149,9 +147,11 @@ const UploadImages = ({
                       )}
                     </Grid>
                   </>
-                ) : (
-                  <AadFilesBig onClick={onImageUpload} />
-                )}
+                ) : (<>
+                    
+                 {variant ===0 ? <AadFilesBig onClick={onImageUpload} />:<AddIMageCircle onClick={onImageUpload} />}
+              
+                </>  )}
               </Container>
             </>
           )}

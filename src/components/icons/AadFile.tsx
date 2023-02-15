@@ -2,9 +2,25 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import {Grid} from '@mui/material';
-import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { type AddFile } from '../../types/app';
-import { CONTAINER_DARK,PAPER_DARK } from '../../constants/Color';
+import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
+import { CONTAINER, CONTAINER_DARK, PAPER_DARK } from '../../constants/Color';
+const ContainerRounded= styled.div({
+	width: '20vh',
+	height: '20vh',
+	display: 'flex',
+	borderRadius: '100%',
+	alignItems: 'center',
+	justifyContent: 'center',
+	backgroundColor: 'rgba(50,50,50,0)',
+	border: `dashed 2px ${CONTAINER}`,
+	cursor: 'pointer',
+	transition: '0.15s',
+
+	'&: hover': {
+		backgroundColor: CONTAINER_DARK,
+	},
+});
 const Container = styled.div({
 	width: '96%',
 	height: '25vh',
@@ -12,7 +28,7 @@ const Container = styled.div({
 	alignItems: 'center',
 	justifyContent: 'center',
 	backgroundColor: 'rgba(50,50,50,0)',
-	border: `dashed 2px ${CONTAINER_DARK}`,
+	border: `dashed 2px ${CONTAINER}`,
 	cursor: 'pointer',
 	transition: '0.15s',
 
@@ -22,22 +38,23 @@ const Container = styled.div({
 });
 
 const Text = styled.div({
-	color: CONTAINER_DARK,
+	color: CONTAINER,
 	fontFamily: 'verdana',
-	textAlign: 'center'
+	textAlign: 'center',
+	fontSize: '1.5vh',
 });
 const TextSmall = styled.div({
 	color: 'rgb(200,200,200)',
 	fontFamily: 'verdana',
 	fontSize: 14,
 });
-const Icon = styled(NoteAddIcon)({
-	fontSize: 60,
+const Icon = styled(AddPhotoAlternateOutlinedIcon)({
+	fontSize: '5vh',
 	width: '100%',
-	color: CONTAINER_DARK,
+	color: CONTAINER,
 		textAlign: 'center'
 });
-const IconSmall = styled(NoteAddIcon)({
+const IconSmall = styled(AddPhotoAlternateOutlinedIcon)({
 	fontSize: 50,
 	color: 'rgb(80,80,80)',
 });
@@ -48,7 +65,7 @@ const Card = styled.div({
 	alignItems: 'center',
 	justifyContent: 'center',
 	backgroundColor: 'rgb(250,50,50)',
-	border: `dashed 2px ${CONTAINER_DARK}`,
+	border: `dashed 2px ${CONTAINER}`,
 	cursor: 'pointer',
 	transition: '0.15s',
 
@@ -67,7 +84,7 @@ export const AadFilesBig = ({onClick}: AddFile) => (
 				</Grid>
 				<Grid item xs={12}>
 					<Text>
-						Añadir archivos
+						Añadir Imagen
 					</Text>
 				</Grid>
 			</Grid>
@@ -92,3 +109,19 @@ export const AadFilesSmall = ({onClick}: AddFile) => (
 		</Card>
 	</>
 );
+export const AddIMageCircle = ({ onClick }: AddFile) => (
+		<ContainerRounded
+			onClick={onClick}
+		>
+			<Grid container justifyContent={'center'} alignItems={'center'}>
+				<Grid item xs={12}>
+					<Icon/>
+				</Grid>
+				<Grid item xs={12}>
+					<Text>
+						Añadir Imagen
+					</Text>
+				</Grid>
+			</Grid>
+		</ContainerRounded>
+)

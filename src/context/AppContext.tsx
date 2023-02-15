@@ -51,13 +51,16 @@ export const AppContext = createContext<ContextData>({
   setSelectedCompany: () => { },
   isSnackbarOpen:SnackbarInitial,
   setSnackbarOpen: () => { },
+  invitations:[],
+  setInvitations:()=>{}
     
 });
 
 export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
     const [darkMode, setDarkMode] = useState(true);
     const [token, setToken] = useState('')
-    const [loader,setLoader]=useState(false)
+  const [loader, setLoader] = useState(false)
+  const [invitations,setInvitations]= useState([])
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState(InitialUser);
     const [panel, setPanel] = useState(0)
@@ -79,6 +82,8 @@ export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
     return (
       <AppContext.Provider
         value={{
+          invitations,
+          setInvitations,
           isSnackbarOpen,
           setSnackbarOpen,
           selectedCompany,

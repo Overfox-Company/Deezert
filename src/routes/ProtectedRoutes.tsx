@@ -18,9 +18,9 @@ const ProtectedRoutes: React.FC<Props> = ({ children }) => {
     if (token) {
       ConnectServer(logout, login, setUser,user);
     }else {
-        if (!isAuthenticated) {
-          router.push("/");
-        }
+       if (!isAuthenticated && !isInvitationRoute) { // solo redirigir si no es la ruta de invitation
+      router.push("/");
+    }
       }
     const intervalId = setInterval(() => {
       if (token) {

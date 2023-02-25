@@ -11,7 +11,7 @@ const ProtectedRoutes: React.FC<Props> = ({ children }) => {
   const router = useRouter();
   const { logout, login, setUser,user } = useContext(AppContext);
 
-  useEffect(() => {
+ /* useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       ConnectServer(logout, login, setUser,user);
@@ -31,7 +31,7 @@ const ProtectedRoutes: React.FC<Props> = ({ children }) => {
       }
     }, 60000); // Este setInterval se ejecutará cada 5 segundos
     return () => clearInterval(intervalId);
-  }, [isAuthenticated]);
+  }, [isAuthenticated]);*/
   return <>{children}</>;
 };
 

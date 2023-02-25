@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { AppContext } from "../context/AppContext";
 import { ConnectServer } from "../functions/app/ApiFunctions";
+
 interface Props {
   children: React.ReactNode;
 }
@@ -9,9 +10,10 @@ interface Props {
 const ProtectedRoutes: React.FC<Props> = ({ children }) => {
   const { isAuthenticated } = useContext(AppContext);
   const router = useRouter();
+  const isInvitationRoute = router.asPath.includes("/invitation/");
   const { logout, login, setUser,user } = useContext(AppContext);
 
- /* useEffect(() => {
+ useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       ConnectServer(logout, login, setUser,user);
@@ -31,7 +33,7 @@ const ProtectedRoutes: React.FC<Props> = ({ children }) => {
       }
     }, 60000); // Este setInterval se ejecutará cada 5 segundos
     return () => clearInterval(intervalId);
-  }, [isAuthenticated]);*/
+  }, [isAuthenticated]);
   return <>{children}</>;
 };
 

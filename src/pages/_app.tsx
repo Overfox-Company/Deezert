@@ -12,6 +12,7 @@ import Loader from "../components/Loader";
 import SnackbarCustom from "../components/Snackbar";
 const publicRoutes: string[] = ["index", "login", "invitation"];
 
+
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <AppRouter>

@@ -172,3 +172,15 @@ export const GetWorkspaceController: ServerType = async (req, res) => {
     res.status(404).send("token no valido");
   }
 };
+export const AceptRouteController: ServerType = async (req, res) => {
+  try {
+    const id = req.body.id;
+    console.log(id);
+    axios
+      .post(DeezertManagement + `/aceptRoute/${id}`)
+      .then((e) => res.status(200).json(e.data));
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("token no valido");
+  }
+};

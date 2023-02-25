@@ -1,10 +1,10 @@
 import React from 'react';
 import { P } from '../../components/BasicComponents';
-const Workspace = () => {
+const workspace = () => {
     return (<>
         <P>
             sdsdsdsd
     </P>
     </>)
 }
-export default Workspace;
+export default workspace;

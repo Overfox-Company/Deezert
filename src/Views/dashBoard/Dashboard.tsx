@@ -20,10 +20,10 @@ const DashBoard = () => {
   useEffect(() => {
     ApiController.getCompanys({ id: localStorage.getItem("id") })
       .then((e) => {
-        console.log(e.data);
+        console.log(e);
         setCompanys(e.data);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => console.log("error en el dashboard"));
   }, [user]);
   return (
       <>

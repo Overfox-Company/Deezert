@@ -10,7 +10,7 @@ import ProtectedRoutes from "../routes/ProtectedRoutes";
 import Header from "../components/header/Header";
 import Loader from "../components/Loader";
 import SnackbarCustom from "../components/Snackbar";
-const publicRoutes: string[] = ['index', 'login','/[invitation]']
+const publicRoutes: string[] = ["index", "login", "invitation"];
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -18,18 +18,17 @@ export default function App({ Component, pageProps }: AppProps) {
       <ThemeContainer>
         <Wrapper className={styles.main}>
           <Loader />
-          <SnackbarCustom/>
-          {publicRoutes.includes(Component.name) ? 
+          <SnackbarCustom />
+          {publicRoutes.includes(Component.name) ? (
             <>
-              <Header/>
-                          <Component {...pageProps} />
+              <Header />
+              <Component {...pageProps} />
             </>
-
-            :
+          ) : (
             <ProtectedRoutes>
               <Component {...pageProps} />
             </ProtectedRoutes>
-          }
+          )}
         </Wrapper>
       </ThemeContainer>
     </AppRouter>

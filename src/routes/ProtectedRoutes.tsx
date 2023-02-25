@@ -27,7 +27,7 @@ const ProtectedRoutes: React.FC<Props> = ({ children }) => {
         ConnectServer(logout, login, setUser,user);
         console.log("verificando token");
       } else {
-        if (!isAuthenticated) {
+        if (!isAuthenticated && !isInvitationRoute) {
           router.push("/");
         }
       }

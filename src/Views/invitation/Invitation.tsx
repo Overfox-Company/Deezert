@@ -33,7 +33,6 @@ const Text = styled.p({
 const dark = "../../../static/images/logoLight.png";
 const Invitation = () => {
     const router = useRouter();
-    const currentUrl = router.asPath;
   const { invitation } = router.query;
   const [response, setResponse] = useState();
   const { setLoader, setSnackbarOpen } = useContext(AppContext);
@@ -67,7 +66,6 @@ const Invitation = () => {
           <Logo src={dark} />
         </Grid>
               <Grid item xs={12}>
-                  <p>{ currentUrl}</p>
         </Grid>
         <Grid item xs={11} md={5}>
           {response == 200 && (

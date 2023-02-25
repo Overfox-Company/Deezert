@@ -21,7 +21,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <SnackbarCustom />
           {publicRoutes.includes(Component.name) ? (
             <>
-              <Header />
+             {Component.name!=='invitation'&& <Header />}
               <Component {...pageProps} />
             </>
           ) : (

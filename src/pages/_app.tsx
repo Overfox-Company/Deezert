@@ -22,7 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <SnackbarCustom />
           {publicRoutes.includes(Component.name) ? (
             <>
-             {Component.name!=='invitation'&& <Header />}
+           <Header />
               <Component {...pageProps} />
             </>
           ) : (

@@ -23,7 +23,7 @@ const DashBoard = () => {
         console.log(e);
         setCompanys(e.data);
       })
-      .catch((e) => console.log("error en el dashboard"));
+      .catch((e) => console.log("error en el dashboard" + e));
   }, [user]);
   return (
       <>

@@ -59,6 +59,7 @@ const Companys = ({ v = "H" }: any) => {
     React.useContext(AppContext);
   const handleClick = (data: any) => {
     setSelectedCompany(data);
+   // console.log(selectedCompany)
   };
   React.useEffect(() => {
     if (companys.length > 0) {
@@ -75,7 +76,7 @@ const Companys = ({ v = "H" }: any) => {
                 <ContainerAvatar
                   style={{
                     border: `solid 1px ${
-                      selectedCompany?._id === Company._id && PRIMARY_COLOR
+                      selectedCompany?._id === Company._id? PRIMARY_COLOR:"rgba(0,0,0,0)"
                     }`,
                   }}
                   key={index}
@@ -98,7 +99,7 @@ const Companys = ({ v = "H" }: any) => {
                   <ContainerAvatar
                     style={{
                       border: `solid 1px ${
-                        selectedCompany?._id === Company._id && PRIMARY_COLOR
+                        selectedCompany?._id === Company._id ? PRIMARY_COLOR:"rgba(0,0,0,0)"
                       }`,
                     }}
                     key={index}

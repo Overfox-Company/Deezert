@@ -50,16 +50,16 @@ const ImageProyect = styled.img({
 })
 const Proyects = () => {
   const {user,selectedCompany}=React.useContext(AppContext)
-    const { workspaces } = React.useContext(ProyectsContext);
+  const { workspaces } = React.useContext(ProyectsContext);
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(false)
   React.useEffect(() => {
     if (workspaces.length < 1) {
       setLoading(true)
     } else {
-        setLoading(false)
+      setLoading(false)
     }
-  },[workspaces ])
+  },[workspaces,selectedCompany])
   return (
     <>
           <Container>

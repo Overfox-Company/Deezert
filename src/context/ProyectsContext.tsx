@@ -8,7 +8,8 @@ export const ProyectsContext = createContext<ProyectsType>({
 });
 
 export const ProyectsProvider: React.FC<ProviderProps> = ({ children }) => {
-const [workspaces,setWorkspaces]=useState([])
+  const [workspaces, setWorkspaces] = useState([])
+  
     return (
       <ProyectsContext.Provider
         value={{

@@ -1,5 +1,6 @@
 import axios from "axios";
 import {type userType } from "../types/global";
+import { AddProject } from "../api/controllers";
 // Define the base URL for the API
 const Domain = process.env.NEXT_PUBLIC_PRODUCTION == 'true'?"https://deezert.vercel.app/":"http://localhost:3000/";
 
@@ -36,7 +37,12 @@ const ApiController = {
   GetInvitations: (id: any) => api.post(Route + '/getInvitations', id),
   AddWorkspaces: (data: any) => api.post(Route + '/addWorkspace', data),
   GetWorkspace: (id: any) => api.post(Route + '/getWorkspace', { id: id }),
-  AceptRoute:(id:any)=>api.post(Route + '/aceptRoute',{id:id})
+  AceptRoute: (id: any) => api.post(Route + '/aceptRoute', { id: id }),
+  getCompanyOwner: (id: any) => api.post(Route + '/getCompanyOwner', id),
+  getWorkspaceList: (id: any) => api.post(Route + '/getWorkspaceList', id),
+  AddProject: ({ name, workspaceID }: { name: any, workspaceID: any }) => api.post(Route + '/addProject', { name, workspaceID }),
+  deleteProject:({ id, workspaceID }: { id: any, workspaceID: any })=>api.post(Route + '/deleteProject',{id,workspaceID}),
+  editProject:({ id, value,workspaceID }: { id: any, value: string,workspaceID:any })=>api.post(Route + '/editProject',{id,value,workspaceID})
 };
 
 // Export the ApiController object as the default export

@@ -1,10 +1,9 @@
 import React from 'react';
 import { P } from '../../components/BasicComponents';
+import Workspace from '../../Views/Workspace/Workspace';
 const workspace = () => {
     return (<>
-        <P>
-            sdsdsdsd
-    </P>
+        <Workspace/>
     </>)
 }
 export default workspace;

@@ -1,28 +1,41 @@
-import { useState, useEffect } from 'react';
-import io from 'socket.io-client';
+import { useEffect, useRef } from 'react';
+import { io, Socket } from 'socket.io-client';
 
-const useWebSocket = (url:any, initialState:any, setState:any) => {
-  // Usamos el hook useState para mantener el estado de la información que recibimos a través del WebSocket
-  const [data, setData] = useState(initialState);
-
-  useEffect(() => {
-    // Conectamos al servidor de WebSockets mediante la librería socket.io-client
-    const socket = io(url);
-
-    // Escuchamos el evento 'update' que es enviado desde el servidor
-    socket.on('update', (newData:any) => {
-      // Actualizamos el estado con la nueva información recibida
-      setState(newData);
-    });
-
-    // Devolvemos una función cleanup para desconectar el WebSocket cuando el componente se desmonte
-    return () => {
-      socket.disconnect();
-    };
-  }, [url, setState]);
-
-  // Devolvemos el estado actual y la función para actualizar el estado
-  return [data, setData];
+type SocketHookProps = {
+  channel: string;
+  setSocketData: any;
+  server: string;
 };
 
-export default useWebSocket;
+const useSocket = ({ channel, setSocketData, server }: SocketHookProps) => {
+  const socketRef = useRef<Socket | null>(null);
+
+  useEffect(() => {
+    // Crea la conexión de socket.io-client
+    const socket = io('https://deezertworkspace.onrender.com');
+    socketRef.current = socket;
+
+    // Maneja los eventos de conexión y mensajes
+    socket.on('connect', () => {
+      console.log('Conexión de socket.io establecida');
+    });
+
+    socket.on(channel, (data: any) => {
+      console.log("se ejecuto el socket");
+      setSocketData(data);
+    });
+
+    // Al desmontar el componente, cierra la conexión de socket.io
+    return () => {
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+      }
+    };
+  }, [channel, setSocketData, server]);
+
+  // Puedes utilizar el socketRef.current para enviar mensajes a través del socket si lo necesitas
+
+  return socketRef.current;
+};
+
+export default useSocket;

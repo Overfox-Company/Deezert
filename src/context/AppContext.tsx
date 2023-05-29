@@ -59,8 +59,8 @@ export const AppContext = createContext<ContextData>({
 export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
     const [darkMode, setDarkMode] = useState(true);
     const [token, setToken] = useState('')
-  const [loader, setLoader] = useState(false)
-  const [invitations,setInvitations]= useState([])
+    const [loader, setLoader] = useState(false)
+    const [invitations,setInvitations]= useState([])
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState(InitialUser);
     const [panel, setPanel] = useState(0)

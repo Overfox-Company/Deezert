@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Grid, Paper,Skeleton } from "@mui/material";
+import { Grid, Paper, Skeleton } from "@mui/material";
 import { ProyectsContext } from "../../../context/ProyectsContext";
 import AddIcon from "@mui/icons-material/Add";
 import AddWorkspace from "./components/AddWorkspaces";
 import { AppContext } from "../../../context/AppContext";
 import { P } from "../../../components/BasicComponents";
 import { PAPER_DARK } from "../../../constants/Color";
-
+import Router from "next/router";
 const Container = styled.div({
   width: "100%",
   display: "flex",
@@ -45,69 +45,71 @@ const Card = styled.div({
   },
 });
 const ImageProyect = styled.img({
-  width: '100%',
-  height: 'auto'
-})
+  width: "100%",
+  height: "auto",
+});
 const Proyects = () => {
-  const {user,selectedCompany}=React.useContext(AppContext)
+  const { user, selectedCompany } = React.useContext(AppContext);
   const { workspaces } = React.useContext(ProyectsContext);
   const [open, setOpen] = React.useState(false);
-  const [loading, setLoading] = React.useState(false)
+  const [loading, setLoading] = React.useState(false);
   React.useEffect(() => {
     if (workspaces.length < 1) {
-      setLoading(true)
+      setLoading(true);
     } else {
-      setLoading(false)
+      setLoading(false);
     }
-  },[workspaces,selectedCompany])
+  }, [workspaces, selectedCompany]);
   return (
     <>
-          <Container>
-    
+      <Container>
         <Grid
           container
           justifyContent={"flex-start"}
           alignItems={"center"}
           rowSpacing={2}
           columnSpacing={2}
-              >
-                  <Grid item xs={12}>
-                      <AddWorkspace open={open} setOpen={setOpen} />
-                  </Grid>
+        >
+          <Grid item xs={12}>
+            <AddWorkspace open={open} setOpen={setOpen} />
+          </Grid>
           <Grid item xs={12}>
             <p>Proyectos</p>
-                  </Grid>
-          {selectedCompany.idOwner ===user._id&&<Grid item xs={12} md={3}>
-                      <CardAdd onClick={()=>setOpen(true)}>
-              <AddIcon style={{ fontSize: 40 }} />
-            </CardAdd>
-          </Grid>}
+          </Grid>
+          {selectedCompany.idOwner === user._id && (
+            <Grid item xs={12} md={3}>
+              <CardAdd onClick={() => setOpen(true)}>
+                <AddIcon style={{ fontSize: 40 }} />
+              </CardAdd>
+            </Grid>
+          )}
 
-         {loading ===true&& <Grid item xs={12} md={3}>
- <Skeleton variant="rectangular" width="100%">
-          <div style={{ paddingTop: '57%' }} />
-        </Skeleton>
-          </Grid>}
+          {loading === true && (
+            <Grid item xs={12} md={3}>
+              <Skeleton variant="rectangular" width="100%">
+                <div style={{ paddingTop: "57%" }} />
+              </Skeleton>
+            </Grid>
+          )}
           {workspaces.map((item, index) => {
             return (
               <>
                 <Grid item xs={12} md={3} key={index}>
-                  <Card >
+                  <Card
+                  onClick={()=>Router.push(`/workspace/${item._id}`)}
+                  >
                     <Grid container>
                       <Grid item xs={12}>
-                    <ImageProyect src={item.coverImage}/>
+                        <ImageProyect src={item.coverImage} />
                       </Grid>
                       <Grid item xs={12}>
-                  <P>{item.name}</P>
+                        <P>{item.name}</P>
                       </Grid>
                     </Grid>
-
-
-                </Card>
+                  </Card>
                 </Grid>
-
               </>
-            )
+            );
           })}
         </Grid>
 

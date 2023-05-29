@@ -8,3 +8,11 @@ export type ProyectsType = {
   workspaces: any[];
   setWorkspaces: React.Dispatch<React.SetStateAction<any>>;
 };
+export type WorksPaceType = {
+  workspaces: any;
+  setWorkspaces: React.Dispatch<React.SetStateAction<any>>;
+  listWorkspace: any;
+  setListWorkspace: React.Dispatch<React.SetStateAction<any>>;
+  workspaceActive: any;
+  setWorkspaceActive: React.Dispatch<React.SetStateAction<any>>;
+};

@@ -184,3 +184,93 @@ export const AceptRouteController: ServerType = async (req, res) => {
     res.status(404).send("token no valido");
   }
 };
+export const GetCompanyOwner: ServerType = async (req, res) => {
+  try {
+    if (!req.headers.authorization) {
+      res.status(404).send("token no valido");
+      throw new Error("Invalid Token");
+    }
+    const id = req.body.id;
+    axios
+      .post(DeezerWorkspaces + "/getCompanyOwner", { id })
+      .then((e) => res.status(200).json(e.data));
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("token no valido");
+  }
+};
+export const GetWorkspaceList: ServerType = async (req, res) => {
+  try {
+    if (!req.headers.authorization) {
+      res.status(404).send("token no valido");
+      throw new Error("Invalid Token");
+    }
+    const id = req.body.id;
+    console.log("aca este llegando el id " + id);
+    axios
+      .post(DeezerWorkspaces + "/getWorkspaceList", { id })
+      .then((e) => res.status(200).json(e.data));
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("token no valido");
+  }
+};
+export const AddProject: ServerType = (req, res) => {
+  try {
+    if (!req.headers.authorization) {
+      res.status(404).send("token no valido");
+      throw new Error("Invalid Token");
+    }
+    const name = req.body.name;
+    const workspaceID = req.body.workspaceID;
+    axios
+      .post(DeezerWorkspaces + "/addProyect", {
+        name: name,
+        workspaceID: workspaceID,
+      })
+      .then((e) => res.status(200).json(e.data));
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("token no valido");
+  }
+};
+export const DeleteProject: ServerType = (req, res) => {
+  try {
+    if (!req.headers.authorization) {
+      res.status(404).send("token no valido");
+      throw new Error("Invalid Token");
+    }
+    const id = req.body.id;
+    const workspaceID = req.body.workspaceID;
+    axios
+      .post(DeezerWorkspaces + "/deleteProject", {
+        id: id,
+        workspaceID: workspaceID,
+      })
+      .then((e) => res.status(200).json(e.data));
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("token no valido");
+  }
+};
+export const EditProject: ServerType = async (req, res) => {
+  try {
+    if (!req.headers.authorization) {
+      res.status(404).send("token no valido");
+      throw new Error("Invalid Token");
+    }
+    const value = req.body.value;
+    const id = req.body.id;
+    const workspaceID = req.body.workspaceID;
+    axios
+      .post(DeezerWorkspaces + "/editProject", {
+        value: value,
+        id: id,
+        workspaceID: workspaceID,
+      })
+      .then((e) => res.status(200).json(e.data));
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("token no valido");
+  }
+};

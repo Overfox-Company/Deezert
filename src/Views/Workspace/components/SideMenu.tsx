@@ -13,7 +13,7 @@ const Container = styled.div({
   width: "100%",
   display: "flex",
   flexDirection: "column",
-  minHeight: "100vh",
+  height: "100vh",
   boxShadow: "0 10px 10px 0 rgba(20,20,30,1)",
   overflow: "auto",
   position: "relative",
@@ -25,13 +25,13 @@ const ContainerBackButton = styled.div({
   alignItems: "center",
   justifyContent: "center",
   flexDirection: "row",
-  position: "absolute",
   bottom: "0vw",
   left: "0vw",
   right: 0,
   height: "8vh",
   opacity: 1,
   cursor: "pointer",
+  marginBottom:'1vw',
   trnsition: "all 02s ease",
   "&:hover": {
     opacity: 0.8,
@@ -65,7 +65,7 @@ const SideMenuWorkspace = ({ panel, setPanel }: Props) => {
       <Grid
         container
         alignItems={"center"}
-        style={{ backgroundColor: "rgba(10,15,24,0.1)", padding: "0.5vw" }}
+        style={{ backgroundColor: "rgba(10,15,24,0.1)", padding: "0.5vw"}}
       >
         <Grid item xs={4}>
           <LogoCompanyOwner src={workspaces.avatar} />

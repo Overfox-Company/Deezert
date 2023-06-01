@@ -42,7 +42,11 @@ const ApiController = {
   getWorkspaceList: (id: any) => api.post(Route + '/getWorkspaceList', id),
   AddProject: ({ name, workspaceID }: { name: any, workspaceID: any }) => api.post(Route + '/addProject', { name, workspaceID }),
   deleteProject:({ id, workspaceID }: { id: any, workspaceID: any })=>api.post(Route + '/deleteProject',{id,workspaceID}),
-  editProject:({ id, value,workspaceID }: { id: any, value: string,workspaceID:any })=>api.post(Route + '/editProject',{id,value,workspaceID})
+  editProject: ({ id, value, workspaceID }: { id: any, value: string, workspaceID: any }) => api.post(Route + '/editProject', { id, value, workspaceID }),
+  addListProject: (values: any) => api.post(Route + '/addListProject', values),
+  getListProject: (id: any) => api.post(Route + '/getListProjects', id),
+  editListProject: (value: any) => api.post(Route + '/editListProject', value),
+  deleteListProject: (value: any) => api.post(Route + '/deleteListProject', value),
 };
 
 // Export the ApiController object as the default export

@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
@@ -12,10 +11,14 @@ import Typography from "@mui/material/Typography";
 import styledE from "@emotion/styled";
 import { Grid, Divider } from "@mui/material";
 import { P } from "../../../../components/BasicComponents";
-const Categories = ["Hoy", "Atrasadas", "Siguiente", "No propgramadas","Finalizadas"];
-const Container = styledE.div({
-
-});
+const Categories = [
+  "Hoy",
+  "Atrasadas",
+  "Siguiente",
+  "No propgramadas",
+  "Finalizadas",
+];
+const Container = styledE.div({});
 const Title = styledE.p({
   fontSize: "1vw",
   margin: 0,
@@ -30,7 +33,9 @@ const Accordion = styled((props: AccordionProps) => (
 
 const AccordionSummary = styled((props: AccordionSummaryProps) => (
   <MuiAccordionSummary
-    expandIcon={<ArrowForwardIosSharpIcon sx={{color:'white', fontSize: "0.9rem" }} />}
+    expandIcon={
+      <ArrowForwardIosSharpIcon sx={{ color: "white", fontSize: "0.9rem" }} />
+    }
     {...props}
   />
 ))(({ theme }) => ({
@@ -52,39 +57,47 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 const DropDownPanels = () => {
-    return (
-        <>
-                <Grid container justifyContent={"center"}>
-      <Grid item xs={11}>
-        <Container>
-          <div>
-            {Categories.map((item, index) => (
-              <div key={index} style={{borderRadius:8,backgroundColor:'rgba(10,0,20,0.3)',marginTop:'1vw'}}>
-                <Accordion
+  return (
+    <>
+      <Grid container justifyContent={"center"}>
+        <Grid item xs={11}>
+          <Container>
+            <div>
+              {Categories.map((item, index) => (
+                <div
+                  key={index}
+                  style={{
+                    borderRadius: 8,
+                    backgroundColor: "rgba(10,0,20,0.3)",
+                    marginTop: "1vw",
+                  }}
                 >
-                  <AccordionSummary
-                    style={{ backgroundColor: "rgba(0,0,0,0)" }}
-                    aria-controls="panel1d-content"
-                    id="panel1d-header"
-                  >
-                    <Title>{item}</Title>
-                  </AccordionSummary>
-                        <AccordionDetails style={{ padding: '1vwb',  }}>
-                            <div style={{borderRadius:5,backgroundColor: 'rgba(10,0,20,0.2)'}}>
-                <P>
-                                xd
-                   </P>
-                            </div>
-            
-                  </AccordionDetails>
-                </Accordion>
-              </div>
-            ))}
-          </div>
-        </Container>
+                  <Accordion>
+                    <AccordionSummary
+                      style={{ backgroundColor: "rgba(0,0,0,0)" }}
+                      aria-controls="panel1d-content"
+                      id="panel1d-header"
+                    >
+                      <Title>{item}</Title>
+                    </AccordionSummary>
+                    <AccordionDetails style={{ padding: "1vwb" }}>
+                      <div
+                        style={{
+                          borderRadius: 5,
+                          backgroundColor: "rgba(10,0,20,0.2)",
+                        }}
+                      >
+                        <P>xd</P>
+                      </div>
+                    </AccordionDetails>
+                  </Accordion>
+                </div>
+              ))}
+            </div>
+          </Container>
+        </Grid>
       </Grid>
-    </Grid>
-        </>
-    )
-}
+    </>
+  );
+};
 export default DropDownPanels;

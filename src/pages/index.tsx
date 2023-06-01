@@ -7,7 +7,7 @@ export default function Home() {
     <>
       <Header />
       <main className={styles.main}>
-<Login/>
+        <Login />
       </main>
     </>
   );

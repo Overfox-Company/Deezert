@@ -5,37 +5,46 @@ import CentralPanel from "./components/CentralPanel";
 import ApiController from "../../connection/ApiController";
 import { WorkspaceContext } from "../../context/WorkspaceContext";
 import { useRouter } from "next/router";
+import useSocket from "../../hooks/useWebSocket";
 const Workspace = () => {
   const [panel, setPanel] = useState(0);
-  const { setWorkspaces,setListWorkspace} = useContext(WorkspaceContext);
+  const { setWorkspaces, setListWorkspace, setLisprojects } =
+    useContext(WorkspaceContext);
   const router = useRouter();
   const { workspace: id } = router.query;
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const workspaceDataPromise = ApiController.getCompanyOwner({ id: id });
-      const workspaceListPromise = ApiController.getWorkspaceList({ id: id });
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const workspaceDataPromise = ApiController.getCompanyOwner({ id: id });
+        const workspaceListPromise = ApiController.getWorkspaceList({ id: id });
+        const workspaceListProjectPromise = ApiController.getListProject({
+          id: id,
+        });
+        const [workspaceData, workspaceList, workspaceListProject] =
+          await Promise.all([
+            workspaceDataPromise,
+            workspaceListPromise,
+            workspaceListProjectPromise,
+          ]);
+        setWorkspaces(workspaceData.data);
+        setListWorkspace(workspaceList.data);
+        setLisprojects(workspaceListProject.data);
+        console.log("Se han cargado correctamente los datos del workspace");
+      } catch (error) {
+        console.error("Error al obtener los datos del workspace:", error);
+      }
+    };
 
-      const [workspaceData, workspaceList] = await Promise.all([
-        workspaceDataPromise,
-        workspaceListPromise,
-      ]);
-
-      setWorkspaces(workspaceData.data);
-      setListWorkspace(workspaceList.data);
-
-      console.log("Se han cargado correctamente los datos del workspace");
-    } catch (error) {
-      console.error("Error al obtener los datos del workspace:", error);
+    if (id) {
+      fetchData();
     }
-  };
+  }, [id, setWorkspaces, setListWorkspace, setLisprojects]);
 
-  if (id) {
-    fetchData();
-  }
-}, [id, setWorkspaces, setListWorkspace]);
-
-
+  useSocket({
+    channel: "listProyects",
+    setSocketData: setLisprojects,
+    server: "workspace",
+  });
   return (
     <>
       <Grid container>

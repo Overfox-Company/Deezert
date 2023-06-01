@@ -15,4 +15,8 @@ export type WorksPaceType = {
   setListWorkspace: React.Dispatch<React.SetStateAction<any>>;
   workspaceActive: any;
   setWorkspaceActive: React.Dispatch<React.SetStateAction<any>>;
+  viewActive: any;
+  setViewActive: React.Dispatch<React.SetStateAction<any>>;
+  lisprojects: any;
+  setLisprojects: React.Dispatch<React.SetStateAction<any>>;
 };

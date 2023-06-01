@@ -274,3 +274,89 @@ export const EditProject: ServerType = async (req, res) => {
     res.status(404).send("token no valido");
   }
 };
+export const AddListProjectController: ServerType = async (req, res) => {
+  try {
+    if (!req.headers.authorization) {
+      res.status(404).send("token no valido");
+      throw new Error("Invalid Token");
+    }
+    const name = req.body.name;
+    const workspaceId = req.body.workspaceId;
+    const projectId = req.body.projectId;
+    const color = req.body.color;
+    axios
+      .post(DeezerWorkspaces + "/addListProject", {
+        name: name,
+        workspaceId: workspaceId,
+        color: color,
+        projectId: projectId,
+      })
+      .then((e) => res.status(200).json(e.data));
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("token no valido");
+  }
+};
+export const GetListProjectController: ServerType = async (req, res) => {
+  try {
+    if (!req.headers.authorization) {
+      res.status(404).send("token no valido");
+      throw new Error("Invalid Token");
+    }
+
+    const workspaceId = req.body.id;
+
+    axios
+      .post(DeezerWorkspaces + "/getListProject", {
+        id: workspaceId,
+      })
+      .then((e) => res.status(200).json(e.data));
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("token no valido");
+  }
+};
+export const EditListProjectController: ServerType = (req, res) => {
+  try {
+    if (!req.headers.authorization) {
+      res.status(404).send("token no valido");
+      throw new Error("Invalid Token");
+    }
+
+    const workspaceId = req.body.workspaceId;
+    const id = req.body.id;
+    const value = req.body.value;
+    axios
+      .post(DeezerWorkspaces + "/editListProject", {
+        id: id,
+        workspaceId: workspaceId,
+        value: value,
+      })
+      .then((e) => res.status(200).json(e.data));
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("token no valido");
+  }
+};
+export const DeleteListProjectController: ServerType = async (req, res) => {
+  try {
+    if (!req.headers.authorization) {
+      res.status(404).send("token no valido");
+      throw new Error("Invalid Token");
+    }
+
+    const workspaceId = req.body.workspaceId;
+    const id = req.body.id;
+
+    axios
+      .post(DeezerWorkspaces + "/deleteListProject", {
+        id: id,
+        workspaceId: workspaceId,
+
+      })
+      .then((e) => res.status(200).json(e.data));
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("token no valido");
+  }
+};

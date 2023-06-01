@@ -21,10 +21,8 @@ const InitPanel = () => {
   const { darkMode, user } = React.useContext(AppContext);
   return (
     <Container>
-      <Grid container justifyContent={"flex-end"}>
-        <Grid item xs={2}>
-          <Logo src={darkMode ? dark : light} />
-        </Grid>
+      <Grid container>
+
         <Grid item xs={12} />
         <Grid item xs={7}>
           <DropDownPanels />

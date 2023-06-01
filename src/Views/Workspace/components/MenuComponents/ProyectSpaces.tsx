@@ -3,6 +3,8 @@ import styled from "@emotion/styled";
 import {
   Grid,
   Button,
+  Dialog,
+  DialogTitle,
   DialogActions,
   DialogContent,
   DialogContentText,
@@ -14,8 +16,6 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ApiController from "../../../../connection/ApiController";
 import { useRouter } from "next/router";
 import ClearIcon from "@mui/icons-material/Clear";
-import DialogTitle from "@mui/material/DialogTitle";
-import Dialog from "@mui/material/Dialog";
 import { AppContext } from "../../../../context/AppContext";
 import CheckIcon from "@mui/icons-material/Check";
 import { PRIMARY_COLOR } from "../../../../constants/Color";
@@ -30,11 +30,12 @@ const WorkspaceName = styled.input({
 });
 const Icon = styled(ArrowForwardIosIcon)({
   fontSize: 12,
+  margin:0
 });
 const ContainerButton = styled.div({
   margin: "1vw 0",
   padding: "0.5vw 1vw",
-  borderRadius:" 0px 5px 5px 0",
+  borderRadius: " 0px 5px 5px 0",
   transition: "all 0.3s ease",
   "&:hover": {
     cursor: "pointer",
@@ -44,6 +45,7 @@ const ContainerButton = styled.div({
 const Input = styled.input({
   border: 0,
   width: "100%",
+    margin:0,
   textDecoration: "none",
   backgroundColor: "rgba(20,20,20,0)",
   outline: "none",
@@ -108,8 +110,9 @@ const ProyecSpaces = () => {
     setListWorkspace,
     setWorkspaceActive,
     workspaceActive,
+    workspaces,
   } = useContext(WorkspaceContext);
-  const { setLoader } = useContext(AppContext);
+  const { setLoader, user } = useContext(AppContext);
   const [value, setValue] = useState("");
   const [editValue, setEditValue] = useState("");
   const [idProject, setIdProject] = useState();
@@ -150,8 +153,10 @@ const ProyecSpaces = () => {
   };
 
   const toggleEditable = (value: any, name: any) => {
-    setEditable(editable ? undefined : value);
-    setEditValue(name);
+    if (user._id === workspaces.idOwner) {
+      setEditable(editable ? undefined : value);
+      setEditValue(name);
+    }
   };
   const handleInputChange = (event: any) => {
     setValue(event.target.value);
@@ -188,76 +193,83 @@ const ProyecSpaces = () => {
       />
       <Grid container justifyContent={"flex-end"}>
         <Grid item xs={11}>
-          <div style={{maxHeight:'8vw',overflow:'auto'}}>
-          {listWorkspace.map((item: any, index: number) => {
-            return (
-              <ContainerButton
-                onClick={() => setWorkspaceActive(item)}
-                key={index}
-                style={{
-                  borderLeft: `solid 2px ${
-                    workspaceActive._id === item._id
-                      ? PRIMARY_COLOR
-                      : "rgba(0,0,0,0)"
-                  }`,
-                }}
-              >
-                <Grid container alignItems={"center"}>
-                  <Grid
-                    item
-                    xs={4}
-                    style={{ display: "flex", alignItems: "center" }}
-                  >
-                    <DeleteIcon
-                      style={{ color: editable === item._id ? "red" : "white" }}
-                      onClick={() => handleClickOpen(item._id)}
-                    />
-                    {editable === item._id && (
-                      <CheckIcon
-                        onClick={() => handleEdit(item._id)}
-                        style={{ fontSize: 14 }}
-                        color={"primary"}
+          <div style={{ maxHeight: "8vw", overflow: "auto" }}>
+            {listWorkspace.map((item: any, index: number) => {
+              return (
+                <ContainerButton
+                  onClick={() => setWorkspaceActive(item)}
+                  key={index}
+                  style={{
+                    borderLeft: `solid 2px ${
+                      workspaceActive._id === item._id
+                        ? PRIMARY_COLOR
+                        : "rgba(0,0,0,0)"
+                    }`,
+                  }}
+                >
+                  <Grid container alignItems={"center"}>
+                    <Grid
+                      item
+                      xs={4}
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      {user._id === workspaces.idOwner && (
+                        <DeleteIcon
+                          style={{
+                            color: editable === item._id ? "red" : "white",
+                          }}
+                          onClick={() => handleClickOpen(item._id)}
+                        />
+                      )}
+                      {editable === item._id && (
+                        <CheckIcon
+                          onClick={() => handleEdit(item._id)}
+                          style={{ fontSize: 14 }}
+                          color={"primary"}
+                        />
+                      )}
+                    </Grid>
+                    <Grid item xs={6}>
+                      <WorkspaceName
+                        readOnly={editable === item._id ? false : true}
+                        onDoubleClick={() =>
+                          toggleEditable(item._id, item.name)
+                        }
+                        value={editable === item._id ? editValue : item.name}
+                        onChange={handleInputChangeEdit}
                       />
-                    )}
+                    </Grid>
+                    <Grid item xs={2}>
+                      <Icon />
+                    </Grid>
                   </Grid>
-                  <Grid item xs={6}>
-                    <WorkspaceName
-                      readOnly={editable === item._id ? false : true}
-                      onDoubleClick={() => toggleEditable(item._id, item.name)}
-                      value={editable === item._id ? editValue : item.name}
-                      onChange={handleInputChangeEdit}
-                    />
-                  </Grid>
-                  <Grid item xs={2}>
-                    <Icon />
-                  </Grid>
-                </Grid>
-              </ContainerButton>
-            );
-          })}
+                </ContainerButton>
+              );
+            })}
           </div>
-
         </Grid>
         <Grid item xs={11}>
-          <Grid
-            container
-            alignItems={"center"}
-            justifyContent={"space-between"}
-          >
-            <Grid item xs={10}>
-              <Input
-                placeholder="Agregar nuevo espacio"
-                value={value}
-                onChange={handleInputChange}
-              />
+          {user._id === workspaces.idOwner && (
+            <Grid
+              container
+              alignItems={"center"}
+              justifyContent={"space-between"}
+            >
+              <Grid item xs={10}>
+                <Input
+                  placeholder="Agregar nuevo espacio"
+                  value={value}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={2}>
+                <AddIcon
+                  style={{ fontSize: 18, cursor: "pointer" }}
+                  onClick={() => handleSend()}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={2}>
-              <AddIcon
-                style={{ fontSize: 18, cursor: "pointer" }}
-                onClick={() => handleSend()}
-              />
-            </Grid>
-          </Grid>
+          )}
         </Grid>
       </Grid>
     </>

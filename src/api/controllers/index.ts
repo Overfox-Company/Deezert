@@ -352,8 +352,60 @@ export const DeleteListProjectController: ServerType = async (req, res) => {
       .post(DeezerWorkspaces + "/deleteListProject", {
         id: id,
         workspaceId: workspaceId,
-
       })
+      .then((e) => res.status(200).json(e.data));
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("token no valido");
+  }
+};
+export const AddTask: ServerType = async (req, res) => {
+  try {
+    if (!req.headers.authorization) {
+      res.status(404).send("token no valido");
+      throw new Error("Invalid Token");
+    }
+
+    const body = req.body;
+    console.log("se esta enviando");
+    axios
+      .post(DeezerWorkspaces + "/addTask", body)
+      .then((e) => res.status(200).json(e.data));
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("token no valido");
+  }
+};
+export const GetListTaskController: ServerType = async (req, res) => {
+  try {
+    if (!req.headers.authorization) {
+      res.status(404).send("token no valido");
+      throw new Error("Invalid Token");
+    }
+
+    const { id } = req.body;
+
+    axios
+      .post(DeezerWorkspaces + "/getAllTask", {
+        id: id,
+      })
+      .then((e) => res.status(200).json(e.data));
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("token no valido");
+  }
+};
+export const DragTaskController: ServerType = async (req, res) => {
+  try {
+    if (!req.headers.authorization) {
+      res.status(404).send("token no valido");
+      throw new Error("Invalid Token");
+    }
+
+    const body = req.body;
+
+    axios
+      .post(DeezerWorkspaces + "/dragTask", body)
       .then((e) => res.status(200).json(e.data));
   } catch (error) {
     console.log(error);

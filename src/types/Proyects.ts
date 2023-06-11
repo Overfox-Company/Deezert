@@ -19,4 +19,6 @@ export type WorksPaceType = {
   setViewActive: React.Dispatch<React.SetStateAction<any>>;
   lisprojects: any;
   setLisprojects: React.Dispatch<React.SetStateAction<any>>;
+  taskList: any;
+  setTaskList: React.Dispatch<React.SetStateAction<any>>;
 };

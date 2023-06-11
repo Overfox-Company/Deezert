@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Grid } from "@mui/material";
 import styled from "@emotion/styled";
 import AddIcon from "@mui/icons-material/Add";
@@ -6,12 +6,18 @@ import AddBoard from "./AddBoard";
 import { WorkspaceContext } from "../../../../../context/WorkspaceContext";
 import ApiController from "../../../../../connection/ApiController";
 import { useRouter } from "next/router";
-import ClearIcon from "@mui/icons-material/Clear";
-import CheckIcon from "@mui/icons-material/Check";
-import DeleteIcon from "@mui/icons-material/Delete";
+
 import { DeleteDialog } from "./DeleteBoardDialog";
 import { AppContext } from "../../../../../context/AppContext";
-import EditIcon from "@mui/icons-material/Edit";
+
+import AddTask from "./AddTask";
+import useSocket from "../../../../../hooks/useWebSocket";
+import TaskSection from "./TaskSection";
+import BoardSection from "./BoardSection";
+type Board = {
+  enableAddInput: any;
+  setEnableAddInput: any;
+};
 const Board = styled.input({
   fontSize: "1vw",
   outline: "none",
@@ -30,62 +36,89 @@ const AddBoardButton = styled.input({
     color: "rgb(100,100,100)",
   },
 });
+const AddTaskText = styled.p({
+  color: "rgb(100,100,100)",
+  fontSize: "1vw",
+  outline: "none",
+  border: 0,
+  width: "100%",
+  marginLeft: "1vw",
+  backgroundColor: "rgba(0,0,0,0)",
+  transition: "all 0.3s ease",
+});
 const ContainerBoards = styled.div({
   minWidth: "15vw",
   padding: "1vw",
   height: "7.5vh",
   borderTop: "2px solid rgb(100,100,100)",
-  margin: "0 2vw",
   boxShadow: "0 1px 2px 0 rgba(10,10,10,0.5)",
   borderRadius: "5px",
   fontSize: "1vw",
+  "&:hover p": {
+    color: "rgb(200,200,200)",
+  },
+});
+const ContainerTask = styled.div({
+  marginTop: "2vw",
+  display: "flex",
+  alignItems: "center",
+  maxHeight: "55vh",
+  overflow: "auto",
+  padding: "1vh",
+  width: "100%",
+  flexDirection: "column",
+  borderRadius: "5px",
+});
+const ContainerAddTask = styled.div({
+  marginTop: "2vw",
+
+  display: "flex",
+  alignItems: "center",
+  height: "7.5vh",
+  opacity: 0,
+  borderRadius: "5px",
+  cursor: "pointer",
+  "&:hover p": {
+    color: "rgb(200,200,200)",
+  },
 });
 const Icon = styled(AddIcon)({
-  cursor: "poitner",
+  cursor: "pointer",
+  color: "rgb(100,100,100)",
+  "&:hover": {
+    color: "rgb(200,200,200)",
+  },
 });
-type Board = {
-  enableAddInput: any;
-  setEnableAddInput: any;
-};
+const ColumnContainer = styled.div({
+  flexDirection: "column",
+  margin: "0 2vw",
+  "&:hover  #crearTarea": {
+    opacity: 1,
+  },
+});
+
 const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
-  const { lisprojects, workspaceActive, workspaces } =
+  const { lisprojects, workspaceActive, workspaces, setTaskList } =
     useContext(WorkspaceContext);
-  const { setLoader, user } = useContext(AppContext);
+  const { setLoader, user, setStaff, selectedCompany } = useContext(AppContext);
   const [idDelete, setIdDelete] = useState(undefined);
-  const [editable, setEditable] = useState(undefined);
-  const [editValue, setEditValue] = useState("");
   const [openDailogDelete, setOpenDialogDelete] = useState(false);
+  const [openAddTask, setOpenAddTask] = useState(false);
+  const [listSelected, setListSelected] = useState("");
   const router = useRouter();
   const { workspace } = router.query;
-  const [editColor, setEditColor] = useState({ _id: null, color: null });
-  const handleEnable = () => {
-    setEnableAddInput(true);
+  const handleEnable = (value: string) => {
+    if (value === "board") {
+      setEnableAddInput(true);
+    } else {
+      setOpenAddTask(true);
+    }
   };
   const handleDisabled = () => {
     setEnableAddInput(false);
+    setOpenAddTask(false);
   };
-  const handleInputChangeEdit = (event: any) => {
-    setEditValue(event.target.value);
-  };
-  const handleEdit = (idProject: any) => {
-    setLoader(true);
-    const values = {
-      id: idProject,
-      workspaceId: workspace,
-      value: editValue,
-    };
-    ApiController.editListProject(values).then((data) => {
-      console.log(data);
-      setLoader(false);
-      setEditable(undefined);
-    });
-  };
-  const toggleEditable = (value: any, name: any) => {
-    if (user._id === workspaces.idOwner) {
-      setEditable(editable ? undefined : value);
-      setEditValue(name);
-    }
-  };
+
   const handleDelete = () => {
     setLoader(true);
     const values = {
@@ -102,9 +135,41 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
       });
     console.log("borrar board");
   };
-  const handleEdicolor = (event: any) => {
-    setEditColor(event.target.value);
-    console.log("cambiando de color");
+  useEffect(() => {
+    console.log("compañia seleccionada");
+    if (workspaces._id) {
+      setLoader(true);
+      Promise.all([
+        ApiController.GetInvitations({ id: workspaces._id }),
+        ApiController.getAllTask({ id: workspace }),
+      ]).then(([invitationsResponse, taskResponse]) => {
+        setStaff(invitationsResponse.data.staff);
+        setTaskList(taskResponse.data);
+        setLoader(false);
+      });
+    }
+  }, [selectedCompany]);
+  useSocket({
+    channel: "task",
+    setSocketData: setTaskList,
+    server: "workspace",
+  });
+  const handleDragOver = (event: any) => {
+    event.preventDefault();
+  };
+
+  const handleDrop = (event: any) => {
+    event.preventDefault();
+    const draggedItemId = event.dataTransfer.getData("text/plain");
+    const targetDivId = event.target.id;
+    const values = {
+      target: targetDivId,
+      id: draggedItemId,
+      workspaceID:workspace
+    }
+  ApiController.dragTask(values).then((data) => console.log(data));
+    console.log("Elemento arrastrado:", draggedItemId);
+    console.log('Elemento de destino',targetDivId)
   };
   return (
     <>
@@ -112,6 +177,11 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
         open={openDailogDelete}
         onClose={setOpenDialogDelete}
         Delete={handleDelete}
+      />
+      <AddTask
+        open={openAddTask}
+        handleClose={handleDisabled}
+        idList={listSelected}
       />
       <AddBoard handleClose={handleDisabled} open={enableAddInput} />
       <Grid container style={{ marginTop: "2vw", height: "80vh" }}>
@@ -128,100 +198,65 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
           {lisprojects.map(
             (item: any, index: number) =>
               workspaceActive._id === item.project && (
-                <ContainerBoards
+                <ColumnContainer
+                  id={item._id}
+                  onDragOver={handleDragOver}
+                  onDrop={handleDrop}
                   key={index}
-                  style={{ borderTop: `2px solid ${item.color}` }}
                 >
-                  <Grid container alignItems={"center"}>
-                    <Grid item xs={9}>
-                      <Board
-                        readOnly={editable === item._id ? false : true}
-                        onChange={handleInputChangeEdit}
-                        onDoubleClick={() =>
-                          toggleEditable(item._id, item.name)
-                        }
-                        value={editable === item._id ? editValue : item.name}
-                      />
-                    </Grid>
-                    {user._id === workspaces.idOwner && (
-                      <Grid item xs={3}>
-                        {editable != item._id && (
-                          <div>
-                            <EditIcon
-                              style={{
-                                color: "rgb(150,150,150)",
-                                cursor: "pointer",
-                                fontSize: 15,
-                              }}
-                              onClick={() =>
-                                toggleEditable(item._id, item.name)
-                              }
-                            />
-                            <DeleteIcon
-                              onClick={() => {
-                                setIdDelete(item._id);
-                                setOpenDialogDelete(true);
-                              }}
-                              style={{
-                                color: "rgb(150,150,150)",
-                                cursor: "pointer",
-                                fontSize: 15,
-                              }}
-                            />
-                          </div>
-                        )}
-                        {editable === item._id && (
-                          <div
-                            style={{
-                              display: "flex",
-                              flexDirection: "row",
-                              alignItems: "center",
-                            }}
-                          >
-                            <ClearIcon
-                              onClick={() => setEditable(undefined)}
-                              style={{
-                                cursor: "pointer",
-                                fontSize: 14,
-                                color: "red",
-                              }}
-                            />
-
-                            <CheckIcon
-                              onClick={() => handleEdit(item._id)}
-                              style={{ fontSize: 14, cursor: "pointer" }}
-                              color={"primary"}
-                            />
-                          </div>
-                        )}
+                  <BoardSection
+                    item={item}
+                    setIdDelete={setIdDelete}
+                    setOpenDialogDelete={setOpenDialogDelete}
+                  />
+                  <ContainerTask>
+                    <TaskSection item={item} />
+                  </ContainerTask>
+                  <ContainerAddTask
+                    id="crearTarea"
+                    onClick={() => {
+                      handleEnable("task");
+                      setListSelected(item._id);
+                    }}
+                  >
+                    <Grid container alignItems={"center"}>
+                      <Grid item xs={10}>
+                        <AddTaskText
+                          style={{
+                            cursor: enableAddInput ? "text" : "pointer",
+                          }}
+                        >
+                          Añadir nueva tarea
+                        </AddTaskText>
                       </Grid>
-                    )}
-                  </Grid>
-                </ContainerBoards>
+                      <Grid item xs={2}>
+                        <Icon />
+                      </Grid>
+                    </Grid>
+                  </ContainerAddTask>
+                </ColumnContainer>
               )
           )}
           {user._id === workspaces.idOwner && (
-            <ContainerBoards
-              onClick={() => handleEnable()}
-              style={{ cursor: enableAddInput ? "auto" : "pointer" }}
-            >
-              <Grid container alignItems={"center"}>
-                <Grid item xs={10}>
-                  <AddBoardButton
-                    disabled={true}
-                    placeholder="Añadir Nueva lista"
-                    style={{ cursor: enableAddInput ? "text" : "pointer" }}
-                  />
+            <ColumnContainer>
+              <ContainerBoards
+                onClick={() => handleEnable("board")}
+                style={{ cursor: enableAddInput ? "auto" : "pointer" }}
+              >
+                <Grid container alignItems={"center"}>
+                  <Grid item xs={10}>
+                    <AddBoardButton
+                      disabled={true}
+                      placeholder="Añadir Nueva lista"
+                      style={{ cursor: enableAddInput ? "text" : "pointer" }}
+                    />
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Icon style={{ color: "rgb(100,100,100)" }} />
+                  </Grid>
                 </Grid>
-                <Grid item xs={2}>
-                  <Icon
-                    style={{
-                      color: enableAddInput ? "white" : "rgb(100,100,100",
-                    }}
-                  />
-                </Grid>
-              </Grid>
-            </ContainerBoards>
+              </ContainerBoards>
+            </ColumnContainer>
           )}
         </Grid>
       </Grid>

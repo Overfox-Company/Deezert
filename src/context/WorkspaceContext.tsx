@@ -11,7 +11,9 @@ export const WorkspaceContext = createContext<WorksPaceType>({
   viewActive:[],
   setViewActive: () => { },
   lisprojects: [],
-  setLisprojects:()=>{}
+  setLisprojects: () => { },
+  taskList:[],
+  setTaskList: () => { }
 });
 
 
@@ -20,7 +22,8 @@ export const WorkspaceProvider: React.FC<ProviderProps> = ({ children }) => {
   const [workspaceActive, setWorkspaceActive] = useState([]);
   const [listWorkspace, setListWorkspace]=useState([])
   const [viewActive, setViewActive] = useState('')
-  const [lisprojects,setLisprojects]=useState([])
+  const [lisprojects, setLisprojects] = useState([])
+  const [taskList,setTaskList]=useState([])
   return (
     <WorkspaceContext.Provider
       value={{
@@ -33,7 +36,9 @@ export const WorkspaceProvider: React.FC<ProviderProps> = ({ children }) => {
         viewActive,
         setViewActive,
         lisprojects,
-        setLisprojects
+        setLisprojects,
+        taskList,
+        setTaskList
       }}
     >
       {children}

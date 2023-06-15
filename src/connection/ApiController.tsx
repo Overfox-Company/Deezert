@@ -49,7 +49,12 @@ const ApiController = {
   deleteListProject: (value: any) => api.post(Route + '/deleteListProject', value),
   addTask: (value: any) => api.post(Route + '/addTask', value),
   getAllTask: (id: any) => api.post(Route + '/getAllTask', id),
-  dragTask:(values:any)=>api.post(Route+'/dragTask',values)
+  dragTask: (values: any) => api.post(Route + '/dragTask', values),
+  deleteTask: (values: any) => api.post(Route + '/deleteTask', values),
+  editNameTask: (values: any) => api.post(Route + '/editNameTask', values),
+  addFilesTask: (values: any) => api.post(Route + '/addFilesTask', values),
+  deleteFilesTask: (values: any) => api.post(Route + '/deleteFilesTask', values),
+  editTask: (values: any) => api.post(Route + '/editTask', values),
 };
 
 // Export the ApiController object as the default export

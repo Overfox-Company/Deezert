@@ -21,4 +21,19 @@ export type WorksPaceType = {
   setLisprojects: React.Dispatch<React.SetStateAction<any>>;
   taskList: any;
   setTaskList: React.Dispatch<React.SetStateAction<any>>;
+  selectedTask: any;
+  setSelectedTask: React.Dispatch<React.SetStateAction<any>>;
+};
+export type TaskType = {
+  _id: string;
+  title: string;
+  description: string;
+  files: any;
+  CreatedDate: string;
+  dateEnd: string;
+  workspaceID: string;
+  assigned: any;
+  timeWorked: string;
+  priority: string;
+  list: any;
 };

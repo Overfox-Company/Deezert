@@ -3,7 +3,6 @@ import AddCompany from '../Views/AddCompany/AddCompany';
 const addCompany = () => {
 
     return (
-
         <>
             <AddCompany/>
         </>

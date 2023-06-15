@@ -25,7 +25,8 @@ import Avatar from "../../../../../components/Avatar";
 import IconType from "../../../../../components/IconType";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
+import DateSelect from "../../../../../components/DateSelect";
 type TypeAddBoard = {
   handleClose: any;
   open: boolean;
@@ -125,7 +126,7 @@ const NameItem = styled.p({
 const AddTask = ({ handleClose, open, idList }: TypeAddBoard) => {
   const [selectedUser, setSelectedUser] = useState([]);
   const [nameTask, setNameTask] = useState("");
-  const { setLoader } = useContext(AppContext);
+  const { setLoader, user } = useContext(AppContext);
   const [openUserDialog, setOpenUserDialog] = useState(false);
   const [description, setDescription] = useState("");
   const [files, setFiles] = useState<any>([]);
@@ -144,23 +145,24 @@ const AddTask = ({ handleClose, open, idList }: TypeAddBoard) => {
     setDescription(event.target.value);
   };
   const handleSave = async () => {
-   // const convertedFiles = await Promise.all(files.map(readFileAsBase64));
+    // const convertedFiles = await Promise.all(files.map(readFileAsBase64));
     console.log("se esta haciendo click");
     const values = {
-    //  files: convertedFiles,
+      //  files: convertedFiles,
       name: nameTask,
       description: description,
       list: idList,
       users: selectedUser,
-      dateEnd:selectedDate,
-      workspaceID: workspace
+      dateEnd: selectedDate,
+      workspaceID: workspace,
+      owner: user._id,
     };
 
-   setLoader(true);
+    setLoader(true);
     ApiController.addTask(values).then((data) => {
       setLoader(false);
-      handleClose()
-      console.log(data)
+      handleClose();
+      console.log(data);
     });
 
     //  } catch (err) {
@@ -208,12 +210,12 @@ const AddTask = ({ handleClose, open, idList }: TypeAddBoard) => {
                     <Divider />
                   </Grid>
                   <Grid item xs={5}>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DatePicker
-                        value={selectedDate}
-                        onChange={handleDateChange}
-                      />
-                    </LocalizationProvider>
+                    <DateSelect
+                      value={selectedDate}
+                      onChange={(event: any) => {
+                        handleDateChange(event);
+                      }}
+                    />
                   </Grid>
                 </Grid>
               </HeaderForm>
@@ -233,7 +235,7 @@ const AddTask = ({ handleClose, open, idList }: TypeAddBoard) => {
                 onChange={handleChangeDescription}
               />
             </Grid>
-          { <Grid item xs={12}>
+            {/*<Grid item xs={12}>
               <DropZone {...getRootProps({ className: "dropzone" })}>
                 <input {...getInputProps()} />
                 <Grid container spacing={5}>
@@ -264,7 +266,7 @@ const AddTask = ({ handleClose, open, idList }: TypeAddBoard) => {
               >
                 Borrar archivos
               </Button>
-                </Grid>}
+                </Grid>*/}
           </Grid>
         </DialogContent>
         <DialogActions>

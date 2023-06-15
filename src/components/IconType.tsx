@@ -58,7 +58,7 @@ const IconType = ({ file }: any) => {
   const fileFormat = getFileFormat(file.name);
 
   if (isImage) {
-    return <Image src={URL.createObjectURL(file)} alt="Archivo de imagen" />;
+    return <Image src={file.url} alt="Archivo de imagen" />;
   } else {
     if (fileFormat === "document") {
       return <DocumentIcon />;

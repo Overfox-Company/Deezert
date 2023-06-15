@@ -92,13 +92,13 @@ const Icon = styled(AddIcon)({
 const ColumnContainer = styled.div({
   flexDirection: "column",
   margin: "0 2vw",
-  "&:hover  #crearTarea": {
+  "&:hover  .crearTarea": {
     opacity: 1,
   },
 });
 
 const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
-  const { lisprojects, workspaceActive, workspaces, setTaskList } =
+  const { lisprojects, workspaceActive, workspaces, setTaskList,setSelectedTask } =
     useContext(WorkspaceContext);
   const { setLoader, user, setStaff, selectedCompany } = useContext(AppContext);
   const [idDelete, setIdDelete] = useState(undefined);
@@ -154,6 +154,11 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
     setSocketData: setTaskList,
     server: "workspace",
   });
+    useSocket({
+    channel: "taskSelected",
+    setSocketData: setSelectedTask,
+    server: "workspace",
+  });
   const handleDragOver = (event: any) => {
     event.preventDefault();
   };
@@ -162,14 +167,16 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
     event.preventDefault();
     const draggedItemId = event.dataTransfer.getData("text/plain");
     const targetDivId = event.target.id;
-    const values = {
-      target: targetDivId,
-      id: draggedItemId,
-      workspaceID:workspace
+    if (targetDivId && draggedItemId) {
+      const values = {
+        target: targetDivId,
+        id: draggedItemId,
+        workspaceID: workspace,
+      };
+      ApiController.dragTask(values).then((data) => console.log(data));
+      console.log("Elemento arrastrado:", draggedItemId);
+      console.log("Elemento de destino", targetDivId);
     }
-  ApiController.dragTask(values).then((data) => console.log(data));
-    console.log("Elemento arrastrado:", draggedItemId);
-    console.log('Elemento de destino',targetDivId)
   };
   return (
     <>
@@ -213,7 +220,7 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
                     <TaskSection item={item} />
                   </ContainerTask>
                   <ContainerAddTask
-                    id="crearTarea"
+                    className="crearTarea"
                     onClick={() => {
                       handleEnable("task");
                       setListSelected(item._id);

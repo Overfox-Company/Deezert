@@ -4,6 +4,7 @@ import SideMenuWorkspace from "./components/SideMenu";
 import CentralPanel from "./components/CentralPanel";
 import ApiController from "../../connection/ApiController";
 import { WorkspaceContext } from "../../context/WorkspaceContext";
+import { AppContext } from "../../context/AppContext";
 import { useRouter } from "next/router";
 import useSocket from "../../hooks/useWebSocket";
 const Workspace = () => {
@@ -45,6 +46,18 @@ const Workspace = () => {
     setSocketData: setLisprojects,
     server: "workspace",
   });
+  const { setLoader, loader } = useContext(AppContext);
+  useEffect(() => {
+    if (loader) {
+      const timeout = setTimeout(() => {
+        setLoader(false);
+      }, 10000);
+
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+  }, [loader]);
   return (
     <>
       <Grid container>

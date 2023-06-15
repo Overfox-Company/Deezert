@@ -15,8 +15,8 @@ import { WorkspaceContext } from "../../../../context/WorkspaceContext";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ApiController from "../../../../connection/ApiController";
 import { useRouter } from "next/router";
-import ClearIcon from "@mui/icons-material/Clear";
 import { AppContext } from "../../../../context/AppContext";
+import ClearIcon from "@mui/icons-material/Clear";
 import CheckIcon from "@mui/icons-material/Check";
 import { PRIMARY_COLOR } from "../../../../constants/Color";
 const WorkspaceName = styled.input({

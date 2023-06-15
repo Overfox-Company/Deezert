@@ -1,14 +1,21 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext,useState } from "react";
 import Popover from "@mui/material/Popover";
-import Typography from "@mui/material/Typography";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import EditIcon from "@mui/icons-material/Edit";
 import { Grid } from "@mui/material";
 import styled from "@emotion/styled";
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import { AppContext } from "../context/AppContext";
+import { useRouter } from "next/router";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import ApiController from "../connection/ApiController";
 const options = [
-  { icon: EditIcon, name: "Editar nombre",color:'white' },
-  { icon:DeleteOutlineOutlinedIcon, name: "Eliminar", color:'rgb(255,70,70)'},
+  { icon: EditIcon, name: "Editar nombre", color: "white", action: "editName" },
+  {
+    icon: DeleteOutlineOutlinedIcon,
+    name: "Eliminar",
+    color: "rgb(255,70,70)",
+    action: "delete",
+  },
 ];
 const Text = styled.p({
   fontSize: "1.8vh",
@@ -21,7 +28,7 @@ const Container = styled.div({
   alignItems: "center",
   justifyContent: "center",
   padding: "0.5vw 0.5vw",
-  flexDirection:'column'
+  flexDirection: "column",
 });
 const Button = styled.div({
   width: "100%",
@@ -34,9 +41,11 @@ const Button = styled.div({
     backgroundColor: "rgba(20,20,25,0.1)",
   },
 });
-const TaskOptions = () => {
-  const [anchorEl, setAnchorEl] = React.useState<boolean>(false);
-
+const TaskOptions = ({ task,setEdit }: {setEdit:any, task: any}) => {
+  const [anchorEl, setAnchorEl] = useState<boolean>(false);
+  const router = useRouter();
+  const { setLoader } = useContext(AppContext);
+  const { workspace } = router.query;
   const handleClick = () => {
     setAnchorEl(true);
   };
@@ -44,7 +53,30 @@ const TaskOptions = () => {
   const handleClose = () => {
     setAnchorEl(false);
   };
-
+  const handleAction = (event: string) => {
+    switch (event) {
+      case "delete":
+        return handleDelete();
+      case "editName":
+        return  handleEditName();
+      default:
+        return null;
+    }
+  };
+  const handleDelete = () => {
+    setLoader(true);
+    const values = {
+      workspaceID: workspace,
+      id: task._id,
+    };
+    ApiController.deleteTask(values).then((data) => {
+      console.log(data);
+      setLoader(false);
+    });
+  };
+  const handleEditName = () => {
+    setEdit(task)
+  }
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
   const Element = useRef(null);
@@ -68,13 +100,19 @@ const TaskOptions = () => {
         >
           <Container>
             {options.map((item, index) => (
-              <Button key={index}>
+              <Button key={index} onClick={() => handleAction(item.action)}>
                 <Grid container alignItems={"center"}>
                   <Grid item xs={2}>
-                    <item.icon style={{marginTop:'0.1vw', fontSize: "2.5vh", color:item.color}} />
+                    <item.icon
+                      style={{
+                        marginTop: "0.1vw",
+                        fontSize: "2.5vh",
+                        color: item.color,
+                      }}
+                    />
                   </Grid>
                   <Grid item xs={10}>
-                    <Text style={{color:item.color}}>{item.name}</Text>
+                    <Text style={{ color: item.color }}>{item.name}</Text>
                   </Grid>
                 </Grid>
               </Button>

@@ -11,7 +11,7 @@ const AvatarImg = styled.img({
 const Avatar = ({ url, name, style }: any) => {
   return (
     <>
-          <Tooltip title={name.length <= 10 ? name : name.slice(0, 10) + "..."}>
+      <Tooltip title={name.length <= 10 ? name : name.slice(0, 10) + "..."}>
         <AvatarImg src={url} style={style} />
       </Tooltip>
     </>

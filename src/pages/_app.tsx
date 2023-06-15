@@ -3,17 +3,19 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import AppRouter from "./App";
 import { Wrapper } from "../components/BasicComponents";
-import React from "react";
+import React,{useContext,useEffect} from "react";
 import styles from "../styles/Home.module.css";
 import ThemeContainer from "../components/theme/ThemeComponent";
 import ProtectedRoutes from "../routes/ProtectedRoutes";
 import Header from "../components/header/Header";
 import Loader from "../components/Loader";
+import { AppContext } from "../context/AppContext";
 import SnackbarCustom from "../components/Snackbar";
 const publicRoutes: string[] = ["index", "login", "invitation"];
 
 
 export default function App({ Component, pageProps }: AppProps) {
+
   return (
     <AppRouter>
       <ThemeContainer>

@@ -1,5 +1,5 @@
 import React from 'react';
-import Grid from '@mui/material/Grid/Grid';
+import {Grid}from '@mui/material';
 import styled from '@emotion/styled';
 const Text = styled.p({
   color: "rgb(170,170,170)",

@@ -60,6 +60,7 @@ export type ContextData = {
   setSnackbarOpen: React.Dispatch<React.SetStateAction<any>>;
   invitations: any[];
   setInvitations: React.Dispatch<React.SetStateAction<any>>;
+  ResetAppContext: any;
 };
 type Snackbar = {
   message: string;

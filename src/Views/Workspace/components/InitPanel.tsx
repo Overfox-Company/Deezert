@@ -28,8 +28,8 @@ const InitPanel = () => {
           <DropDownPanels />
         </Grid>
         <Grid item xs={5}>
-          {<MyCalendar />
-          }
+          <MyCalendar />
+          
         </Grid>
       </Grid>
     </Container>

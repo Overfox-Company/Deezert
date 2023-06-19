@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import styled from "@emotion/styled";
 import ApiController from "../../connection/ApiController";
@@ -6,6 +6,7 @@ import Staff from "./staff/Staff";
 import { Grid } from "@mui/material";
 import { Menu } from "../../components/SideMenu/Menu";
 import Proyects from "./proyects/Proyects";
+import { WorkspaceContext } from "../../context/WorkspaceContext";
 const Container = styled.div({
   minWidth: "100%",
   position: "relative",
@@ -15,8 +16,13 @@ const Container = styled.div({
   overflow: "hidden",
 });
 const DashBoard = () => {
-  const { user, setCompanys, panel } = React.useContext(AppContext);
+  const { user, setCompanys, panel,ResetAppContext } = useContext(AppContext);
+  const { RestWorkspaces } = useContext(WorkspaceContext)
+    useEffect(() => {
+    setCompanys([])
+  },[])
   useEffect(() => {
+    RestWorkspaces()
     ApiController.getCompanys({ id: localStorage.getItem("id") })
       .then((e) => {
         console.log(e);

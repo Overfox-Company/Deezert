@@ -44,9 +44,18 @@ const Card = styled.div({
     opacity: 0.8,
   },
 });
+const ContainertImage = styled.div({
+  display: 'flex',
+  justifyContent: 'center',
+  height: '20vh',
+   objectFit: "cover"
+})
 const ImageProyect = styled.img({
-  width: "100%",
+  width: "auto",
   height: "auto",
+  maxHeight: '20vh',
+  maxWidth: '36vh',
+   objectFit: "contain"
 });
 const Proyects = () => {
   const { user, selectedCompany } = React.useContext(AppContext);
@@ -100,7 +109,10 @@ const Proyects = () => {
                   >
                     <Grid container>
                       <Grid item xs={12}>
+                        <ContainertImage>
+
                         <ImageProyect src={item.coverImage} />
+                        </ContainertImage>
                       </Grid>
                       <Grid item xs={12}>
                         <P>{item.name}</P>

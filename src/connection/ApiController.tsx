@@ -55,6 +55,9 @@ const ApiController = {
   addFilesTask: (values: any) => api.post(Route + '/addFilesTask', values),
   deleteFilesTask: (values: any) => api.post(Route + '/deleteFilesTask', values),
   editTask: (values: any) => api.post(Route + '/editTask', values),
+  playTask: (values: any) => api.post(Route + '/playTask', values),
+  stopTask: (values: any) => api.post(Route + '/stopTask', values),
+
 };
 
 // Export the ApiController object as the default export

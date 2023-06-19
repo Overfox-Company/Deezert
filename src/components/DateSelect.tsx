@@ -54,7 +54,7 @@ const DateSelect = ({ value, onChange, handleSave }: TypeComponent) => {
   useEffect(() => {
     setFirst(false);
     if (!anchorEl && !first) {
-      //      handleSave()
+      handleSave();
     }
   }, [anchorEl]);
   return (
@@ -64,8 +64,14 @@ const DateSelect = ({ value, onChange, handleSave }: TypeComponent) => {
           {value && (
             <Grid item xs={12}>
               <ContainerDate onClick={() => handleClick()}>
-                <DateText>{dayjs(value).format("YYYY/MM/DD")}</DateText>
-                <DateIcon />
+                <Grid container justifyContent={'space-around'} alignItems={"center"}>
+                  <Grid item xs={10}>
+                    <DateText>{dayjs(value).format("YYYY/MM/DD")}</DateText>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <DateIcon />
+                  </Grid>
+                </Grid>
               </ContainerDate>
             </Grid>
           )}

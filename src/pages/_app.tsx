@@ -11,6 +11,7 @@ import Header from "../components/header/Header";
 import Loader from "../components/Loader";
 import { AppContext } from "../context/AppContext";
 import SnackbarCustom from "../components/Snackbar";
+import Banner from "../components/Contributions/Banner";
 const publicRoutes: string[] = ["index", "login", "invitation"];
 
 
@@ -33,6 +34,7 @@ export default function App({ Component, pageProps }: AppProps) {
             </ProtectedRoutes>
           )}
         </Wrapper>
+        <Banner/>
       </ThemeContainer>
     </AppRouter>
   );

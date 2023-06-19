@@ -407,9 +407,9 @@ console.log(selectedDate)
                           })
                         : null}
                     </Grid>
-                    {!files ? (
+                    {files &&files.length <1 && (
                       <p id="text">Arrastra los archivos para añadirlos</p>
-                    ) : null}
+                    )}
                   </DropZone>
                 </Grid>
               </Grid>

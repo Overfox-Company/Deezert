@@ -95,7 +95,7 @@ const DropDown = () => {
                         backgroundColor: "rgba(10,0,20,0.2)",
                       }}
                     >
-                      {index === 0 ? <ProyecSpaces /> : <P>xd</P>}
+                      {index === 0 ? <ProyecSpaces /> : <P>Proximamente</P>}
                     </div>
                   </AccordionDetails>
                 </Accordion>

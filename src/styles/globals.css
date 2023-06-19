@@ -235,15 +235,7 @@ a {
 
 }
 
-.react-calendar__tile {
 
-  max-width: 100%;
-  padding: 10px;
-  background: none;
-    font-family: Comfortaa, cursive;
-  text-align: center;
-  line-height: 16px;
-}
 
 .react-calendar__tile:disabled {
   background-color: #f0f0f0;
@@ -283,7 +275,7 @@ a {
 
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-  background: #1087ff;
+  background: #49a8c5;
 }
 
 .react-calendar--selectRange .react-calendar__tile--hover {
@@ -295,11 +287,22 @@ a {
 }
 .dot{
   position: absolute;
-  top: 0;
-  right: 0;
-  background-color: #10ff60;
+  top: 0.2vh;
+  right: 1vh;
+  background-color: #13d654;
   height: 15px;
   width: 15px;
   border-radius: 20px;
   font-size: 10px;
+
+}
+.react-calendar__tile {
+  color: rgb(255, 255, 255);
+
+  padding: 10px 0;
+  background: none;
+  font-family: Comfortaa, cursive;
+  text-align: center;
+  line-height: 16px;
+  font-size: 1.8vh;
 }

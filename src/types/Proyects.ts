@@ -23,6 +23,7 @@ export type WorksPaceType = {
   setTaskList: React.Dispatch<React.SetStateAction<any>>;
   selectedTask: any;
   setSelectedTask: React.Dispatch<React.SetStateAction<any>>;
+  RestWorkspaces: any;
 };
 export type TaskType = {
   _id: string;

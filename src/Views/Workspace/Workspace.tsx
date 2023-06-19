@@ -11,6 +11,9 @@ const Workspace = () => {
   const [panel, setPanel] = useState(0);
   const { setWorkspaces, setListWorkspace, setLisprojects } =
     useContext(WorkspaceContext);
+    const { lisprojects, workspaceActive, workspaces, setTaskList,setSelectedTask } =
+    useContext(WorkspaceContext);
+  const { setLoader,loader, user, setStaff, selectedCompany } = useContext(AppContext);
   const router = useRouter();
   const { workspace: id } = router.query;
   useEffect(() => {
@@ -46,18 +49,7 @@ const Workspace = () => {
     setSocketData: setLisprojects,
     server: "workspace",
   });
-  const { setLoader, loader } = useContext(AppContext);
-  useEffect(() => {
-    if (loader) {
-      const timeout = setTimeout(() => {
-        setLoader(false);
-      }, 10000);
-
-      return () => {
-        clearTimeout(timeout);
-      };
-    }
-  }, [loader]);
+ 
   return (
     <>
       <Grid container>

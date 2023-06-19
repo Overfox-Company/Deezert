@@ -71,7 +71,6 @@ const ContainerTask = styled.div({
 });
 const ContainerAddTask = styled.div({
   marginTop: "2vw",
-
   display: "flex",
   alignItems: "center",
   height: "7.5vh",

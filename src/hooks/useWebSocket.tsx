@@ -13,7 +13,7 @@ const useSocket = ({ channel, setSocketData, server }: SocketHookProps) => {
 
   useEffect(() => {
     // Crea la conexión de socket.io-client
-    const socket = io(prod);
+    const socket = io(dev);
     socketRef.current = socket;
 
     // Maneja los eventos de conexión y mensajes

@@ -477,18 +477,48 @@ export const DeleteFilesTaskController: ServerType = async (req, res) => {
     res.status(404).send("token no valido");
   }
 };
-export const editTask: ServerType = async (req, res) => {
-    try {
-      if (!req.headers.authorization) {
-        res.status(404).send("token no valido");
-        throw new Error("Invalid Token");
-      }
-      const body = req.body;
-      axios
-        .post(DeezerWorkspaces + "/editTask", body)
-        .then((e) => res.status(200).json(e.data));
-    } catch (error) {
-      console.log(error);
+export const EditTaskController: ServerType = async (req, res) => {
+  try {
+    if (!req.headers.authorization) {
       res.status(404).send("token no valido");
+      throw new Error("Invalid Token");
     }
-}
+    const body = req.body;
+    axios
+      .post(DeezerWorkspaces + "/editTask", body)
+      .then((e) => res.status(200).json(e.data));
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("token no valido");
+  }
+};
+export const PlayTaskController: ServerType = async (req, res) => {
+  try {
+    if (!req.headers.authorization) {
+      res.status(404).send("token no valido");
+      throw new Error("Invalid Token");
+    }
+    const body = req.body;
+    axios
+      .post(DeezerWorkspaces + "/playTask", body)
+      .then((e) => res.status(200).json(e.data));
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("token no valido");
+  }
+};
+export const StopTaskController: ServerType = async (req, res) => {
+  try {
+    if (!req.headers.authorization) {
+      res.status(404).send("token no valido");
+      throw new Error("Invalid Token");
+    }
+    const body = req.body;
+    axios
+      .post(DeezerWorkspaces + "/stopTask", body)
+      .then((e) => res.status(200).json(e.data));
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("token no valido");
+  }
+};

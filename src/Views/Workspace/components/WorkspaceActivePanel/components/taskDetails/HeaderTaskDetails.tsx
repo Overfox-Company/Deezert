@@ -1,29 +1,20 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { Grid } from "@mui/material";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
 import styled from "@emotion/styled";
-import { readFileAsBase64 } from "../../../../../../hooks/useFileToB64";
 import { WorkspaceContext } from "../../../../../../context/WorkspaceContext";
 import ApiController from "../../../../../../connection/ApiController";
 import { AppContext } from "../../../../../../context/AppContext";
 import { useRouter } from "next/router";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import PlayCircleIcon from "@mui/icons-material/PlayCircle";
-import InsertInvitationIcon from "@mui/icons-material/InsertInvitation";
 import UsersDialog from "../../../../../../components/UsersDialog";
 import type { userType } from "../../../../../../types/global";
 import Avatar from "../../../../../../components/Avatar";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Popover from "@mui/material/Popover";
 import useSocket from "../../../../../../hooks/useWebSocket";
-import { TaskType } from "../../../../../../types/Proyects";
 import DateSelect from "../../../../../../components/DateSelect";
-import dayjs from "dayjs";
 import moment from "moment";
-import StopCircleIcon from "@mui/icons-material/StopCircle";
 import { PRIMARY_COLOR } from "../../../../../../constants/Color";
+import TimeWorked from "../../../../../../components/TimeWorked";
 type ComponentType = {
   selectedDate: any;
   setSelectedDate: any;
@@ -64,12 +55,7 @@ const ContainerUsersSelected = styled.div({
   display: "flex",
   alignItems: "center",
 });
-const PlayIcon = styled(PlayCircleIcon)({
-  color: PRIMARY_COLOR,
-});
-const StopIcon = styled(StopCircleIcon)({
-  color: "rgb(255,80,80)",
-});
+
 const TaskList = styled.div({
   width: "90%",
   fontFamily: "comfortaa",
@@ -252,11 +238,7 @@ const HeaderTaskDetails = ({
                 </FlexContainer>
               </Grid>
               <Grid item xs={2}>
-                <FlexContainer>
-                  <Divider />
-                  <PlayIcon />
-                  <StopIcon />
-                </FlexContainer>
+                <TimeWorked/>
               </Grid>
               <Grid item xs={2}>
                 <FlexContainer>

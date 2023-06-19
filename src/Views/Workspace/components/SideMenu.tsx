@@ -8,7 +8,10 @@ import { useRouter } from "next/router";
 import { Grid } from "@mui/material";
 import { CONTAINER_DARK } from "../../../constants/Color";
 import { WorkspaceContext } from "../../../context/WorkspaceContext";
-const ListMenu = ["Inicio", "Actividad", "Resumen", "Configuracion"];
+import { AppContext } from "../../../context/AppContext";
+const ListMenuAmin = ["Inicio", "Actividad", "Resumen", "Configuracion"];
+const ListMenuUser = ["Inicio", "Resumen"];
+
 const Container = styled.div({
   width: "100%",
   display: "flex",
@@ -25,13 +28,13 @@ const ContainerBackButton = styled.div({
   alignItems: "center",
   justifyContent: "center",
   flexDirection: "row",
-  bottom: "0vw",
+  bottom: "0vh",
   left: "0vw",
   right: 0,
   height: "8vh",
   opacity: 1,
   cursor: "pointer",
-  marginBottom:'1vw',
+  marginBottom: "1vw",
   trnsition: "all 02s ease",
   "&:hover": {
     opacity: 0.8,
@@ -56,16 +59,22 @@ const SideMenuWorkspace = ({ panel, setPanel }: Props) => {
     setPanel(index);
     setWorkspaceActive([]);
   };
+
   const handleClickRedirect = () => {
     router.push("/dashBoard");
   };
-  const { workspaces, workspaceActive,setWorkspaceActive } = useContext(WorkspaceContext);
+
+  const { workspaces, workspaceActive, setWorkspaceActive } =
+    useContext(WorkspaceContext);
+  const { user } = useContext(AppContext);
+  const ListMenu =
+    user._id === workspaces.idOwner ? ListMenuAmin : ListMenuUser;
   return (
     <Container>
       <Grid
         container
         alignItems={"center"}
-        style={{ backgroundColor: "rgba(10,15,24,0.1)", padding: "0.5vw"}}
+        style={{ backgroundColor: "rgba(10,15,24,0.1)", padding: "0.5vw" }}
       >
         <Grid item xs={4}>
           <LogoCompanyOwner src={workspaces.avatar} />
@@ -74,6 +83,7 @@ const SideMenuWorkspace = ({ panel, setPanel }: Props) => {
           <NameCompanyOwner>{workspaces.name}</NameCompanyOwner>
         </Grid>
       </Grid>
+      <div style={{height:'84vh',overflow:'auto'}}>
       <List>
         {ListMenu.map((text, index) => (
           <ListItem key={text} disablePadding>
@@ -89,18 +99,21 @@ const SideMenuWorkspace = ({ panel, setPanel }: Props) => {
                     solid 2px rgba(0,0,0,0)`,
               }}
             >
-              <ListItemText style={{fontFamily:'roboto'}} primary={text} />
+              <ListItemText style={{ fontFamily: "roboto" }} primary={text} />
             </ListItemButton>
           </ListItem>
         ))}
       </List>
-      <div style={{ marginBottom: "10vh" }}>
+      <div style={{ marginBottom: "0vh" }}>
         <DropDown />
       </div>
       <ContainerBackButton onClick={() => handleClickRedirect()}>
         <ArrowBackIcon style={{ fontSize: "1vw", marginRight: "1vw" }} />
         <p style={{ fontSize: "1vw" }}>Regresar al inicio</p>
       </ContainerBackButton>
+      </div>
+
+
     </Container>
   );
 };

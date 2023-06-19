@@ -52,7 +52,8 @@ export const AppContext = createContext<ContextData>({
   isSnackbarOpen:SnackbarInitial,
   setSnackbarOpen: () => { },
   invitations:[],
-  setInvitations:()=>{}
+  setInvitations: () => { },
+  ResetAppContext:()=>{}
     
 });
 
@@ -74,7 +75,10 @@ export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
     const login = () => {
         setIsAuthenticated(true);
     };
-
+  const ResetAppContext = () => {
+    setCompanys([])
+    setSelectedCompany({})
+}
     const logout = () => {
         setIsAuthenticated(false);
     };
@@ -105,6 +109,7 @@ export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
           logout,
           loader,
           setLoader,
+          ResetAppContext
         }}
       >
         {children}

@@ -15,6 +15,7 @@ type TypeComponent = {
   value: any;
   onChange: any;
   handleSave?: any;
+  addTask?: boolean;
 };
 const DateText = styled.p({
   fontSize: "0.9vw",
@@ -37,7 +38,7 @@ const ContainerDate = styled.div({
   justifyContent: "flex-end",
   cursor: "pointer",
 });
-const DateSelect = ({ value, onChange, handleSave }: TypeComponent) => {
+const DateSelect = ({ value, onChange, handleSave ,addTask}: TypeComponent) => {
   const [anchorEl, setAnchorEl] = useState<boolean>(false);
   const { selectedTask } = useContext(WorkspaceContext);
   const handleClose = () => {
@@ -53,7 +54,7 @@ const DateSelect = ({ value, onChange, handleSave }: TypeComponent) => {
   const [first, setFirst] = useState(true);
   useEffect(() => {
     setFirst(false);
-    if (!anchorEl && !first) {
+    if (!anchorEl && !first&&!addTask) {
       handleSave();
     }
   }, [anchorEl]);

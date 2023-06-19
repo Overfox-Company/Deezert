@@ -211,6 +211,7 @@ const AddTask = ({ handleClose, open, idList }: TypeAddBoard) => {
                   </Grid>
                   <Grid item xs={5}>
                     <DateSelect
+                      addTask
                       value={selectedDate}
                       onChange={(event: any) => {
                         handleDateChange(event);

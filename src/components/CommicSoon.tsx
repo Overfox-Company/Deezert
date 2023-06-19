@@ -7,6 +7,7 @@ const Text = styled.p({
     fontSize: "2vh",
   textAlign:'center',
 });
+
 const CommicSoon = () => {
     return (
         <>

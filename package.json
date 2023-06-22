@@ -43,6 +43,7 @@
     "google-auth-library": "^8.7.0",
     "material-ui-popup-state": "^5.0.9",
     "moment": "^2.29.4",
+    "moment-timezone": "^0.5.43",
     "next": "13.1.1",
     "react": "18.2.0",
     "react-calendar": "^4.2.1",

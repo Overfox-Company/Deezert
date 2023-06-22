@@ -143,7 +143,7 @@ const Staff = () => {
               }}
             </Formik>
           </Grid>
-          {invitations.length > 0 && (
+          {invitations ?(
             <>
               <Grid item xs={12}>
                 <Grid container justifyContent={"space-around"}>
@@ -195,8 +195,8 @@ const Staff = () => {
                 );
               })}
             </>
-          )}
-          {staff.length > 0 && (
+          ):null}
+          {staff? (
             <>
               <Grid item xs={12}>
                 <Grid container justifyContent={"space-around"}>
@@ -247,15 +247,15 @@ const Staff = () => {
                 </Grid>
               </Grid>
             </>
-          )}
+          ):null}
 
-          {staff.length < 1 && (
+          {!staff? (
             <Grid item xs={12}>
               <P style={{ fontSize: 10, opacity: 0.9 }}>
                 Aun no has agrado a nadie{" "}
               </P>
             </Grid>
-          )}
+          ):null}
         </Grid>
       </Container>
     </>

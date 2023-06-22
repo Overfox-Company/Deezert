@@ -7,10 +7,10 @@ import { PRIMARY_COLOR } from "../constants/Color";
 import { WorkspaceContext } from "../context/WorkspaceContext";
 import { useContext } from "react";
 import moment from "moment";
+import { MomentTimezone } from "moment-timezone";
 import { useRouter } from "next/router";
 import { AppContext } from "../context/AppContext";
 import ApiController from "../connection/ApiController";
-
 const FlexContainer = styled.div({
   display: "flex",
   alignItems: "center",
@@ -42,26 +42,28 @@ const Time = styled.p({
   letterSpacing: "0.1vh",
 });
 const TimeWorked = () => {
-    const { selectedTask } = useContext(WorkspaceContext);
-    const { user } = useContext(AppContext);
-    
-    const router = useRouter()
-    const { workspace } = router.query;
+  const { selectedTask } = useContext(WorkspaceContext);
+  const { user } = useContext(AppContext);
+
+  const router = useRouter();
+  const { workspace } = router.query;
   const handlePlay = () => {
-    const values={
-        workspaceID:workspace,
-        user:user._id,
-        id:selectedTask._id
-    }
-    ApiController.playTask(values).then((data)=>console.log(data))
+    const values = {
+      workspaceID: workspace,
+      user: user._id,
+      id: selectedTask._id,
+
+    };
+    ApiController.playTask(values).then((data) => console.log(data));
   };
   const handleStop = () => {
-    const values={
-        workspaceID:workspace,
-        user:user._id,
-        id:selectedTask._id
-    }
-     ApiController.stopTask(values).then((data)=>console.log(data))
+    const values = {
+      workspaceID: workspace,
+      user: user._id,
+      id: selectedTask._id,
+      
+    };
+    ApiController.stopTask(values).then((data) => console.log(data));
   };
   const [currentTime, setCurrentTime] = useState(moment());
 
@@ -74,17 +76,30 @@ const TimeWorked = () => {
       clearInterval(interval);
     };
   }, []);
+  const fecha = moment.utc(selectedTask.lastWork);
+  const zonaHorariaUsuario = moment().format('Z');
+const converted = fecha.utcOffset(zonaHorariaUsuario);
   const timeElapsed = moment
-    .utc(moment().diff(selectedTask.lastWork))
+    .utc(moment().diff(converted))
     .format("HH:mm:ss");
+    console.log(zonaHorariaUsuario)
   const totalTime = selectedTask.timeWorked;
+
+
+
+
+
   return (
     <>
       <FlexContainer>
         <Divider />
         <Grid container alignItems={"center"}>
           <Grid item xs={4}>
-            {!selectedTask.isWorking ? <PlayIcon onClick={()=>handlePlay()} /> : <StopIcon onClick={()=>handleStop()} />}
+            {!selectedTask.isWorking ? (
+              <PlayIcon onClick={() => handlePlay()} />
+            ) : (
+              <StopIcon onClick={() => handleStop()} />
+            )}
           </Grid>
           <Grid item xs={8}>
             <Time>

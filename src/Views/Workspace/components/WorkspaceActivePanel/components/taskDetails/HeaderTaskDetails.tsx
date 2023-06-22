@@ -145,9 +145,9 @@ const HeaderTaskDetails = ({
     const selectedList = lisprojects.find(
       (list: any) => list._id === selectedTask.list
     );
-    const users = staff.filter((user) =>
+    const users =staff? staff.filter((user) =>
       selectedTask.assigned.includes(user._id)
-    );
+    ):[];
     setSelectedUser(users);
     if (selectedList) {
       setListSelected(selectedList);

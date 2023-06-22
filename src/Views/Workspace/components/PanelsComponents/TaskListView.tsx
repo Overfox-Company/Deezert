@@ -79,12 +79,12 @@ const TaskListView = ({ data }: any) => {
            
         <Grid item xs={2}>
           {assigned.length > 0 &&assigned.map((idUser: string, indexa: number) => {
-            const url = staff.filter((itemFilter) =>
+            const url =staff? staff.filter((itemFilter) =>
               itemFilter._id.includes(idUser)
-            );
+            ):[];
 
             return indexa < 2 ? (
-              <Avatar url={url[0].avatar} name={url[0].name} key={indexa} />
+             url[0] ? <Avatar url={url[0].avatar} name={url[0].name} key={indexa} />:null
             ) : null;
           })}
         </Grid>

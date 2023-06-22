@@ -80,7 +80,7 @@ const UsersDialog = ({
           </Grid>
           <Grid item xs={10}>
             <ListUsers>
-              {staff
+              {staff ?staff
                 .filter((item) =>
                   item.name.toLowerCase().includes(searchUser.toLowerCase())
                 )
@@ -119,7 +119,7 @@ const UsersDialog = ({
                       </Grid>
                     </Grid>
                   </ContainerUser>
-                ))}
+                )):null}
             </ListUsers>
           </Grid>
         </Grid>

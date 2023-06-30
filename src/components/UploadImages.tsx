@@ -72,12 +72,12 @@ const UploadImages = ({
   return (
     <Grid container justifyContent={"center"}>
       <Grid item xs={12}>
-        <Label>{label}</Label>
+        <Label>{label}(max 500kb)</Label>
       </Grid>
       <Grid item xs={12}>
         <ImageUploading
           multiple
-          maxFileSize={10000000} // 5MB
+          maxFileSize={500000} // 5MB
           value={images}
           onChange={onChange}
           maxNumber={maxNumber}

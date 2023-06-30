@@ -1,6 +1,7 @@
 import axios from "axios";
 import {type userType } from "../types/global";
 import { AddProject } from "../api/controllers";
+
 // Define the base URL for the API
 const Domain = process.env.NEXT_PUBLIC_PRODUCTION == 'true'?"https://deezert.vercel.app/":"http://localhost:3000/";
 
@@ -8,6 +9,7 @@ const Domain = process.env.NEXT_PUBLIC_PRODUCTION == 'true'?"https://deezert.ver
 const Route = `${Domain}api`;
 const api = axios.create({
   baseURL: Route,
+
 });
 const getToken = () => {
   const token = localStorage.getItem("token");
@@ -19,10 +21,24 @@ api.interceptors.request.use(async (config: any) => {
   config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
-// interceptor de respuesta
 api.interceptors.response.use(
   (response) => {
     return response;
+  },
+  (error) => {
+    if (error.response && error.response.data) {
+      const { status, data } = error.response;
+      // Manejar el error de acuerdo a la respuesta
+
+      // Verificar el tamaño de la respuesta
+      const contentLength = error.response.headers['content-length'];
+      const maxSize = 1000000; // Establece el límite en bytes (1MB en este ejemplo)
+      if (contentLength && parseInt(contentLength) > maxSize) {
+        // La respuesta excede el límite de tamaño permitido, manejarlo adecuadamente
+      }
+    }
+
+    return Promise.reject(error);
   }
 );
 // Create an object to hold API methods

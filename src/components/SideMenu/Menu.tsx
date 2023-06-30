@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   ListItem,
@@ -87,6 +87,7 @@ export const MenuMobile = ({ close }: any) => {
 export const Menu = () => {
   const { darkMode, user, panel, setPanel, selectedCompany } =
     React.useContext(AppContext);
+
   const handleClick = (index: number) => {
     setPanel(index);
   };

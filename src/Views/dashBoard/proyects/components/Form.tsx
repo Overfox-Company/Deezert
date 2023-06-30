@@ -49,6 +49,9 @@ const FormProyects = ({ closeForm }: any) => {
             closeForm();
             setUpdate(true);
             setLoader(false);
+          }).catch(e => {
+            console.log('se trono aca krnal')
+console.log(e)
           });
         }}
       >

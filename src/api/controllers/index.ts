@@ -149,6 +149,7 @@ export const AddWorkspaceController: ServerType = async (req, res) => {
       res.status(404).send("token no valido");
       throw new Error("Invalid Token");
     }
+    console.log("xdxd");
     const data = req.body;
     axios
       .post(DeezerWorkspaces + "/createWorkspace", data)

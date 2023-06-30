@@ -1,9 +1,10 @@
-import React from "react";
+import React,{useState} from "react";
 import { AppContext } from "../../context/AppContext";
 import styled from "@emotion/styled";
 import AddIcon from "@mui/icons-material/Add";
 import { PRIMARY_COLOR } from "../../constants/Color";
 import { Button } from "@mui/material";
+import AddCompany from "./AddCompany";
 const Avatar = styled.img({
   width: "100%",
 });
@@ -31,6 +32,7 @@ const ContainerIcon = styled.div({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  cursor:'pointer'
 });
 const Container = styled.div({
   maxWidth: "100%",
@@ -57,6 +59,7 @@ const ContainerV = styled.div({
 const Companys = ({ v = "H" }: any) => {
   const { companys, setSelectedCompany, selectedCompany } =
     React.useContext(AppContext);
+    const [open,setOpen]=useState(false)
   const handleClick = (data: any) => {
     setSelectedCompany(data);
    // console.log(selectedCompany)
@@ -68,6 +71,7 @@ const Companys = ({ v = "H" }: any) => {
   }, [companys]);
   return (
     <>
+      <AddCompany open={open} setOpen={setOpen} />
       {v === "H" ? (
         <Container>
           {companys.length > 0 &&
@@ -86,7 +90,7 @@ const Companys = ({ v = "H" }: any) => {
                 </ContainerAvatar>
               );
             })}
-          <ContainerIcon>
+          <ContainerIcon onClick={()=>setOpen(true)}>
             <AddIcon style={{ fontSize: 30 }} />
           </ContainerIcon>
         </Container>
@@ -111,7 +115,7 @@ const Companys = ({ v = "H" }: any) => {
                 </>
               );
             })}
-          <ContainerIcon>
+          <ContainerIcon onClick={()=>setOpen(true)}>
             <AddIcon style={{ fontSize: 30 }} />
           </ContainerIcon>
           <br />

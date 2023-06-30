@@ -53,7 +53,7 @@ const Banner = () => {
             </Grid>
             <Grid item xs={8}>
               <Text>
-                Si te gusta y proyecto y quieres apoyarlo puede hacerlo aqui
+                Si te gusta el proyecto y quieres apoyarlo puede hacerlo aqui
               </Text>
             </Grid>
           </Grid>

@@ -11,27 +11,27 @@ const ProtectedRoutes: React.FC<Props> = ({ children }) => {
   const { isAuthenticated } = useContext(AppContext);
   const router = useRouter();
   const isInvitationRoute = router.asPath.includes("/invitation/");
-  const { logout, login, setUser,user } = useContext(AppContext);
+  const { logout, login, setUser, user } = useContext(AppContext);
 
- useEffect(() => {
+  useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      ConnectServer(logout, login, setUser,user);
-    }else {
-       if (!isAuthenticated && !isInvitationRoute) { // solo redirigir si no es la ruta de invitation
-      router.push("/");
-    }
+      ConnectServer(logout, login, setUser, user);
+    } else {
+      if (!isAuthenticated && !isInvitationRoute) { // solo redirigir si no es la ruta de invitation
+        router.push("/");
       }
+    }
     const intervalId = setInterval(() => {
       if (token) {
-        ConnectServer(logout, login, setUser,user);
+        ConnectServer(logout, login, setUser, user);
         console.log("verificando token");
       } else {
         if (!isAuthenticated && !isInvitationRoute) {
           router.push("/");
         }
       }
-    }, 60000); // Este setInterval se ejecutará cada 5 segundos
+    }, 50000); // Este setInterval se ejecutará cada 5 segundos
     return () => clearInterval(intervalId);
   }, [isAuthenticated]);
   return <>{children}</>;

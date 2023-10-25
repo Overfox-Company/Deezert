@@ -43,28 +43,33 @@ const AddBoard = ({ handleClose, open }: TypeAddBoard) => {
   const [color, setColor] = React.useState("#aabbcc");
   const [nameList, setNameList] = React.useState("");
   const { workspaceActive } = useContext(WorkspaceContext);
-  const { setLoader } = useContext(AppContext);
+  const { setLoader, setSnackbarOpen } = useContext(AppContext);
   const router = useRouter();
   const { workspace } = router.query;
   const handleChange = (event: any) => {
     setNameList(event.target.value);
   };
   const handleSave = () => {
-    setLoader(true);
-    const values = {
-      workspaceId: workspace,
-      projectId: workspaceActive._id,
-      name: nameList,
-      color: color,
-    };
-    ApiController.addListProject(values)
-      .then((data) => {
-        console.log(data);
-      })
-      .finally(() => {
-        setLoader(false);
-        handleClose();
-      });
+    if (!nameList) {
+      setSnackbarOpen({ message: 'Debes ingresar un nombre', type: 'error' })
+    } else {
+      setLoader(true);
+      const values = {
+        workspaceId: workspace,
+        projectId: workspaceActive._id,
+        name: nameList,
+        color: color,
+      };
+      ApiController.addListProject(values)
+        .then((data) => {
+          console.log(data);
+        })
+        .finally(() => {
+          setLoader(false);
+          handleClose();
+        });
+    }
+
   };
   return (
     <>

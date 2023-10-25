@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import styled from '@emotion/styled';
 import { P } from './BasicComponents';
 import { AppContext } from '../context/AppContext';
+import { MicroServiceContext } from '../context/Microservices';
 const Container = styled.div
-    `
+  `
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -17,19 +18,28 @@ const Container = styled.div
     right: 0;
     background-color: rgba(0, 0, 0, 0.9);
   `
-const Loader:any = () => {
-    const { loader } = React.useContext(AppContext);
-    return (
-        <>
-       
-     {loader && <Container >
-      
-                  <CircularProgress/>  
-           <br/>
-                           <P>Cargando...</P> 
-        
-            </Container >}
-             </>
+const Loader: any = () => {
+  const { loader, setLoader } = useContext(AppContext);
+  const { microServices } = useContext(MicroServiceContext)
+  useEffect(() => {
+
+    if (!microServices) {
+      setLoader(true)
+    } else {
+      setLoader(false)
+    }
+  }, [microServices])
+  return (
+    <>
+
+      {loader && <Container >
+
+        <CircularProgress />
+        <br />
+        <P>Cargando...</P>
+
+      </Container >}
+    </>
   );
 };
 

@@ -61,6 +61,8 @@ export type ContextData = {
   invitations: any[];
   setInvitations: React.Dispatch<React.SetStateAction<any>>;
   ResetAppContext: any;
+  googleLoaded: boolean;
+  setGoogleLoader:React.Dispatch<React.SetStateAction<boolean>>;
 };
 type Snackbar = {
   message: string;

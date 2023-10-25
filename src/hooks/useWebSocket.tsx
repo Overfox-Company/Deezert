@@ -7,13 +7,13 @@ type SocketHookProps = {
   server: string;
 };
 const prod = 'https://deezertworkspace.onrender.com';
-const dev = 'http://localhost:9000'
+const dev = 'http://localhost:10000'
 const useSocket = ({ channel, setSocketData, server }: SocketHookProps) => {
   const socketRef = useRef<Socket | null>(null);
 
   useEffect(() => {
     // Crea la conexión de socket.io-client
-    const socket = io(prod);
+    const socket = io(dev);
     socketRef.current = socket;
 
     // Maneja los eventos de conexión y mensajes

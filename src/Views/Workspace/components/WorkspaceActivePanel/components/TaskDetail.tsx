@@ -156,7 +156,7 @@ const TaskDetail = ({ handleClose, open }: TypeAddBoard) => {
   const [editTitle, setEditTitle] = useState(selectedTask.title);
   const [editT, setEditT] = useState(false);
   const [editD, setEditD] = useState(false);
-  const [selectedUser,setSelectedUser] = useState<any>([]);
+  const [selectedUser, setSelectedUser] = useState<any>([]);
   const handleChangeDescription = (text: string) => {
     setEditDescription(text);
   };
@@ -165,14 +165,14 @@ const TaskDetail = ({ handleClose, open }: TypeAddBoard) => {
   };
 
   const handleSave = async () => {
-console.log(selectedDate)
+    console.log(selectedDate)
     const values = {
-      id:selectedTask._id,
-      name: editTitle ||selectedTask._title,
+      id: selectedTask._id,
+      name: editTitle || selectedTask._title,
       description: editDescription,
       dateEnd: selectedDate,
       workspaceID: workspace,
-      assigned:selectedUser
+      assigned: selectedUser
     };
 
     setLoader(true);
@@ -278,9 +278,9 @@ console.log(selectedDate)
                     <Grid item xs={12}>
                       <Label>Nombre de la tarea</Label>
                       <Grid container alignItems={"center"}>
-                        <Grid item xs={11}  onDoubleClick={()=>setEditT(true)}>
+                        <Grid item xs={11} onDoubleClick={() => setEditT(true)}>
                           <Input
-                           
+
                             placeholder="Nombre de la tarea"
                             value={editTitle}
                             disabled={!editT}
@@ -307,7 +307,7 @@ console.log(selectedDate)
                               </Grid>
                               <Grid item xs={6}>
                                 <CheckCircleIcon
-                                  onClick={()=>handleSave()}
+                                  onClick={() => handleSave()}
                                   style={{ fontSize: "3vh", cursor: "pointer" }}
                                   color={"primary"}
                                 />
@@ -320,7 +320,7 @@ console.log(selectedDate)
                     <Grid item xs={12}>
                       <Label>Descripcion de la tarea</Label>
                       <Grid container alignItems={"flex-start"}>
-                        <Grid item xs={11} onDoubleClick={()=>setEditD(true)}>
+                        <Grid item xs={11} onDoubleClick={() => setEditD(true)}>
                           <Textarea
                             rows={5}
                             disabled={!editD}
@@ -351,7 +351,7 @@ console.log(selectedDate)
                               </Grid>
                               <Grid item xs={6}>
                                 <CheckCircleIcon
-                                  onClick={()=>handleSave()}
+                                  onClick={() => handleSave()}
                                   style={{ fontSize: "3vh", cursor: "pointer" }}
                                   color={"primary"}
                                 />
@@ -373,41 +373,41 @@ console.log(selectedDate)
                     <Grid container columnSpacing={7} rowSpacing={4}>
                       {files
                         ? files.map((i: any, index: number) => {
-                            return (
-                              <Grid item xs={6} key={index}>
-                                <ItemDropZone>
-                                  <IconType file={i} />
-                                  <NameItem>
-                                    <Grid container>
-                                      <Grid item xs={9}>
-                                        {i.name.length > 10
-                                          ? i.name.slice(0, 10) + "..."
-                                          : i.name}
-                                      </Grid>
-                                      <Grid item xs={3}>
-                                        <div
-                                          style={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                          }}
-                                        >
-                                          <DeleteIcon
-                                            onClick={() => deleteFiles(i)}
-                                          />
-                                          <DownLoadIcon
-                                            onClick={() => downloadFile(i)}
-                                          />
-                                        </div>
-                                      </Grid>
+                          return (
+                            <Grid item xs={6} key={index}>
+                              <ItemDropZone>
+                                <IconType file={i} />
+                                <NameItem>
+                                  <Grid container>
+                                    <Grid item xs={9}>
+                                      {i.name.length > 10
+                                        ? i.name.slice(0, 10) + "..."
+                                        : i.name}
                                     </Grid>
-                                  </NameItem>
-                                </ItemDropZone>
-                              </Grid>
-                            );
-                          })
+                                    <Grid item xs={3}>
+                                      <div
+                                        style={{
+                                          display: "flex",
+                                          alignItems: "center",
+                                        }}
+                                      >
+                                        <DeleteIcon
+                                          onClick={() => deleteFiles(i)}
+                                        />
+                                        <DownLoadIcon
+                                          onClick={() => downloadFile(i)}
+                                        />
+                                      </div>
+                                    </Grid>
+                                  </Grid>
+                                </NameItem>
+                              </ItemDropZone>
+                            </Grid>
+                          );
+                        })
                         : null}
                     </Grid>
-                    {files &&files.length <1 && (
+                    {files && files.length < 1 && (
                       <p id="text">Arrastra los archivos para añadirlos</p>
                     )}
                   </DropZone>

@@ -16,7 +16,7 @@ const CentralPanel = ({ panel }: Prop) => {
       <NavBarWorkspaceActive />
       {workspaceActive.length < 1 ? (
         <>
-          {panel === 0 ? <InitPanel />:<CommicSoon/>}
+          {panel === 0 ? <InitPanel /> : <CommicSoon />}
           {//panel === 1 && <ActivityPanel />
           }
         </>

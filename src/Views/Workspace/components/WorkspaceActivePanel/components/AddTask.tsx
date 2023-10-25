@@ -126,10 +126,9 @@ const NameItem = styled.p({
 const AddTask = ({ handleClose, open, idList }: TypeAddBoard) => {
   const [selectedUser, setSelectedUser] = useState([]);
   const [nameTask, setNameTask] = useState("");
-  const { setLoader, user } = useContext(AppContext);
+  const { setLoader, user, setSnackbarOpen } = useContext(AppContext);
   const [openUserDialog, setOpenUserDialog] = useState(false);
   const [description, setDescription] = useState("");
-  const [files, setFiles] = useState<any>([]);
   const router = useRouter();
   const { workspace } = router.query;
   const [selectedDate, setSelectedDate] = useState(null);
@@ -145,41 +144,39 @@ const AddTask = ({ handleClose, open, idList }: TypeAddBoard) => {
     setDescription(event.target.value);
   };
   const handleSave = async () => {
-    // const convertedFiles = await Promise.all(files.map(readFileAsBase64));
-    console.log("se esta haciendo click");
-    const values = {
-      //  files: convertedFiles,
-      name: nameTask,
-      description: description,
-      list: idList,
-      users: selectedUser,
-      dateEnd: selectedDate,
-      workspaceID: workspace,
-      owner: user._id,
-    };
+    if (!nameTask) {
+      setSnackbarOpen({ message: 'Debes poner asignar un nombre a la tarea', type: 'error' })
+    } else {
 
-    setLoader(true);
-    ApiController.addTask(values).then((data) => {
-      setLoader(false);
-      handleClose();
-      console.log(data);
-    });
+      const values = {
+        //  files: convertedFiles,
+        name: nameTask,
+        description: description,
+        list: idList,
+        users: selectedUser,
+        dateEnd: selectedDate,
+        workspaceID: workspace,
+        owner: user._id,
+      };
 
-    //  } catch (err) {
-    //    console.log(err);
+      setLoader(true);
+      ApiController.addTask(values).then((data) => {
+        setLoader(false);
+        handleClose();
+        setSelectedDate(null)
+        setDescription('')
+        setSelectedUser([])
+        setNameTask('')
+        console.log(data);
+      });
+
+    }
   };
   const handleCloseUsersDialog = () => {
     setOpenUserDialog(false);
   };
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop: (acceptedFiles) => {
-      setFiles([...files, ...acceptedFiles]);
-    },
-    //   disabled: files.length > 0,
-  });
-  useEffect(() => {
-    console.log(files);
-  }, [files]);
+
+
   return (
     <>
       <UsersDialog
@@ -202,7 +199,7 @@ const AddTask = ({ handleClose, open, idList }: TypeAddBoard) => {
                     <ContainerUsersSelected>
                       <IconAddUser onClick={() => setOpenUserDialog(true)} />
                       {selectedUser.map((e: userType, i) => (
-                        <Avatar key={i} url={e.avatar} name={e.name} />
+                        <Avatar style={{ height: '2.5vw', width: '2.5vw' }} key={i} url={e.avatar} name={e.name} />
                       ))}
                     </ContainerUsersSelected>
                   </Grid>

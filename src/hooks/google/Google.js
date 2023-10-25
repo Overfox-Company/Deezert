@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import GoogleLogin from "react-google-login";
 import styled from "@emotion/styled";
 import { IconButton } from "@mui/material";
@@ -20,23 +20,37 @@ const SignInGoogleButton = styled(IconButton)({
 const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 
 const GoogleLoginButton = () => {
-  const gapi = import("gapi-script").then((pack) => pack.gapi);
-  const { login, setUser, setLoader, user, setSnackbarOpen } =
+  const [gapiLoaded, setGapiLoaded] = useState(false);
+  const { login, setUser, setLoader, user, setSnackbarOpen, setGoogleLoader } =
     useContext(AppContext);
   useEffect(() => {
-    let isMounted = true;
-    async function start() {
-      if (!isMounted) return;
-      await gapi?.client?.init({
-        clientId: clientId,
-        scope: "https://www.googleapis.com/auth/plus.login",
-      });
+    // Importa gapi de forma dinámica solo en el lado del cliente
+    if (typeof window !== "undefined" && !gapiLoaded) {
+
+      import("gapi-script")
+        .then((pack) => {
+          const gapi = pack.gapi;
+          gapi.load("client:auth2", () => {
+            gapi.client
+              .init({
+                clientId: clientId,
+                scope: "https://www.googleapis.com/auth/plus.login",
+              })
+              .then(() => {
+                setGapiLoaded(true);
+                setGoogleLoader(true)
+                console.log("gapi cargado");
+              })
+              .catch((error) => {
+                console.error("Error al inicializar gapi:", error);
+              });
+          });
+        })
+        .catch((error) => {
+          console.error("Error al cargar gapi-script:", error);
+        });
     }
-    gapi.then((d) => d.load("client:auth2", start));
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+  }, [gapiLoaded]);
   const UpdateContext = (e, f) => {
     console.log(e);
     setUser(e);
@@ -73,11 +87,7 @@ const GoogleLoginButton = () => {
           aria-label="delete"
           size="small"
         >
-          <GoogleIcon
-            src={
-              "https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png"
-            }
-          />
+          <GoogleIcon src="/assets/google.png" style={{ opacity: gapiLoaded ? 1 : 0.1 }} />
         </SignInGoogleButton>
       )}
       clientId={clientId}
@@ -85,6 +95,7 @@ const GoogleLoginButton = () => {
       onSuccess={successGoogle}
       onFailure={failureGoogle}
       cookiePolicy={"single_host_origin"}
+      disabled={!gapiLoaded} // Deshabilita el botón mientras se carga gapi
     />
   );
 };

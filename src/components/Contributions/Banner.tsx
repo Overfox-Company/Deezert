@@ -8,7 +8,7 @@ const Container = styled.div({
   height: "5vh",
   position: "fixed",
   bottom: 0,
-  zIndex: 99999999999,
+  zIndex: 999,
   backgroundColor: "rgb(247,102,83)",
 });
 const Patreon = styled.img({
@@ -23,9 +23,9 @@ const ContainerOverfox = styled.div({
   width: "8vh",
   padding: "1vh",
   backgroundColor: "rgb(20,20,20)",
-    borderRadius: 50,
-    display: 'flex',
-  justifyContent:'center'
+  borderRadius: 50,
+  display: 'flex',
+  justifyContent: 'center'
 });
 const Text = styled.div({
   color: "#001730",
@@ -35,8 +35,8 @@ const Text = styled.div({
 const TextStrong = styled.div({
   color: "rgb(20,20,20)",
   fontFamily: "comfortaa",
-    fontSize: "1vw",
-  fontWeight:700
+  fontSize: "1vw",
+  fontWeight: 700
 });
 const Banner = () => {
   return (
@@ -58,10 +58,10 @@ const Banner = () => {
             </Grid>
           </Grid>
         </Grid>
-              <Grid item xs={1}>
-                  <TextStrong>
-                      By Overfox
-             </TextStrong>
+        <Grid item xs={1}>
+          <TextStrong>
+            By Overfox
+          </TextStrong>
         </Grid>
       </Grid>
     </Container>

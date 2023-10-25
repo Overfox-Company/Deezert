@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Form, Formik } from "formik";
 import { Grid, Button } from "@mui/material";
-import * as Yup from "yup";
+
 import UploadImages from "../../../../components/UploadImages";
 import Input from "../../../../components/Input";
 import ApiController from "../../../../connection/ApiController";
 import { AppContext } from "../../../../context/AppContext";
 import { ProyectsContext } from "../../../../context/ProyectsContext";
+import * as Yup from "yup";
 const uploadSchema = Yup.object().shape({
   name: Yup.string().required("El nombre es requerido"),
   description: Yup.string()

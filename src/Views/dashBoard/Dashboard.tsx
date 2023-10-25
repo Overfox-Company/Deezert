@@ -1,4 +1,4 @@
-import React, { useEffect,useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import styled from "@emotion/styled";
 import ApiController from "../../connection/ApiController";
@@ -16,11 +16,11 @@ const Container = styled.div({
   overflow: "hidden",
 });
 const DashBoard = () => {
-  const { user, setCompanys, panel,ResetAppContext } = useContext(AppContext);
+  const { user, setCompanys, panel, ResetAppContext } = useContext(AppContext);
   const { RestWorkspaces } = useContext(WorkspaceContext)
-    useEffect(() => {
+  useEffect(() => {
     setCompanys([])
-  },[])
+  }, [])
   useEffect(() => {
     RestWorkspaces()
     ApiController.getCompanys({ id: localStorage.getItem("id") })
@@ -38,6 +38,7 @@ const DashBoard = () => {
       <br />
       <Container>
         <Grid
+
           container
           justifyContent={"flex-end"}
           sx={{ display: { xs: "none", md: "flex" } }}

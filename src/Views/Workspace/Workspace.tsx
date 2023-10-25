@@ -11,9 +11,9 @@ const Workspace = () => {
   const [panel, setPanel] = useState(0);
   const { setWorkspaces, setListWorkspace, setLisprojects } =
     useContext(WorkspaceContext);
-    const { lisprojects, workspaceActive, workspaces, setTaskList,setSelectedTask } =
+  const { lisprojects, workspaceActive, workspaces, setTaskList, setSelectedTask } =
     useContext(WorkspaceContext);
-  const { setLoader,loader, user, setStaff, selectedCompany } = useContext(AppContext);
+  const { setLoader, loader, user, setStaff, selectedCompany } = useContext(AppContext);
   const router = useRouter();
   const { workspace: id } = router.query;
   useEffect(() => {
@@ -49,7 +49,7 @@ const Workspace = () => {
     setSocketData: setLisprojects,
     server: "workspace",
   });
- 
+
   return (
     <>
       <Grid container>

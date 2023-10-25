@@ -16,10 +16,11 @@ const Task = styled.div({
   boxShadow: "0 1px 2px 0 rgba(10,10,10,0.5)",
   marginTop: "1vw",
   borderRadius: "5px",
-  minHeight: "10vh",
+  minHeight: "12vh",
   cursor: "pointer",
   padding: "1vw",
   display: "flex",
+  backgroundColor: 'rgba(250,250,255,0.08)',
   alignItems: "flex-start",
   width: "100%",
   justifyContent: "space-between",
@@ -44,14 +45,15 @@ const DateEnd = styled.p({
   fontSize: "1.5vh",
   color: "rgb(160,160,160)",
   marginTop: "2vh",
+  height: "2vh",
 });
 const ToolBar = styled.div({
-  height: "2vh",
-  marginTop: "1vh",
-  opacity: 0,
+
+  opacity: 1,
   color: "rgb(150,150,150)",
   transition: "all 0.2s ease",
   display: "flex",
+  alignItems: 'center',
   justifyContent: "flex-end",
   cursor: "pointer",
   "&:hover": {
@@ -93,86 +95,102 @@ const TaskSection = ({ item }: any) => {
       <TaskDetail handleClose={handleCloseTask} open={openTask} />
       {taskList.length > 0
         ? taskList.map(
-            (task: TaskType, index: number) =>
-              task.list === item._id && (
-                <Task
-                  onClick={() => handleTask(task)}
-                  draggable
-                  key={index}
-                  onDragStart={(event) =>
-                    event.dataTransfer.setData("text/plain", task._id)
-                  }
-                >
-                  {editName._id !== task._id ? (
-                    <Grid container>
-                      <Grid item xs={8}>
-                      {<Title>
-                          {task.title.length <= 20
-                            ? task.title
-                            : task.title.slice(0, 20) + "..."}
-                        </Title>}
-                        {task.dateEnd && (
-                          <DateEnd>
-                            {moment(task.dateEnd).format("DD/MM/YYYY")}
-                          </DateEnd>
-                        )}
-                      </Grid>
-                      <Grid item xs={4}>
-                        <div>
-                          {task.assigned.map(
-                            (avatar: string, indexa: number) => {
-                              const url = staff.filter((itemFilter) =>
-                                itemFilter._id.includes(avatar)
-                              );
+          (task: TaskType, index: number) =>
+            task.list === item._id && (
+              <Task
+                onClick={() => handleTask(task)}
+                draggable
+                key={index}
+                onDragStart={(event) =>
+                  event.dataTransfer.setData("text/plain", task._id)
+                }
+              >
+                {editName._id !== task._id ? (
+                  <Grid container>
+                    <Grid item xs={12}>
+                      <Grid container justifyContent={"space-between"} alignItems={"center"}>
+                        <Grid item xs={4}>
+                          {<Title>
+                            {task.title.length <= 20
+                              ? task.title
+                              : task.title.slice(0, 20) + "..."}
+                          </Title>}
+                        </Grid>
+                        <Grid item xs={2}>
+                          <div>
+                            {task.assigned.map(
+                              (avatar: string, indexa: number) => {
+                                const url = staff.filter((itemFilter) =>
+                                  itemFilter._id.includes(avatar)
+                                );
 
-                              return indexa < 2 ? (
-                                <Avatar
-                                  url={url[0].avatar}
-                                  name={url[0].name}
-                                  key={indexa}
-                                />
-                              ) : null;
-                            }
-                          )}
-                        </div>
+                                return indexa < 2 ? (
+                                  <Avatar
+                                    url={url[0].avatar}
+                                    name={url[0].name}
+                                    key={indexa}
+                                  />
+                                ) : null;
+                              }
+                            )}
+                          </div>
+
+                        </Grid>
                       </Grid>
-                      <Grid item xs={12}>
-                        <ToolBar className="ToolBar">
-                          <TaskOptions task={task} setEdit={setEdiName} />
-                        </ToolBar>
-                      </Grid>
+
+
                     </Grid>
-                  ) : (
-                    <Grid container alignItems={"center"}>
-                      <Grid item xs={10}>
-                        <InputEdit
-                          value={editName.title}
-                          onChange={(e) => handleChangeEdiName(e)}
-                        />
+                    <Grid item xs={12}>
+                      <Grid container justifyContent={"space-between"} alignItems={"center"}>
+                        <Grid item xs={6}>
+                          {task.dateEnd ? (
+                            <DateEnd>
+                              {moment(task.dateEnd).format("DD/MM/YYYY")}
+                            </DateEnd>
+                          ) : <DateEnd>
+                          </DateEnd>}
+                        </Grid>
+                        <Grid item xs={6}>
+                          <ToolBar className="ToolBar">
+                            <TaskOptions task={task} setEdit={setEdiName} />
+                          </ToolBar>
+                        </Grid>
                       </Grid>
-                      <Grid item xs={2}>
-                        <Grid container alignItems={"center"}>
-                          <Grid item xs={6}>
-                            <ClearIcon
-                              onClick={() => setEdiName({})}
-                              style={{ fontSize: "2vh", cursor: "pointer" }}
-                              color={"error"}
-                            />
-                          </Grid>
-                          <Grid item xs={6}>
-                            <CheckIcon
-                              onClick={() => handleEditName()}
-                              style={{ fontSize: "2vh", cursor: "pointer" }}
-                              color={"primary"}
-                            />
-                          </Grid>
+
+
+                    </Grid>
+                  </Grid>
+                ) : (
+                  <Grid container alignItems={"center"}>
+                    <Grid item xs={10}>
+                      <InputEdit
+                        value={editName.title}
+                        onChange={(e) => handleChangeEdiName(e)}
+                      />
+                    </Grid>
+                    <Grid item xs={2}>
+                      <Grid container alignItems={"center"}>
+                        <Grid item xs={6}>
+                          <ClearIcon
+                            onClick={() => setEdiName({})}
+                            style={{ fontSize: "2vh", cursor: "pointer" }}
+                            color={"error"}
+                          />
+                        </Grid>
+                        <Grid item xs={6}>
+                          <CheckIcon
+                            onClick={() => handleEditName()}
+                            style={{ fontSize: "2vh", cursor: "pointer" }}
+                            color={"primary"}
+                          />
                         </Grid>
                       </Grid>
                     </Grid>
-                  )}
-                </Task>
-              )
-          )
+                  </Grid>
+                )}
+              </Task>
+            )
+        )
         : null}
     </>
   );

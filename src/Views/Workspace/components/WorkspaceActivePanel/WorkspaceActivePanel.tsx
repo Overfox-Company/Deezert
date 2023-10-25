@@ -8,7 +8,7 @@ const WorkspaceActivePanel = () => {
   const [enableAddInput, setEnableAddInput] = useState(false);
   return (
     <>
-      <Grid container alignItems={"flex-start"} justifyContent={"flex-start"}>
+      <Grid container alignItems={"flex-start"} justifyContent={"flex-start"} >
         <Grid item xs={12}>
           <ToolBar />
         </Grid>

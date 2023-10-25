@@ -1,4 +1,4 @@
-import React, { useRef, useContext,useState } from "react";
+import React, { useRef, useContext, useState } from "react";
 import Popover from "@mui/material/Popover";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import EditIcon from "@mui/icons-material/Edit";
@@ -41,16 +41,18 @@ const Button = styled.div({
     backgroundColor: "rgba(20,20,25,0.1)",
   },
 });
-const TaskOptions = ({ task,setEdit }: {setEdit:any, task: any}) => {
+const TaskOptions = ({ task, setEdit }: { setEdit: any, task: any }) => {
   const [anchorEl, setAnchorEl] = useState<boolean>(false);
   const router = useRouter();
   const { setLoader } = useContext(AppContext);
   const { workspace } = router.query;
-  const handleClick = () => {
+  const handleClick = (e: any) => {
+    e.stopPropagation()
     setAnchorEl(true);
   };
 
-  const handleClose = () => {
+  const handleClose = (e: any) => {
+    e.stopPropagation()
     setAnchorEl(false);
   };
   const handleAction = (event: string) => {
@@ -58,7 +60,7 @@ const TaskOptions = ({ task,setEdit }: {setEdit:any, task: any}) => {
       case "delete":
         return handleDelete();
       case "editName":
-        return  handleEditName();
+        return handleEditName();
       default:
         return null;
     }
@@ -82,13 +84,13 @@ const TaskOptions = ({ task,setEdit }: {setEdit:any, task: any}) => {
   const Element = useRef(null);
   return (
     <>
-      <div>
-        <MoreHorizIcon ref={Element} onClick={() => handleClick()} />
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <MoreHorizIcon ref={Element} onClick={(e) => handleClick(e)} />
         <Popover
           id={id}
           open={open}
           anchorEl={Element.current}
-          onClose={handleClose}
+          onClose={(e) => handleClose(e)}
           anchorOrigin={{
             vertical: "center",
             horizontal: "right",

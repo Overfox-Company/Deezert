@@ -76,10 +76,10 @@ const initialData: TaskType = {
   list: "",
 };
 const NoTaskMessage = styledE.p({
-    color: "rgb(250,250,250)",
+  color: "rgb(250,250,250)",
   fontFamily: "comfortaa",
   fontSize: "1.8vh",
-  textAlign:'center'
+  textAlign: 'center'
 })
 const DropDownPanels = () => {
   const [todayTask, setTodayTask] = useState([]);
@@ -156,8 +156,9 @@ const DropDownPanels = () => {
   }, [loader]);
   useEffect(() => {
     console.log("compañia seleccionada");
-    if (workspaces._id) {
-      setLoader(true);
+
+    if (workspaces._id && selectedCompany) {
+
       Promise.all([
         ApiController.GetInvitations({ id: workspaces._id }),
         ApiController.getAllTask({ id: id }),
@@ -167,7 +168,7 @@ const DropDownPanels = () => {
         setLoader(false);
       });
     }
-  }, [selectedCompany,user]);
+  }, [selectedCompany, user]);
   useSocket({
     channel: "task",
     setSocketData: setTaskList,

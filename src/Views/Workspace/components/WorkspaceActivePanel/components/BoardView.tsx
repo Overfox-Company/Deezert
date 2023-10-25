@@ -62,15 +62,18 @@ const ContainerTask = styled.div({
   marginTop: "2vw",
   display: "flex",
   alignItems: "center",
-  maxHeight: "55vh",
+  maxHeight: "54vh",
   overflow: "auto",
   padding: "1vh",
   width: "100%",
   flexDirection: "column",
   borderRadius: "5px",
+  overflowX: 'hidden',
+
+  overflowY: 'auto',
 });
 const ContainerAddTask = styled.div({
-  marginTop: "2vw",
+
   display: "flex",
   alignItems: "center",
   height: "7.5vh",
@@ -91,13 +94,14 @@ const Icon = styled(AddIcon)({
 const ColumnContainer = styled.div({
   flexDirection: "column",
   margin: "0 2vw",
+
   "&:hover  .crearTarea": {
     opacity: 1,
   },
 });
 
 const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
-  const { lisprojects, workspaceActive, workspaces, setTaskList,setSelectedTask } =
+  const { lisprojects, workspaceActive, workspaces, setTaskList, setSelectedTask } =
     useContext(WorkspaceContext);
   const { setLoader, user, setStaff, selectedCompany } = useContext(AppContext);
   const [idDelete, setIdDelete] = useState(undefined);
@@ -153,7 +157,7 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
     setSocketData: setTaskList,
     server: "workspace",
   });
-    useSocket({
+  useSocket({
     channel: "taskSelected",
     setSocketData: setSelectedTask,
     server: "workspace",
@@ -190,7 +194,7 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
         idList={listSelected}
       />
       <AddBoard handleClose={handleDisabled} open={enableAddInput} />
-      <Grid container style={{ marginTop: "2vw", height: "80vh" }}>
+      <Grid container style={{ marginTop: "2vw", height: '76vh' }}>
         <Grid
           item
           xs={12}

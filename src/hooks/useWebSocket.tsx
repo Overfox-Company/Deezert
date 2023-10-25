@@ -8,12 +8,13 @@ type SocketHookProps = {
 };
 const prod = 'https://deezertworkspace.onrender.com';
 const dev = 'http://localhost:10000'
+const port = process.env.NEXT_PUBLIC_PRODUCTION === 'true' ? prod : dev
 const useSocket = ({ channel, setSocketData, server }: SocketHookProps) => {
   const socketRef = useRef<Socket | null>(null);
 
   useEffect(() => {
     // Crea la conexión de socket.io-client
-    const socket = io(dev);
+    const socket = io(port);
     socketRef.current = socket;
 
     // Maneja los eventos de conexión y mensajes

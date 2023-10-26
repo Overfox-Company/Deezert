@@ -24,7 +24,7 @@ const Logo = styled.img({
 const FixedContainer = styled.div({
   left: 0,
   top: 0,
-  zIndex: 9999,
+  zIndex: 99,
   maxWidth: "16vw",
   position: "fixed",
   height: "100vh",
@@ -33,6 +33,15 @@ const FixedContainer = styled.div({
 });
 const AdmFunctions = ["Proyectos", "Personal", "Configuracion"];
 const UserFunctions = ["Proyectos"];
+const LogoutButton = styled.div({
+  width: '100%',
+  backgroundColor: 'rgba(255,255,255,0.1)',
+  height: 40,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  cursor: 'pointer'
+})
 export const MenuMobile = ({ close }: any) => {
   const { darkMode, user, panel, setPanel, selectedCompany } =
     React.useContext(AppContext);
@@ -84,8 +93,9 @@ export const MenuMobile = ({ close }: any) => {
     </>
   );
 };
+
 export const Menu = () => {
-  const { darkMode, user, panel, setPanel, selectedCompany } =
+  const { darkMode, user, panel, setPanel, selectedCompany, logout } =
     React.useContext(AppContext);
 
   const handleClick = (index: number) => {
@@ -98,30 +108,40 @@ export const Menu = () => {
       style={{ backgroundColor: darkMode ? CONTAINER_DARK : CONTAINER }}
     >
       <Grid container>
-        <Grid item xs={4}>
-          <br />
-          <Companys v="V" />
+        <Grid item xs={12}>
+          <Grid container>
+            <Grid item xs={4}>
+              <br />
+              <Companys v="V" />
+            </Grid>
+            <Grid item xs={8}>
+              <br />
+              <Logo src={darkMode ? dark : light} />
+              <List>
+                {data.map((text, index) => (
+                  <ListItem key={text} disablePadding>
+                    <ListItemButton
+                      onClick={() => handleClick(index)}
+                      style={{
+                        borderLeft:
+                          panel === index
+                            ? `solid 4px ${PRIMARY_COLOR}`
+                            : `solid 4px rgba(0,0,0,0)`,
+                      }}
+                    >
+                      <ListItemText primary={text} />
+                    </ListItemButton>
+                  </ListItem>
+                ))}
+              </List>
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid item xs={8}>
-          <br />
-          <Logo src={darkMode ? dark : light} />
-          <List>
-            {data.map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton
-                  onClick={() => handleClick(index)}
-                  style={{
-                    borderLeft:
-                      panel === index
-                        ? `solid 4px ${PRIMARY_COLOR}`
-                        : `solid 4px rgba(0,0,0,0)`,
-                  }}
-                >
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
+        <Grid item xs={12}>
+          <LogoutButton onClick={() => logout()}>
+            Cerrar session
+          </LogoutButton>
+
         </Grid>
       </Grid>
     </FixedContainer>

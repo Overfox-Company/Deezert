@@ -61,7 +61,7 @@ const TimeWorked = () => {
       workspaceID: workspace,
       user: user._id,
       id: selectedTask._id,
-      
+
     };
     ApiController.stopTask(values).then((data) => console.log(data));
   };
@@ -78,11 +78,10 @@ const TimeWorked = () => {
   }, []);
   const fecha = moment.utc(selectedTask.lastWork);
   const zonaHorariaUsuario = moment().format('Z');
-const converted = fecha.utcOffset(zonaHorariaUsuario);
+  const converted = fecha.utcOffset(zonaHorariaUsuario);
   const timeElapsed = moment
     .utc(moment().diff(converted))
     .format("HH:mm:ss");
-    console.log(zonaHorariaUsuario)
   const totalTime = selectedTask.timeWorked;
 
 

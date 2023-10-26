@@ -1,7 +1,7 @@
 // pages/api/middlewares.js
 
 // Create a JSON parser middleware with a limit of 100mb (ajusta el límite según tus necesidades)
-export const jsonParser = (req, res, next) => {
+/*export const jsonParser = (req, res, next) => {
   if (req.method === "POST" || req.method === "PUT" || req.method === "PATCH") {
     // Opciones del body parser
     const options = {
@@ -43,3 +43,4 @@ export const urlEncodedParser = (req, res, next) => {
     next();
   }
 };
+*/

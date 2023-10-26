@@ -60,7 +60,7 @@ const ToolBar = styled.div({
     color: "white",
   },
 });
-const TaskSection = ({ item }: any) => {
+const TaskSection = ({ onDrag, onDragOver, id, item }: any) => {
   const { staff, setLoader } = useContext(AppContext);
   const [editName, setEdiName] = useState<any>({});
   const { taskList, setSelectedTask } = useContext(WorkspaceContext);
@@ -98,6 +98,8 @@ const TaskSection = ({ item }: any) => {
           (task: TaskType, index: number) =>
             task.list === item._id && (
               <Task
+                onDragOver={onDragOver}
+                onDrop={(e) => onDrag(e, id)}
                 onClick={() => handleTask(task)}
                 draggable
                 key={index}
@@ -111,13 +113,13 @@ const TaskSection = ({ item }: any) => {
                       <Grid container justifyContent={"space-between"} alignItems={"center"}>
                         <Grid item xs={4}>
                           {<Title>
-                            {task.title.length <= 20
+                            {task.title.length <= 15
                               ? task.title
-                              : task.title.slice(0, 20) + "..."}
+                              : task.title.slice(0, 15) + "..."}
                           </Title>}
                         </Grid>
                         <Grid item xs={2}>
-                          <div>
+                          <div style={{ display: 'flex', flexDirection: 'row' }}>
                             {task.assigned.map(
                               (avatar: string, indexa: number) => {
                                 const url = staff.filter((itemFilter) =>

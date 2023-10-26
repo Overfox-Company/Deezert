@@ -1,12 +1,14 @@
 import React from "react";
 import { Grid } from "@mui/material";
 import styled from "@emotion/styled";
+import Image from "next/image";
 const patreonLogo = "../../../static/images/patreon-logo-round.webp";
 const overfox = "../../../static/images/LogoT.png";
 const Container = styled.div({
   width: "100%",
-  height: "5vh",
+  height: 50,
   position: "fixed",
+  padding: 4,
   bottom: 0,
   zIndex: 999,
   backgroundColor: "rgb(247,102,83)",
@@ -15,29 +17,18 @@ const Patreon = styled.img({
   width: "auto",
   height: "5vh",
 });
-const Overfox = styled.img({
-  width: "auto",
-  height: "3vh",
+const Overfox = styled(Image)({
+  backgroundColor: 'rgb(0,10,20)',
+  padding: 10,
+  borderRadius: 200
 });
-const ContainerOverfox = styled.div({
-  width: "8vh",
-  padding: "1vh",
-  backgroundColor: "rgb(20,20,20)",
-  borderRadius: 50,
-  display: 'flex',
-  justifyContent: 'center'
-});
+
 const Text = styled.div({
   color: "#001730",
   fontFamily: "comfortaa",
   fontSize: "0.8vw",
 });
-const TextStrong = styled.div({
-  color: "rgb(20,20,20)",
-  fontFamily: "comfortaa",
-  fontSize: "1vw",
-  fontWeight: 700
-});
+
 const Banner = () => {
   return (
     <Container>
@@ -59,9 +50,13 @@ const Banner = () => {
           </Grid>
         </Grid>
         <Grid item xs={1}>
-          <TextStrong>
-            By Overfox
-          </TextStrong>
+          <Overfox
+            alt="by overfox"
+
+            src="/assets/overfoxLogo.png"
+            width={110}
+            height={45}
+          />
         </Grid>
       </Grid>
     </Container>

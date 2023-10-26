@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import styled from "@emotion/styled";
 import AddIcon from "@mui/icons-material/Add";
@@ -32,7 +32,7 @@ const ContainerIcon = styled.div({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  cursor:'pointer'
+  cursor: 'pointer'
 });
 const Container = styled.div({
   maxWidth: "100%",
@@ -53,16 +53,16 @@ const ContainerV = styled.div({
   justifyContent: "flex-start",
   alignItems: "center",
   padding: "1vw 1vw",
-  height: "90vh",
+  height: "80vh",
   width: "100%",
 });
 const Companys = ({ v = "H" }: any) => {
   const { companys, setSelectedCompany, selectedCompany } =
     React.useContext(AppContext);
-    const [open,setOpen]=useState(false)
+  const [open, setOpen] = useState(false)
   const handleClick = (data: any) => {
     setSelectedCompany(data);
-   // console.log(selectedCompany)
+    // console.log(selectedCompany)
   };
   React.useEffect(() => {
     if (companys.length > 0) {
@@ -79,9 +79,8 @@ const Companys = ({ v = "H" }: any) => {
               return (
                 <ContainerAvatar
                   style={{
-                    border: `solid 1px ${
-                      selectedCompany?._id === Company._id? PRIMARY_COLOR:"rgba(0,0,0,0)"
-                    }`,
+                    border: `solid 1px ${selectedCompany?._id === Company._id ? PRIMARY_COLOR : "rgba(0,0,0,0)"
+                      }`,
                   }}
                   key={index}
                   onClick={() => handleClick(Company)}
@@ -90,7 +89,7 @@ const Companys = ({ v = "H" }: any) => {
                 </ContainerAvatar>
               );
             })}
-          <ContainerIcon onClick={()=>setOpen(true)}>
+          <ContainerIcon onClick={() => setOpen(true)}>
             <AddIcon style={{ fontSize: 30 }} />
           </ContainerIcon>
         </Container>
@@ -102,9 +101,8 @@ const Companys = ({ v = "H" }: any) => {
                 <>
                   <ContainerAvatar
                     style={{
-                      border: `solid 1px ${
-                        selectedCompany?._id === Company._id ? PRIMARY_COLOR:"rgba(0,0,0,0)"
-                      }`,
+                      border: `solid 1px ${selectedCompany?._id === Company._id ? PRIMARY_COLOR : "rgba(0,0,0,0)"
+                        }`,
                     }}
                     key={index}
                     onClick={() => handleClick(Company)}
@@ -115,7 +113,7 @@ const Companys = ({ v = "H" }: any) => {
                 </>
               );
             })}
-          <ContainerIcon onClick={()=>setOpen(true)}>
+          <ContainerIcon onClick={() => setOpen(true)}>
             <AddIcon style={{ fontSize: 30 }} />
           </ContainerIcon>
           <br />

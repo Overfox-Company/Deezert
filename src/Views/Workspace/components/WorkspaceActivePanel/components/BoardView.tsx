@@ -78,6 +78,7 @@ const ContainerAddTask = styled.div({
   alignItems: "center",
   height: "7.5vh",
   opacity: 0,
+  transition: 'all 0.2s ease',
   borderRadius: "5px",
   cursor: "pointer",
   "&:hover p": {
@@ -94,7 +95,6 @@ const Icon = styled(AddIcon)({
 const ColumnContainer = styled.div({
   flexDirection: "column",
   margin: "0 2vw",
-
   "&:hover  .crearTarea": {
     opacity: 1,
   },
@@ -164,12 +164,14 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
   });
   const handleDragOver = (event: any) => {
     event.preventDefault();
+
   };
 
-  const handleDrop = (event: any) => {
+  const handleDrop = (event: any, id?: string) => {
     event.preventDefault();
     const draggedItemId = event.dataTransfer.getData("text/plain");
-    const targetDivId = event.target.id;
+    const targetDivId = event.target.id || id;
+    console.log(targetDivId)
     if (targetDivId && draggedItemId) {
       const values = {
         target: targetDivId,
@@ -219,31 +221,46 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
                     setIdDelete={setIdDelete}
                     setOpenDialogDelete={setOpenDialogDelete}
                   />
-                  <ContainerTask>
-                    <TaskSection item={item} />
-                  </ContainerTask>
-                  <ContainerAddTask
-                    className="crearTarea"
-                    onClick={() => {
-                      handleEnable("task");
-                      setListSelected(item._id);
-                    }}
+                  <ContainerTask
+                    id={item._id}
+                    onDragOver={handleDragOver}
+                    onDrop={(e) => handleDrop(e, item._id)}
                   >
-                    <Grid container alignItems={"center"}>
-                      <Grid item xs={10}>
-                        <AddTaskText
-                          style={{
-                            cursor: enableAddInput ? "text" : "pointer",
-                          }}
-                        >
-                          Añadir nueva tarea
-                        </AddTaskText>
+                    <TaskSection
+                      id={item._id}
+                      onDragOver={handleDragOver}
+                      onDrop={handleDrop} item={item} />
+                  </ContainerTask>
+                  <div
+                    id={item._id}
+                    onDragOver={handleDragOver}
+                    onDrop={(e) => handleDrop(e, item._id)}
+                  >
+                    <ContainerAddTask
+
+                      className="crearTarea"
+                      onClick={() => {
+                        handleEnable("task");
+                        setListSelected(item._id);
+                      }}
+                    >
+                      <Grid container alignItems={"center"}>
+                        <Grid item xs={10}>
+                          <AddTaskText
+                            style={{
+                              cursor: enableAddInput ? "text" : "pointer",
+                            }}
+                          >
+                            Añadir nueva tarea
+                          </AddTaskText>
+                        </Grid>
+                        <Grid item xs={2}>
+                          <Icon />
+                        </Grid>
                       </Grid>
-                      <Grid item xs={2}>
-                        <Icon />
-                      </Grid>
-                    </Grid>
-                  </ContainerAddTask>
+                    </ContainerAddTask>
+                  </div>
+
                 </ColumnContainer>
               )
           )}

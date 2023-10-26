@@ -6,7 +6,17 @@ import {
   DeezerWorkspaces,
 } from "../config/Microservices";
 import axios from "axios";
-import Server from "next/dist/server/base-server";
+
+axios.interceptors.request.use(config => {
+  // Verificar si la petición es de tipo 'POST' y el tamaño del cuerpo de la petición
+  if (config.method === 'post' && config.data) {
+    const maxRequestSize = 10 * 1024 * 1024; // 10 MB en bytes
+    if (JSON.stringify(config.data).length > maxRequestSize) {
+      return Promise.reject(new Error('La petición excede el tamaño máximo permitido de 10 MB.'));
+    }
+  }
+  return config;
+});
 // Define the FirstRoute function as a ServerType
 export const FirstRoute: ServerType = async (req, res) => {
   try {
@@ -449,15 +459,17 @@ export const editNameTask: ServerType = async (req, res) => {
   }
 };
 export const AddFilesController: ServerType = async (req, res) => {
+      console.log("el archivo llega al backend")
   try {
     if (!req.headers.authorization) {
       res.status(404).send("token no valido");
       throw new Error("Invalid Token");
     }
+
     const body = req.body;
-    axios
-      .post(DeezerWorkspaces + "/addFilesTask", body)
-      .then((e) => res.status(200).json(e.data));
+    console.log(body)
+    const reaponse = await axios.post(DeezerWorkspaces + "/addFilesTask", body)
+    res.status(200).json(reaponse.data)
   } catch (error) {
     console.log(error);
     res.status(404).send("token no valido");

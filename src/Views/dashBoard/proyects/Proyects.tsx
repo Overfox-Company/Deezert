@@ -48,14 +48,14 @@ const ContainertImage = styled.div({
   display: 'flex',
   justifyContent: 'center',
   height: '20vh',
-   objectFit: "cover"
+  objectFit: "cover"
 })
 const ImageProyect = styled.img({
   width: "auto",
   height: "auto",
   maxHeight: '20vh',
   maxWidth: '36vh',
-   objectFit: "contain"
+  objectFit: "contain"
 });
 const Proyects = () => {
   const { user, selectedCompany } = React.useContext(AppContext);
@@ -63,7 +63,7 @@ const Proyects = () => {
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   React.useEffect(() => {
-    if (workspaces.length < 1) {
+    if (!workspaces) {
       setLoading(true);
     } else {
       setLoading(false);
@@ -93,25 +93,25 @@ const Proyects = () => {
             </Grid>
           )}
 
-          {loading === true && (
+          {loading ?
             <Grid item xs={12} md={3}>
               <Skeleton variant="rectangular" width="100%">
                 <div style={{ paddingTop: "57%" }} />
               </Skeleton>
             </Grid>
-          )}
+            : null}
           {workspaces.map((item, index) => {
             return (
               <>
                 <Grid item xs={12} md={3} key={index}>
                   <Card
-                  onClick={()=>Router.push(`/workspace/${item._id}`)}
+                    onClick={() => Router.push(`/workspace/${item._id}`)}
                   >
                     <Grid container>
                       <Grid item xs={12}>
                         <ContainertImage>
 
-                        <ImageProyect src={item.coverImage} />
+                          <ImageProyect src={item.coverImage} />
                         </ContainertImage>
                       </Grid>
                       <Grid item xs={12}>

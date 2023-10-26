@@ -11,19 +11,18 @@ import styled from "@emotion/styled";
 const Container = styled.div({
   width: "100%",
 });
-const FormAddCompany = ({ first=true }) => {
+const FormAddCompany = ({ first = true }) => {
   const [images, setImages] = React.useState([]);
-  const [emails, setEmails] = React.useState(["", ""]);
   const { setLoader, user } = React.useContext(AppContext);
   const router = useRouter();
   const initialValues = {
     name: "",
-    emails: [],
+    email: "",
   };
 
   const uploadSchema = Yup.object().shape({
     name: Yup.string().required("El nombre es requerido"),
-    email: Yup.string().email("Ingrese un email válido").min(10),
+    email: Yup.string().email("Ingrese un email válido").required("El Email es requerido"),
   });
   const handleSkip = () => {
     setLoader(true);
@@ -66,7 +65,7 @@ const FormAddCompany = ({ first=true }) => {
                     textButton={"Cargar imagenes"}
                     images={images}
                     setImages={setImages}
-                    label={"Imagenes de la compañia"}
+                    label={"Logo de la compañia"}
                     maxNumber={1}
                   />
                 </Grid>
@@ -84,9 +83,9 @@ const FormAddCompany = ({ first=true }) => {
                   <Input
                     name={`email`}
                     label={`Correo`}
-                    error={errors.emails && errors?.email}
+                    error={errors.email && errors?.email}
                     touched={
-                      touched.emails && touched.email ? touched.email : false
+                      touched.email && touched.email ? touched.email : false
                     }
                     placeholder={`Correo`}
                     type={"text"}
@@ -110,7 +109,7 @@ const FormAddCompany = ({ first=true }) => {
                       </Button>
                     </Grid>
                     <Grid item xs={12} md={4}>
-                     {first&& <Button
+                      {first && <Button
                         variant="contained"
                         disabled={user._id ? false : true}
                         style={{ fontSize: "1.9vh" }}

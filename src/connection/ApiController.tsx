@@ -30,12 +30,13 @@ api.interceptors.response.use(
     if (error.response && error.response.data) {
       const { status, data } = error.response;
       // Manejar el error de acuerdo a la respuesta
-
+      console.log(status)
+      console.log(data)
       // Verificar el tamaño de la respuesta
       const contentLength = error.response.headers['content-length'];
-      const maxSize = 1000000; // Establece el límite en bytes (1MB en este ejemplo)
+      const maxSize = 1; // Establece el límite en bytes (1MB en este ejemplo)
       if (contentLength && parseInt(contentLength) > maxSize) {
-        // La respuesta excede el límite de tamaño permitido, manejarlo adecuadamente
+        console.log("el tamaño de la peticion es muy grande")
       }
     }
 
@@ -72,7 +73,7 @@ const ApiController = {
   dragTask: (values: any) => api.post(Route + '/dragTask', values),
   deleteTask: (values: any) => api.post(Route + '/deleteTask', values),
   editNameTask: (values: any) => api.post(Route + '/editNameTask', values),
-  addFilesTask: (values: any) => api.post(Route + '/addFilesTask', values),
+  addFilesTask: (values: any) => api.post(DeezerWorkspaces + '/addFilesTask', values),
   deleteFilesTask: (values: any) => api.post(Route + '/deleteFilesTask', values),
   editTask: (values: any) => api.post(Route + '/editTask', values),
   playTask: (values: any) => api.post(Route + '/playTask', values),

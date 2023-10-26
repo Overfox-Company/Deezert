@@ -8,11 +8,13 @@ const App: React.FC<ProviderProps> = ({ children }) => {
 
   return (
     <MicroServiceProvider>
-      <AppProvider>
-        <ProyectsProvider>
-          <WorkspaceProvider>{children}</WorkspaceProvider>
-        </ProyectsProvider>
-      </AppProvider>
+      <ProyectsProvider>
+        <WorkspaceProvider>
+          <AppProvider>
+            {children}
+          </AppProvider>
+        </WorkspaceProvider>
+      </ProyectsProvider>
     </MicroServiceProvider>
 
   );

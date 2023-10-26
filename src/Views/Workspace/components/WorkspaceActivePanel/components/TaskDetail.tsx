@@ -6,6 +6,7 @@ import {
   DialogTitle,
   DialogActions,
   DialogContent,
+  CircularProgress,
 } from "@mui/material";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import styled from "@emotion/styled";
@@ -18,12 +19,9 @@ import UsersDialog from "../../../../../components/UsersDialog";
 import { useDropzone } from "react-dropzone";
 import IconType from "../../../../../components/IconType";
 import HeaderTaskDetails from "./taskDetails/HeaderTaskDetails";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import DeleteIcon from '@mui/icons-material/Delete';
 import DownloadIcon from "@mui/icons-material/Download";
 import EditIcon from "@mui/icons-material/Edit";
-import ClearIcon from "@mui/icons-material/Clear";
-import CheckIcon from "@mui/icons-material/Check";
-import SaveIcon from '@mui/icons-material/Save';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 type TypeAddBoard = {
   handleClose: any;
@@ -110,7 +108,7 @@ const Label = styled.p({
   fontWeight: 500,
   fontFamily: "roboto",
 });
-const DeleteIcon = styled(DeleteOutlineIcon)({
+const DeleteIconC = styled(DeleteIcon)({
   color: "rgb(250,80,80)",
   fontSize: "1.5vw",
   marginTop: "-0.2vw",
@@ -144,8 +142,8 @@ const EditIconCustom = styled(EditIcon)({
   },
 });
 const TaskDetail = ({ handleClose, open }: TypeAddBoard) => {
-
-  const { setLoader, user } = useContext(AppContext);
+  const maxSize = 10485760
+  const { setLoader, user, setSnackbarOpen } = useContext(AppContext);
   const router = useRouter();
   const { workspaces, workspaceActive, selectedTask, lisprojects } =
     useContext(WorkspaceContext);
@@ -156,6 +154,7 @@ const TaskDetail = ({ handleClose, open }: TypeAddBoard) => {
   const [editTitle, setEditTitle] = useState(selectedTask.title);
   const [editT, setEditT] = useState(false);
   const [editD, setEditD] = useState(false);
+  const [loadingFile, setLoadingFile] = useState(false)
   const [selectedUser, setSelectedUser] = useState<any>([]);
   const handleChangeDescription = (text: string) => {
     setEditDescription(text);
@@ -185,29 +184,51 @@ const TaskDetail = ({ handleClose, open }: TypeAddBoard) => {
   };
 
   const { getRootProps, getInputProps } = useDropzone({
-    onDrop: (acceptedFiles) => {
-      addFiles(acceptedFiles);
-      //setFiles([...files,...acceptedFiles]);
+    onDrop: (acceptedFiles, error) => {
+      if (error.length > 0) {
+        if (error[0].errors[0].code === 'file-too-large') {
+          setSnackbarOpen({ message: 'This file is larger than 10 MB', type: 'error' })
+        }
+        else if (error[0].errors[0].code === 'too-many-files') {
+          setSnackbarOpen({ message: 'Only a maximum of one image is allowed', type: 'error' })
+        }
+        else if (error[0].errors[0].code === 'file-invalid-type') {
+          setSnackbarOpen({ message: `Only image files can be uploaded`, type: 'error' })
+        } else {
+          setSnackbarOpen({ message: error[0].errors[0].code, type: 'error' })
+        }
+      } else {
+        addFiles(acceptedFiles);
+      }
+
     },
-    noClick: true,
+    maxSize: maxSize
     //   disabled: files.length > 0,
   });
   const addFiles = async (files: any) => {
-    const convertedFiles = await Promise.all(files.map(readFileAsBase64));
-    if (convertedFiles) {
-      const values = {
-        files: convertedFiles,
-        id: selectedTask._id,
-        workspaceID: workspace,
-      };
-      console.log(values);
-      ApiController.addFilesTask(values).then((data) => {
-        console.log(data);
-        setFiles(data.data.files);
-      });
+    try {
+      setLoadingFile(true)
+      const convertedFiles = await Promise.all(files.map(readFileAsBase64));
+      if (convertedFiles) {
+        const values = {
+          files: convertedFiles,
+          id: selectedTask._id,
+          workspaceID: workspace,
+        };
+        console.log(values);
+        const response = await ApiController.addFilesTask(values)
+        console.log(response);
+        setFiles(response.data.files);
+        setLoadingFile(false)
+      }
+    } catch (e) {
+      console.log(e)
+      setSnackbarOpen({ message: 'ocurrio un error subiend el archivo', type: 'error' })
+      setLoadingFile(false)
     }
   };
-  const deleteFiles = (file: any) => {
+  const deleteFiles = (e: any, file: any) => {
+    e.stopPropagation()
     const newFiles = files.filter((item: any) => item.url !== file.url);
     const values = {
       files: newFiles,
@@ -215,7 +236,8 @@ const TaskDetail = ({ handleClose, open }: TypeAddBoard) => {
     };
     ApiController.deleteFilesTask(values).then((data) => console.log(data));
   };
-  const downloadFile = (file: any) => {
+  const downloadFile = (e: any, file: any) => {
+    e.stopPropagation()
     // Crear un elemento <a> temporal
     const link = document.createElement("a");
     link.href = file.url;
@@ -370,46 +392,57 @@ const TaskDetail = ({ handleClose, open }: TypeAddBoard) => {
                     style={{ padding: "2vw" }}
                   >
                     <input {...getInputProps()} />
-                    <Grid container columnSpacing={7} rowSpacing={4}>
-                      {files
-                        ? files.map((i: any, index: number) => {
-                          return (
-                            <Grid item xs={6} key={index}>
-                              <ItemDropZone>
-                                <IconType file={i} />
-                                <NameItem>
-                                  <Grid container>
-                                    <Grid item xs={9}>
-                                      {i.name.length > 10
-                                        ? i.name.slice(0, 10) + "..."
-                                        : i.name}
+                    {!loadingFile ? <div style={{ display: 'flex', justifyContent: 'center' }}>
+                      <Grid container columnSpacing={7} rowSpacing={4}>
+
+                        {files
+                          ? files.map((i: any, index: number) => {
+                            return (
+                              <Grid item xs={6} key={index}>
+                                <ItemDropZone>
+                                  <IconType file={i} />
+                                  <NameItem>
+                                    <Grid container>
+                                      <Grid item xs={9}>
+                                        {i.name.length > 10
+                                          ? i.name.slice(0, 10) + "..."
+                                          : i.name}
+                                      </Grid>
+                                      <Grid item xs={3}>
+                                        <div
+                                          style={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                          }}
+                                        >
+                                          <DeleteIconC
+                                            onClick={(e) => deleteFiles(e, i)}
+                                          />
+                                          <DownLoadIcon
+                                            onClick={(e) => downloadFile(e, i)}
+                                          />
+                                        </div>
+                                      </Grid>
                                     </Grid>
-                                    <Grid item xs={3}>
-                                      <div
-                                        style={{
-                                          display: "flex",
-                                          alignItems: "center",
-                                        }}
-                                      >
-                                        <DeleteIcon
-                                          onClick={() => deleteFiles(i)}
-                                        />
-                                        <DownLoadIcon
-                                          onClick={() => downloadFile(i)}
-                                        />
-                                      </div>
-                                    </Grid>
-                                  </Grid>
-                                </NameItem>
-                              </ItemDropZone>
-                            </Grid>
-                          );
-                        })
-                        : null}
-                    </Grid>
-                    {files && files.length < 1 && (
-                      <p id="text">Arrastra los archivos para añadirlos</p>
-                    )}
+                                  </NameItem>
+                                </ItemDropZone>
+                              </Grid>
+                            );
+                          })
+                          : null}
+                      </Grid>
+                      {files && files.length < 1 && (
+                        <p id="text">Arrastra los archivos para añadirlos
+
+                          <br />
+                          (maximo 10mb)
+                        </p>
+                      )}
+                    </div> : <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <CircularProgress />
+
+                    </div>}
+
                   </DropZone>
                 </Grid>
               </Grid>

@@ -1,6 +1,9 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { ProviderProps } from '../types/app';
 import { ContextData } from '../types/app';
+import { ProyectsContext } from './ProyectsContext';
+import { WorkspaceContext } from './WorkspaceContext';
+import { useRouter } from 'next/router';
 const InitialUser = {
   _id: '',
   name: '',
@@ -74,6 +77,9 @@ export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
     message: '',
     type: "error" as "error" | "warning" | "info" | "success"
   })
+  const { setWorkspaces } = useContext(ProyectsContext)
+  const { RestWorkspaces } = useContext(WorkspaceContext)
+  const router = useRouter()
   const login = () => {
     setIsAuthenticated(true);
   };
@@ -82,7 +88,18 @@ export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
     setSelectedCompany({})
   }
   const logout = () => {
+    localStorage.removeItem("token")
     setIsAuthenticated(false);
+    setCompanys([])
+    setSelectedCompany({})
+    setToken('')
+    setInvitations([])
+    setUser(InitialUser);
+    setCompanys([])
+    setStaff([])
+    setWorkspaces([])
+    RestWorkspaces()
+    router.push('/')
   };
 
   return (

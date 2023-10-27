@@ -11,7 +11,8 @@ const Container = styled.div({
   padding: 4,
   bottom: 0,
   zIndex: 999,
-  backgroundColor: "rgb(247,102,83)",
+  //backgroundColor: "rgb(247,102,83)",
+  backgroundColor: 'rgb(0,10,20)',
 });
 const Patreon = styled.img({
   width: "auto",
@@ -40,12 +41,12 @@ const Banner = () => {
               xs={1}
               style={{ justifyContent: "center", display: "flex" }}
             >
-              <Patreon src={patreonLogo} />
+              { /* <Patreon src={patreonLogo} />*/}
             </Grid>
             <Grid item xs={8}>
-              <Text>
+              {/*    <Text>
                 Si te gusta el proyecto y quieres apoyarlo puede hacerlo aqui
-              </Text>
+  </Text>*/}
             </Grid>
           </Grid>
         </Grid>

@@ -2,7 +2,21 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First, install dependency:
+
+```bash
+npm intall
+# or
+yarn 
+```
+Add environments variables 
+
+```bash
+NEXT_PUBLIC_PRODUCTION = Google client id
+
+NEXT_PUBLIC_PRODUCTION = true or false
+```
+run the development server:
 
 ```bash
 npm run dev

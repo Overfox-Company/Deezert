@@ -8,12 +8,11 @@ import { AppContext } from "../../../context/AppContext";
 import { P } from "../../../components/BasicComponents";
 import { PAPER_DARK } from "../../../constants/Color";
 import Router from "next/router";
-const Container = styled.div({
+import { Container, Item } from "../../../components/Container";
+const ContainerProyects = styled.div({
   width: "100%",
   display: "flex",
-  justifyContent: "center",
   flexDirection: "column",
-  alignItems: "center",
   padding: 10,
   paddingTop: 20,
   paddingLeft: 20,
@@ -71,62 +70,60 @@ const Proyects = () => {
   }, [workspaces, selectedCompany]);
   return (
     <>
-      <Container>
-        <Grid
-          container
+      <ContainerProyects>
+        <Container
           justifyContent={"flex-start"}
-          alignItems={"center"}
           rowSpacing={2}
           columnSpacing={2}
         >
-          <Grid item xs={12}>
+          <Item xs={12}>
             <AddWorkspace open={open} setOpen={setOpen} />
-          </Grid>
-          <Grid item xs={12}>
+          </Item>
+          <Item xs={12}>
             <p>Proyectos</p>
-          </Grid>
+          </Item>
           {selectedCompany.idOwner === user._id && (
-            <Grid item xs={12} md={3}>
+            <Item xs={12} md={3}>
               <CardAdd onClick={() => setOpen(true)}>
                 <AddIcon style={{ fontSize: 40 }} />
               </CardAdd>
-            </Grid>
+            </Item>
           )}
 
           {loading ?
-            <Grid item xs={12} md={3}>
+            <Item xs={12} md={3}>
               <Skeleton variant="rectangular" width="100%">
                 <div style={{ paddingTop: "57%" }} />
               </Skeleton>
-            </Grid>
+            </Item>
             : null}
           {workspaces.map((item, index) => {
             return (
               <>
-                <Grid item xs={12} md={3} key={index}>
+                <Item xs={12} md={3} key={index}>
                   <Card
                     onClick={() => Router.push(`/workspace/${item._id}`)}
                   >
-                    <Grid container>
-                      <Grid item xs={12}>
+                    <Container>
+                      <Item xs={12}>
                         <ContainertImage>
 
                           <ImageProyect src={item.coverImage} />
                         </ContainertImage>
-                      </Grid>
-                      <Grid item xs={12}>
+                      </Item>
+                      <Item xs={12}>
                         <P>{item.name}</P>
-                      </Grid>
-                    </Grid>
+                      </Item>
+                    </Container>
                   </Card>
-                </Grid>
+                </Item>
               </>
             );
           })}
-        </Grid>
+        </Container>
 
         <br />
-      </Container>
+      </ContainerProyects>
     </>
   );
 };

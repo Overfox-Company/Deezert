@@ -37,7 +37,7 @@ const Divider = styled.div({
 });
 const Time = styled.p({
   color: "rgb(240,240,240)",
-  fontFamily: "comfortaa",
+  fontFamily: "Comfortaa, cursive",
   fontSize: "2vh",
   letterSpacing: "0.1vh",
 });

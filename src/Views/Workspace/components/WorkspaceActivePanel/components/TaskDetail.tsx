@@ -66,7 +66,7 @@ const DropZone = styled.div({
   justifyContent: "center",
   backgroundColor: "rgba(0,0,10,0.1)",
   borderRadius: 6,
-  fontFamily: "comfortaa",
+  fontFamily: "Comfortaa, cursive",
   padding: "1vw",
   position: "relative",
   "& #text": {

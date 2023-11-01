@@ -52,8 +52,8 @@ const ContainerV = styled.div({
   flexDirection: "column",
   justifyContent: "flex-start",
   alignItems: "center",
-  padding: "1vw 1vw",
-  height: "80vh",
+  padding: "0.7vw 1vw",
+  height: "75vh",
   width: "100%",
 });
 const Companys = ({ v = "H" }: any) => {

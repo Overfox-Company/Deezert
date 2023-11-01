@@ -26,7 +26,7 @@ const Overfox = styled(Image)({
 
 const Text = styled.div({
   color: "#001730",
-  fontFamily: "comfortaa",
+  fontFamily: "Comfortaa, cursive",
   fontSize: "0.8vw",
 });
 

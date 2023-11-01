@@ -6,8 +6,8 @@ import { CORRECT, ERROR } from "../constants/Color";
 import CheckIcon from "./icons/CheckIcon";
 import ErrorIcon from "./icons/ErrorIcon";
 import { InputProps } from "../types/app";
-import Grid from "@mui/material/Grid";
 import { P } from "./BasicComponents";
+import { Container, Item } from "./Container";
 //Deezert es una aplicacion para la gestion empresarial, tanto del lado de recursos humanos como la gestion administrativa y la gestion de proyectos
 const TextInput = styled(Field)({
   padding: 5,
@@ -28,7 +28,7 @@ const Error = styled.p({
   letterSpacing: 2,
   fontFamily: "Varela Round, sans-serif",
 });
-const Container = styled.div({
+const ContainerInput = styled.div({
   width: "100%",
   display: "flex",
   alignItems: "center",
@@ -58,15 +58,14 @@ const Input: React.FC<InputProps> = ({
       flexDirection: "column",
     }}
   >
-    <Container>
-      <Grid
-        container
+    <ContainerInput>
+      < Container
         justifyContent={"flex-start"}
         alignItems={"center"}
         columnSpacing={3}
       >
         {label && (
-          <Grid item xs={12}>
+          <Item xs={12}>
             <P
               style={{
                 width: "100%",
@@ -76,9 +75,9 @@ const Input: React.FC<InputProps> = ({
             >
               {label}
             </P>
-          </Grid>
+          </Item>
         )}
-        <Grid item xs={11}>
+        <Item xs={11}>
           <TextInput
             className="Input"
             style={{
@@ -94,15 +93,15 @@ const Input: React.FC<InputProps> = ({
           >
             {children}
           </TextInput>
-        </Grid>
+        </Item>
         {icon && (
-          <Grid item xs={1}>
+          <Item xs={1}>
             {error && touched && <ErrorIcon />}
             {touched && !error && <CheckIcon />}
-          </Grid>
+          </Item>
         )}
-      </Grid>
-    </Container>
+      </ Container>
+    </ContainerInput>
     {error && touched ? <Error>{error}</Error> : null}
   </div>
 );

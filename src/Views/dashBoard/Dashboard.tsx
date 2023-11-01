@@ -7,7 +7,8 @@ import { Grid } from "@mui/material";
 import { Menu } from "../../components/SideMenu/Menu";
 import Proyects from "./proyects/Proyects";
 import { WorkspaceContext } from "../../context/WorkspaceContext";
-const Container = styled.div({
+import { Container, Item } from "../../components/Container";
+const ContainerDashboard = styled.div({
   minWidth: "100%",
   position: "relative",
   display: "flex",
@@ -32,42 +33,39 @@ const DashBoard = () => {
   }, [user]);
   return (
     <>
-      <br />
-      <br />
-      <br />
-      <br />
-      <Container>
-        <Grid
 
-          container
-          justifyContent={"flex-end"}
+      <ContainerDashboard>
+        <Container
+          justifyContent={"space-between"}
+
           sx={{ display: { xs: "none", md: "flex" } }}
         >
-          <Grid item md={12} sx={{ display: { xs: "none", md: "flex" } }}>
+          <Item md={2} style={{ position: 'relative', }} sx={{ display: { xs: "none", md: "flex" } }}>
             <Menu />
-          </Grid>
+          </Item>
 
-          <Grid item xs={11} md={9}>
+          <Item md={8}>
             {panel === 0 && <Proyects />}
             {panel === 1 && <Staff />}
-          </Grid>
-          <Grid item xs={1}></Grid>
-        </Grid>
-        <Grid
-          container
+          </Item>
+          <Item xs={1}>
+
+          </Item>
+        </Container>
+        <Container
           justifyContent={"center"}
           sx={{ display: { xs: "flex", md: "none" } }}
         >
-          <Grid item md={12} sx={{ display: { xs: "none", md: "flex" } }}>
+          <Item md={12} sx={{ display: { xs: "none", md: "flex" } }}>
             <Menu />
-          </Grid>
+          </Item>
 
-          <Grid item xs={11} md={8}>
+          <Item xs={11} md={8}>
             {panel === 0 && <Proyects />}
             {panel === 1 && <Staff />}
-          </Grid>
-        </Grid>
-      </Container>
+          </Item>
+        </Container>
+      </ContainerDashboard>
     </>
   );
 };

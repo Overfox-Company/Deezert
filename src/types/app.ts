@@ -62,7 +62,7 @@ export type ContextData = {
   setInvitations: React.Dispatch<React.SetStateAction<any>>;
   ResetAppContext: any;
   googleLoaded: boolean;
-  setGoogleLoader:React.Dispatch<React.SetStateAction<boolean>>;
+  setGoogleLoader: React.Dispatch<React.SetStateAction<boolean>>;
 };
 type Snackbar = {
   message: string;
@@ -95,3 +95,25 @@ export type ProviderProps = {
   children?: React.ReactNode;
   className?: string;
 };
+
+export interface ContainerProps {
+  direction?: string | any;
+  children: ReactNode;
+  justifyContent?: string | any;
+  style?: any;
+  columnSpacing?: number | any;
+  alignItems?: string;
+  rowSpacing?: number | any;
+  sx?: any;
+  ref?: any;
+}
+export interface ItemProps {
+  onClick?: any;
+  style?: any,
+  children: ReactNode;
+  xs?: number;
+  md?: number;
+  sx?: any;
+  lg?: number;
+  xl?: number;
+}

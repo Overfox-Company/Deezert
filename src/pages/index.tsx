@@ -5,8 +5,9 @@ import Login from "../Views/login/Login";
 export default function Home() {
   return (
     <>
-      <Header />
+
       <main className={styles.main}>
+        <Header />
         <Login />
       </main>
     </>

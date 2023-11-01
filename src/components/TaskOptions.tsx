@@ -19,7 +19,7 @@ const options = [
 ];
 const Text = styled.p({
   fontSize: "1.8vh",
-  fontFamily: "comfortaa",
+  fontFamily: "Comfortaa, cursive",
 });
 
 const Container = styled.div({

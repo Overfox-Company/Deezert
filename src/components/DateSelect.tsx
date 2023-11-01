@@ -5,11 +5,10 @@ import Popover from "@mui/material/Popover";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import TextField from "@mui/material/TextField";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { Container, Item } from "./Container";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { WorkspaceContext } from "../context/WorkspaceContext";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 type TypeComponent = {
   value: any;
@@ -19,7 +18,7 @@ type TypeComponent = {
 };
 const DateText = styled.p({
   fontSize: "0.9vw",
-  fontFamily: "comfortaa",
+  fontFamily: "Comfortaa, cursive",
   color: "rgb(250,250,250)",
 });
 const AddDateIcon = styled(CalendarTodayIcon)({
@@ -38,9 +37,8 @@ const ContainerDate = styled.div({
   justifyContent: "flex-end",
   cursor: "pointer",
 });
-const DateSelect = ({ value, onChange, handleSave ,addTask}: TypeComponent) => {
+const DateSelect = ({ value, onChange, handleSave, addTask }: TypeComponent) => {
   const [anchorEl, setAnchorEl] = useState<boolean>(false);
-  const { selectedTask } = useContext(WorkspaceContext);
   const handleClose = () => {
     setAnchorEl(false);
   };
@@ -54,34 +52,34 @@ const DateSelect = ({ value, onChange, handleSave ,addTask}: TypeComponent) => {
   const [first, setFirst] = useState(true);
   useEffect(() => {
     setFirst(false);
-    if (!anchorEl && !first&&!addTask) {
+    if (!anchorEl && !first && !addTask) {
       handleSave();
     }
   }, [anchorEl]);
   return (
     <div>
       <ContainerDate>
-        <Grid container ref={Element}>
+        <Container ref={Element}>
           {value && (
-            <Grid item xs={12}>
+            <Item xs={12}>
               <ContainerDate onClick={() => handleClick()}>
-                <Grid container justifyContent={'space-around'} alignItems={"center"}>
-                  <Grid item xs={10}>
+                <Container justifyContent={'space-around'} alignItems={"center"}>
+                  <Item xs={10}>
                     <DateText>{dayjs(value).format("YYYY/MM/DD")}</DateText>
-                  </Grid>
-                  <Grid item xs={2}>
+                  </Item>
+                  <Item xs={2}>
                     <DateIcon />
-                  </Grid>
-                </Grid>
+                  </Item>
+                </Container>
               </ContainerDate>
-            </Grid>
+            </Item>
           )}
           {!value && (
-            <Grid item xs={12}>
+            <Item xs={12}>
               <AddDateIcon onClick={() => handleClick()} />
-            </Grid>
+            </Item>
           )}
-        </Grid>
+        </Container>
       </ContainerDate>
 
       <Popover

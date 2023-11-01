@@ -77,7 +77,7 @@ const initialData: TaskType = {
 };
 const NoTaskMessage = styledE.p({
   color: "rgb(250,250,250)",
-  fontFamily: "comfortaa",
+  fontFamily: "Comfortaa, cursive",
   fontSize: "1.8vh",
   textAlign: 'center'
 })

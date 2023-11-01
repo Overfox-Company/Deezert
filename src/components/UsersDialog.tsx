@@ -29,7 +29,7 @@ const ListUsers = styled.div({
 
 const Name = styled.p({
   color: "white",
-  fontFamily: "comfortaa",
+  fontFamily: "Comfortaa, cursive",
   fontSize: 12,
 });
 const ContainerUser = styled.div({
@@ -80,7 +80,7 @@ const UsersDialog = ({
           </Grid>
           <Grid item xs={10}>
             <ListUsers>
-              {staff ?staff
+              {staff ? staff
                 .filter((item) =>
                   item.name.toLowerCase().includes(searchUser.toLowerCase())
                 )
@@ -99,13 +99,12 @@ const UsersDialog = ({
                           url={item.avatar}
                           name={item.name}
                           style={{
-                            border:selectedUser? `solid 2px ${
-                              selectedUser.some(
-                                (user: any) => user._id === item._id
-                              )
-                                ? PRIMARY_COLOR
-                                : "transparent"
-                            }`:null,
+                            border: selectedUser ? `solid 2px ${selectedUser.some(
+                              (user: any) => user._id === item._id
+                            )
+                              ? PRIMARY_COLOR
+                              : "transparent"
+                              }` : null,
                           }}
                         />
                       </Grid>
@@ -119,7 +118,7 @@ const UsersDialog = ({
                       </Grid>
                     </Grid>
                   </ContainerUser>
-                )):null}
+                )) : null}
             </ListUsers>
           </Grid>
         </Grid>

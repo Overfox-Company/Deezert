@@ -17,7 +17,6 @@ const Container = styled.div({
   display: "flex",
   flexDirection: "column",
   height: "100vh",
-  boxShadow: "0 10px 10px 0 rgba(20,20,30,1)",
   overflow: "auto",
   position: "relative",
   overflowY: "auto",
@@ -83,34 +82,34 @@ const SideMenuWorkspace = ({ panel, setPanel }: Props) => {
           <NameCompanyOwner>{workspaces.name}</NameCompanyOwner>
         </Grid>
       </Grid>
-      <div style={{height:'84vh',overflow:'auto'}}>
-      <List>
-        {ListMenu.map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton
-              onClick={() => handleClick(index)}
-              style={{
-                borderLeft:
-                  workspaceActive.length < 1
-                    ? panel === index
-                      ? `solid 2px ${PRIMARY_COLOR}`
-                      : `solid 2px rgba(0,0,0,0)`
-                    : `
+      <div style={{ height: '84vh', overflow: 'auto' }}>
+        <List>
+          {ListMenu.map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton
+                onClick={() => handleClick(index)}
+                style={{
+                  borderLeft:
+                    workspaceActive.length < 1
+                      ? panel === index
+                        ? `solid 2px ${PRIMARY_COLOR}`
+                        : `solid 2px rgba(0,0,0,0)`
+                      : `
                     solid 2px rgba(0,0,0,0)`,
-              }}
-            >
-              <ListItemText style={{ fontFamily: "roboto" }} primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <div style={{ marginBottom: "0vh" }}>
-        <DropDown />
-      </div>
-      <ContainerBackButton onClick={() => handleClickRedirect()}>
-        <ArrowBackIcon style={{ fontSize: "1vw", marginRight: "1vw" }} />
-        <p style={{ fontSize: "1vw" }}>Regresar al inicio</p>
-      </ContainerBackButton>
+                }}
+              >
+                <ListItemText style={{ fontFamily: "roboto" }} primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <div style={{ marginBottom: "0vh" }}>
+          <DropDown />
+        </div>
+        <ContainerBackButton onClick={() => handleClickRedirect()}>
+          <ArrowBackIcon style={{ fontSize: "1vw", marginRight: "1vw" }} />
+          <p style={{ fontSize: "1vw" }}>Regresar al inicio</p>
+        </ContainerBackButton>
       </div>
 
 

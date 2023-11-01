@@ -83,6 +83,7 @@ const GoogleLoginButton = () => {
     <GoogleLogin
       render={(renderProps) => (
         <SignInGoogleButton
+          disabled={!gapiLoaded}
           onClick={renderProps.onClick}
           aria-label="delete"
           size="small"

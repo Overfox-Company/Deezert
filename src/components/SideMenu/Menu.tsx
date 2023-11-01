@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   ListItem,
@@ -7,7 +7,6 @@ import {
   ListItemText,
 } from "@mui/material";
 import { AppContext } from "../../context/AppContext";
-import { Grid } from "@mui/material";
 import styled from "@emotion/styled";
 import Switch from "../Switch";
 import {
@@ -16,18 +15,17 @@ import {
   CONTAINER_DARK,
 } from "../../constants/Color";
 import Companys from "./Companys";
+import { Container, Item } from "../Container";
 const light = "../../../static/images/logoDark.png";
 const dark = "../../../static/images/logoLight.png";
 const Logo = styled.img({
   width: "100%",
 });
 const FixedContainer = styled.div({
-  left: 0,
-  top: 0,
+
   zIndex: 99,
-  maxWidth: "16vw",
-  position: "fixed",
-  height: "100vh",
+  width: "100%",
+  position: "relative",
   overflow: "hidden",
   boxShadow: "0 10px 10px 0 rgba(20,20,30,1)",
 });
@@ -53,24 +51,24 @@ export const MenuMobile = ({ close }: any) => {
   return (
     <>
       <Box
-        style={{ position: "relative", zIndex: 99999, paddingTop: 10 }}
+        style={{ position: "relative", zIndex: 99999, }}
         sx={{ width: 250 }}
         role="presentation"
         onKeyDown={close("left", false)}
       >
-        <Grid container justifyContent={"space-around"} alignItems={"center"}>
-          <Grid item xs={6}>
+        < Container justifyContent={"space-around"} alignItems={"center"}>
+          <Item xs={6}>
             <Logo src={darkMode ? dark : light} />
-          </Grid>
-          <Grid item xs={4}>
+          </Item>
+          <Item xs={4}>
             <Switch />
-          </Grid>
-        </Grid>
-        <Grid container>
-          <Grid item xs={12}>
+          </Item>
+        </ Container>
+        < Container>
+          <Item xs={12}>
             <Companys />
-          </Grid>
-        </Grid>
+          </Item>
+        </ Container>
 
         <List>
           {data.map((text, index) => (
@@ -107,16 +105,15 @@ export const Menu = () => {
     <FixedContainer
       style={{ backgroundColor: darkMode ? CONTAINER_DARK : CONTAINER }}
     >
-      <Grid container>
-        <Grid item xs={12}>
-          <Grid container>
-            <Grid item xs={4}>
+      < Container>
+        <Item xs={12}>
+          < Container>
+            <Item xs={4}>
               <br />
               <Companys v="V" />
-            </Grid>
-            <Grid item xs={8}>
+            </Item>
+            <Item xs={8}>
               <br />
-              <Logo src={darkMode ? dark : light} />
               <List>
                 {data.map((text, index) => (
                   <ListItem key={text} disablePadding>
@@ -134,16 +131,16 @@ export const Menu = () => {
                   </ListItem>
                 ))}
               </List>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={12}>
+            </Item>
+          </ Container>
+        </Item>
+        <Item xs={12}>
           <LogoutButton onClick={() => logout()}>
             Cerrar session
           </LogoutButton>
 
-        </Grid>
-      </Grid>
+        </Item>
+      </ Container>
     </FixedContainer>
   );
 };

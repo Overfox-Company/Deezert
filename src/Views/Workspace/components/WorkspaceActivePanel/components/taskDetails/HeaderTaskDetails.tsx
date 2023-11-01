@@ -58,14 +58,14 @@ const ContainerUsersSelected = styled.div({
 
 const TaskList = styled.div({
   width: "90%",
-  fontFamily: "comfortaa",
+  fontFamily: "Comfortaa, cursive",
   padding: "0.8vw 1vw",
   backgroundColor: "rgba(5,5,15,0.1)",
   fontSize: "0.8vw",
   cursor: "pointer",
 });
 const ListItem = styled.div({
-  fontFamily: "comfortaa",
+  fontFamily: "Comfortaa, cursive",
   padding: "0.8vw 1vw",
   backgroundColor: "rgba(5,5,15,0.1)",
   fontSize: "0.8vw",
@@ -73,13 +73,13 @@ const ListItem = styled.div({
 });
 const DateCreatedTitle = styled.p({
   color: "rgb(200,200,200)",
-  fontFamily: "comfortaa",
+  fontFamily: "Comfortaa, cursive",
   fontSize: "0.9vw",
   marginBottom: "0.5vw",
 });
 const DateCreated = styled.p({
   color: "rgb(170,170,170)",
-  fontFamily: "comfortaa",
+  fontFamily: "Comfortaa, cursive",
   fontSize: "0.8vw",
 });
 const HeaderTaskDetails = ({
@@ -145,9 +145,9 @@ const HeaderTaskDetails = ({
     const selectedList = lisprojects.find(
       (list: any) => list._id === selectedTask.list
     );
-    const users =staff? staff.filter((user) =>
+    const users = staff ? staff.filter((user) =>
       selectedTask.assigned.includes(user._id)
-    ):[];
+    ) : [];
     setSelectedUser(users);
     if (selectedList) {
       setListSelected(selectedList);
@@ -238,7 +238,7 @@ const HeaderTaskDetails = ({
                 </FlexContainer>
               </Grid>
               <Grid item xs={2}>
-                <TimeWorked/>
+                <TimeWorked />
               </Grid>
               <Grid item xs={2}>
                 <FlexContainer>

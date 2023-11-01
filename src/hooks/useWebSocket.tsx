@@ -8,7 +8,7 @@ type SocketHookProps = {
 };
 const prod = 'https://deezertworkspace.onrender.com';
 const dev = 'http://localhost:10000'
-const port = process.env.NEXT_PUBLIC_PRODUCTION == 'true' ? prod : dev
+const port = process.env.NEXT_PUBLIC_PRODUCTION_MICROSERVICES == 'true' ? prod : dev
 const useSocket = ({ channel, setSocketData, server }: SocketHookProps) => {
   const socketRef = useRef<Socket | null>(null);
 

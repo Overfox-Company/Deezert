@@ -3,16 +3,13 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import AppRouter from "./App";
 import { Wrapper } from "../components/BasicComponents";
-import React, { useContext, useEffect } from "react";
-import styles from "../styles/Home.module.css";
+import React from "react";
 import ThemeContainer from "../components/theme/ThemeComponent";
 import ProtectedRoutes from "../routes/ProtectedRoutes";
 import Header from "../components/header/Header";
 import Loader from "../components/Loader";
-import { AppContext } from "../context/AppContext";
 import SnackbarCustom from "../components/Snackbar";
 import Banner from "../components/Contributions/Banner";
-import { MicroServiceProvider } from "../context/Microservices";
 const publicRoutes: string[] = ["index", "login", "invitation"];
 
 
@@ -23,20 +20,25 @@ export default function App({ Component, pageProps }: AppProps) {
     <AppRouter>
       <ThemeContainer>
 
-        <Wrapper className={styles.main}>
-          <Loader />
+        <Wrapper >
 
+          <Loader />
           <SnackbarCustom />
-          {publicRoutes.includes(Component.name) ? (
-            <>
-              {Component.name !== 'invitation' && <Header />}
-              <Component {...pageProps} />
-            </>
-          ) : (
-            <ProtectedRoutes>
-              <Component {...pageProps} />
-            </ProtectedRoutes>
-          )}
+          <div className="fullWidth">
+            <div className="PrincipalContainer">
+              {publicRoutes.includes(Component.name) ? (
+                <>
+                  {Component.name !== 'invitation' && <Header />}
+                  <Component {...pageProps} />
+                </>
+              ) : (
+                <ProtectedRoutes>
+                  <Component {...pageProps} />
+                </ProtectedRoutes>
+              )}
+
+            </div>
+          </div>
 
         </Wrapper>
 

@@ -14,7 +14,6 @@ const Container = styled.div({
   alignItems: "center",
   paddingLeft: "2vw",
   width: "100%",
-  boxShadow: "0 5px 5px 0 rgba(0,0,0,0.1)",
 });
 const Logo = styled.img({
   height: "4vh",

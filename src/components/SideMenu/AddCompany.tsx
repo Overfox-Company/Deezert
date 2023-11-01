@@ -1,5 +1,4 @@
 import React from "react";
-import { Grid, Button } from "@mui/material";
 import { useContext } from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
@@ -11,6 +10,7 @@ import FormAddCompany from "../../Views/AddCompany/Form";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
 import { PAPER_DARK, PAPER } from "../../constants/Color";
+import { Container, Item } from "../Container";
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
     children: React.ReactElement<any, any>;
@@ -33,11 +33,11 @@ const AddCompany = ({ open, setOpen }: any) => {
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogTitle style={{ backgroundColor: darkMode ? PAPER_DARK : PAPER }}>
-          <Grid container justifyContent={"space-between"}>
-            <Grid item xs={8}>
+          <Container justifyContent={"space-between"}>
+            <Item xs={8}>
               {"Crea una nueva compañia"}
-            </Grid>
-            <Grid item xs={1}>
+            </Item >
+            <Item xs={1}>
               <IconButton
                 color="primary"
                 onClick={handleClose}
@@ -45,8 +45,8 @@ const AddCompany = ({ open, setOpen }: any) => {
               >
                 <CloseIcon />
               </IconButton>
-            </Grid>
-          </Grid>
+            </Item >
+          </Container>
         </DialogTitle>
 
         <DialogContent

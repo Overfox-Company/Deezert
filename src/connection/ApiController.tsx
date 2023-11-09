@@ -78,6 +78,10 @@ const ApiController = {
   editTask: (values: any) => api.post(Route + '/editTask', values),
   playTask: (values: any) => api.post(Route + '/playTask', values),
   stopTask: (values: any) => api.post(Route + '/stopTask', values),
+  addMemberToWorkspace: (values: any) => api.post(Route + '/addMenberToWorkspace', values),
+  addClientToWorkspace: (values: any) => api.post(Route + '/addClientToWorkspace', values),
+  deleteClientToWorkspace: (values: any) => api.post(Route + '/deleteClientToWorkspace', values),
+  deleteMemberToWorkspace: (values: any) => api.post(Route + '/deleteMemberToWorkspace', values),
 };
 
 // Export the ApiController object as the default export

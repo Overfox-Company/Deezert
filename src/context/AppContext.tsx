@@ -1,9 +1,9 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { ProviderProps } from '../types/app';
 import { ContextData } from '../types/app';
-import { ProyectsContext } from './ProyectsContext';
 import { WorkspaceContext } from './WorkspaceContext';
 import { useRouter } from 'next/router';
+import ApiController from '../connection/ApiController';
 const InitialUser = {
   _id: '',
   name: '',
@@ -59,6 +59,10 @@ export const AppContext = createContext<ContextData>({
   ResetAppContext: () => { },
   googleLoaded: false,
   setGoogleLoader: () => { },
+  clients: [],
+  setClients: () => { },
+  proyectWorkspaces: [],
+  setProyectWorkspaces: () => { }
 });
 
 export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
@@ -72,13 +76,24 @@ export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
   const [panel, setPanel] = useState(0)
   const [companys, setCompanys] = useState([])
   const [staff, setStaff] = useState([])
-  const [selectedCompany, setSelectedCompany] = useState({})
+  const [proyectWorkspaces, setProyectWorkspaces] = useState<any>([])
+  const [clients, setClients] = useState([])
+  const [selectedCompany, setSelectedCompany] = useState<any>({})
   const [isSnackbarOpen, setSnackbarOpen] = useState({
     message: '',
     type: "error" as "error" | "warning" | "info" | "success"
   })
-  const { setWorkspaces } = useContext(ProyectsContext)
-  const { RestWorkspaces } = useContext(WorkspaceContext)
+  const {
+    RestWorkspaces,
+    workspaces,
+    setTaskList,
+    setStaffAssigned,
+    setStaffUnasigned,
+    setClientsAssigned,
+    setClientsUnasigned,
+    setProyectSelected,
+    proyectSelected
+  } = useContext(WorkspaceContext)
   const router = useRouter()
   const login = () => {
     setIsAuthenticated(true);
@@ -97,14 +112,73 @@ export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
     setUser(InitialUser);
     setCompanys([])
     setStaff([])
-    setWorkspaces([])
+    setProyectWorkspaces([])
     RestWorkspaces()
     router.push('/')
   };
+  const { workspace: id } = router.query;
+  const searchBy = selectedCompany._id || workspaces._id
+  useEffect(() => {
+    if (searchBy) {
+      setLoader(true);
+      ApiController.GetInvitations({ id: searchBy }).then((e) => {
 
+        setInvitations(e.data.invitation);
+        setClients(e.data?.staff?.filter((staff: any) => staff.customerCompanies.includes(searchBy)))
+        setStaff(e.data?.staff?.filter((staff: any) => !staff.customerCompanies.includes(searchBy)));
+      });
+      setLoader(false);
+    }
+  }, [selectedCompany, user, id]);
+  useEffect(() => {
+    if (workspaces._id) {
+      Promise.all([
+        ApiController.getAllTask({ id: id }),
+      ]).then(([taskResponse]) => {
+        setTaskList(taskResponse.data);
+        setLoader(false);
+      });
+    }
+  }, [workspaces, user, id]);
+  useEffect(() => {
+    if (searchBy) {
+      ApiController.GetWorkspace({ id: searchBy }).then((e) => {
+        setProyectWorkspaces(e.data);
+        console.log(e.data)
+      });
+    }
+  }, [searchBy]);
+  useEffect(() => {
+
+    setProyectSelected(proyectWorkspaces.filter((proyect: any) => proyect._id === id)[0])
+    console.log(searchBy)
+    console.log(proyectWorkspaces)
+
+  }, [id, proyectWorkspaces, searchBy])
+  useEffect(() => {
+
+    if (proyectSelected && staff?.length > 0 && clients?.length > 0) {
+      const filterStaffA = staff.filter((e: any) => proyectSelected.members?.includes(e._id))
+      const filterStaffU = staff.filter((e: any) => !proyectSelected.members?.includes(e._id))
+      setStaffAssigned(filterStaffA)
+      setStaffUnasigned(filterStaffU)
+
+      const filterClientsA = clients.filter((e: any) => proyectSelected.clients?.includes(e._id))
+      const filterClientsU = clients.filter((e: any) => !proyectSelected.clients?.includes(e._id))
+      setClientsAssigned(filterClientsA)
+      setClientsUnasigned(filterClientsU)
+
+    }
+
+
+  }, [proyectWorkspaces, proyectSelected, staff, clients, searchBy])
   return (
     <AppContext.Provider
       value={{
+        proyectWorkspaces,
+        setProyectWorkspaces,
+        clients,
+        setClients,
         googleLoaded,
         setGoogleLoader,
         invitations,

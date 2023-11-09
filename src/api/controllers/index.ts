@@ -28,6 +28,7 @@ export const FirstRoute: ServerType = async (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
     const type = "google";
     verify({ token, type }).then((payload: any) => {
+      console.log(payload)
       if (payload?.iss === "accounts.google.com") {
         console.log("verificacion del token");
         console.log(payload?.sub);
@@ -459,7 +460,7 @@ export const editNameTask: ServerType = async (req, res) => {
   }
 };
 export const AddFilesController: ServerType = async (req, res) => {
-      console.log("el archivo llega al backend")
+  console.log("el archivo llega al backend")
   try {
     if (!req.headers.authorization) {
       res.status(404).send("token no valido");
@@ -535,3 +536,64 @@ export const StopTaskController: ServerType = async (req, res) => {
     res.status(404).send("token no valido");
   }
 };
+export const AddMenbersController: ServerType = async (req, res) => {
+  try {
+    if (!req.headers.authorization) {
+      res.status(404).send("token no valido");
+      throw new Error("Invalid Token");
+    }
+    const body = req.body;
+    axios
+      .post(DeezerWorkspaces + "/addMembersToWorkspace", body)
+      .then((e) => res.status(200).json(e.data));
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("token no valido");
+  }
+}
+
+export const AddClientsController: ServerType = async (req, res) => {
+  try {
+    if (!req.headers.authorization) {
+      res.status(404).send("token no valido");
+      throw new Error("Invalid Token");
+    }
+    const body = req.body;
+    axios
+      .post(DeezerWorkspaces + "/addClientsToWorkspace", body)
+      .then((e) => res.status(200).json(e.data));
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("token no valido");
+  }
+}
+export const DeleteClientsController: ServerType = async (req, res) => {
+  try {
+    if (!req.headers.authorization) {
+      res.status(404).send("token no valido");
+      throw new Error("Invalid Token");
+    }
+    const body = req.body;
+    axios
+      .post(DeezerWorkspaces + "/deleteClientsToWorkspace", body)
+      .then((e) => res.status(200).json(e.data));
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("token no valido");
+  }
+}
+export const DeleteMemberController: ServerType = async (req, res) => {
+  try {
+    if (!req.headers.authorization) {
+      res.status(404).send("token no valido");
+      throw new Error("Invalid Token");
+    }
+    const body = req.body;
+    axios
+      .post(DeezerWorkspaces + "/deleteMemberToWorkspace", body)
+      .then((e) => res.status(200).json(e.data));
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("token no valido");
+  }
+}

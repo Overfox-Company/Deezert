@@ -11,9 +11,6 @@ const Workspace = () => {
   const [panel, setPanel] = useState(0);
   const { setWorkspaces, setListWorkspace, setLisprojects } =
     useContext(WorkspaceContext);
-  const { lisprojects, workspaceActive, workspaces, setTaskList, setSelectedTask } =
-    useContext(WorkspaceContext);
-  const { setLoader, loader, user, setStaff, selectedCompany } = useContext(AppContext);
   const router = useRouter();
   const { workspace: id } = router.query;
   useEffect(() => {
@@ -33,7 +30,6 @@ const Workspace = () => {
         setWorkspaces(workspaceData.data);
         setListWorkspace(workspaceList.data);
         setLisprojects(workspaceListProject.data);
-        console.log("Se han cargado correctamente los datos del workspace");
       } catch (error) {
         console.error("Error al obtener los datos del workspace:", error);
       }

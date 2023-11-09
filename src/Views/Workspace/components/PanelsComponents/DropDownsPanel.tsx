@@ -154,21 +154,7 @@ const DropDownPanels = () => {
       };
     }
   }, [loader]);
-  useEffect(() => {
-    console.log("compañia seleccionada");
 
-    if (workspaces._id && selectedCompany) {
-
-      Promise.all([
-        ApiController.GetInvitations({ id: workspaces._id }),
-        ApiController.getAllTask({ id: id }),
-      ]).then(([invitationsResponse, taskResponse]) => {
-        setStaff(invitationsResponse.data.staff);
-        setTaskList(taskResponse.data);
-        setLoader(false);
-      });
-    }
-  }, [selectedCompany, user]);
   useSocket({
     channel: "task",
     setSocketData: setTaskList,

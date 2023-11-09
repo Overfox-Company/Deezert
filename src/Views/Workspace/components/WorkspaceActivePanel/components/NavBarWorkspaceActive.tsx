@@ -33,7 +33,7 @@ const ContainerAvatar = styled.div({
   alignItems: "center",
 });
 const NavBarWorkspaceActive = () => {
-  const { workspaces, workspaceActive } = useContext(WorkspaceContext);
+  const { workspaces, workspaceActive, proyectSelected } = useContext(WorkspaceContext);
   const { darkMode, user } = useContext(AppContext);
 
   return (
@@ -42,7 +42,7 @@ const NavBarWorkspaceActive = () => {
         <Grid item xs={2}>
           {workspaceActive.length != 0 && (
             <Breadcrumbs separator="›" aria-label="breadcrumb">
-              <p>{workspaces.name}</p>
+              <p>{proyectSelected.name}</p>
               <p>{workspaceActive.name}</p>
             </Breadcrumbs>
           )}

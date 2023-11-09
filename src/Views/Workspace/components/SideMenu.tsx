@@ -10,6 +10,7 @@ import { CONTAINER_DARK } from "../../../constants/Color";
 import { WorkspaceContext } from "../../../context/WorkspaceContext";
 import { AppContext } from "../../../context/AppContext";
 const ListMenuAmin = ["Inicio", "Actividad", "Resumen", "Configuracion"];
+const ListMenuSuperVisor = ["Inicio", "Actividad", "Resumen"];
 const ListMenuUser = ["Inicio", "Resumen"];
 
 const Container = styled.div({
@@ -45,7 +46,9 @@ type Props = {
 };
 const LogoCompanyOwner = styled.img({
   width: "auto",
-  height: "4vw",
+  height: "auto",
+  maxHeight: '2vw',
+  maxWidth: '100%',
   borderRadius: 200,
   backgroundColor: "black",
 });
@@ -63,11 +66,11 @@ const SideMenuWorkspace = ({ panel, setPanel }: Props) => {
     router.push("/dashBoard");
   };
 
-  const { workspaces, workspaceActive, setWorkspaceActive } =
+  const { workspaces, workspaceActive, setWorkspaceActive, proyectSelected } =
     useContext(WorkspaceContext);
   const { user } = useContext(AppContext);
   const ListMenu =
-    user._id === workspaces.idOwner ? ListMenuAmin : ListMenuUser;
+    user._id === workspaces.idOwner ? ListMenuAmin : proyectSelected?.clients?.includes(user._id) ? ListMenuSuperVisor : ListMenuUser;
   return (
     <Container>
       <Grid
@@ -75,11 +78,11 @@ const SideMenuWorkspace = ({ panel, setPanel }: Props) => {
         alignItems={"center"}
         style={{ backgroundColor: "rgba(10,15,24,0.1)", padding: "0.5vw" }}
       >
-        <Grid item xs={4}>
-          <LogoCompanyOwner src={workspaces.avatar} />
+        <Grid item xs={4} style={{ display: 'flex', justifyContent: 'center' }}>
+          <LogoCompanyOwner src={proyectSelected?.coverImage} />
         </Grid>
         <Grid item xs={8}>
-          <NameCompanyOwner>{workspaces.name}</NameCompanyOwner>
+          <NameCompanyOwner>{proyectSelected?.name}</NameCompanyOwner>
         </Grid>
       </Grid>
       <div style={{ height: '84vh', overflow: 'auto' }}>

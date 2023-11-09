@@ -6,7 +6,6 @@ import UploadImages from "../../../../components/UploadImages";
 import Input from "../../../../components/Input";
 import ApiController from "../../../../connection/ApiController";
 import { AppContext } from "../../../../context/AppContext";
-import { ProyectsContext } from "../../../../context/ProyectsContext";
 import * as Yup from "yup";
 const uploadSchema = Yup.object().shape({
   name: Yup.string().required("El nombre es requerido"),
@@ -17,23 +16,11 @@ const uploadSchema = Yup.object().shape({
 const FormProyects = ({ closeForm }: any) => {
   const [images, setImages] = useState([]);
   const { selectedCompany, setLoader } = useContext(AppContext);
-  const { setWorkspaces } = useContext(ProyectsContext);
   const [update, setUpdate] = useState(true);
   const initialValues = {
     name: "",
     description: "",
   };
-  useEffect(() => {
-
-    if (selectedCompany._id) {
-      ApiController.GetWorkspace({ id: selectedCompany._id }).then((e) => {
-        console.log(e);
-        setWorkspaces(e.data);
-        setUpdate(false);
-        setLoader(false);
-      });
-    }
-  }, [update, selectedCompany]);
   return (
     <>
       <Formik
@@ -52,7 +39,7 @@ const FormProyects = ({ closeForm }: any) => {
             setLoader(false);
           }).catch(e => {
             console.log('se trono aca krnal')
-console.log(e)
+            console.log(e)
           });
         }}
       >

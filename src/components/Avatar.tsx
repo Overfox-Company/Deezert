@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Tooltip from "@mui/material/Tooltip";
-const AvatarImg = styled.img({
+import AvatarMaterial from "@mui/material/Avatar/Avatar";
+const AvatarImg = styled(AvatarMaterial)({
   width: 30,
   height: 30,
   borderRadius: 200,
@@ -11,7 +12,7 @@ const AvatarImg = styled.img({
 const Avatar = ({ url, name, style }: any) => {
   return (
     <>
-      <Tooltip title={name.length <= 10 ? name : name.slice(0, 10) + "..."}>
+      <Tooltip title={name?.length <= 10 ? name : name.slice(0, 10) + "..."}>
         <AvatarImg src={url} style={style} />
       </Tooltip>
     </>

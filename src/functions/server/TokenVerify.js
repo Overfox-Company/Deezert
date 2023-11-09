@@ -10,7 +10,7 @@ async function verify(verifyToken) {
         idToken: verifyToken.token,
         audience: client.clientId,
       });
-
+      console.log(await ticket.getPayload())
       if (await ticket.getPayload()?.iss == 'accounts.google.com') {
         return ticket.getPayload();
       } else {
@@ -20,6 +20,7 @@ async function verify(verifyToken) {
     }
     throw new Error("Invalid Token Type");
   } catch (error) {
+    console.log(error)
     console.log('error validando el token xq es viejo')
     return '401'
   }

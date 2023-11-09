@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion, { AccordionProps } from "@mui/material/Accordion";
@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import styledE from "@emotion/styled";
 import { Grid, Divider } from "@mui/material";
 import { P } from "../../../../components/BasicComponents";
+import { AppContext } from "../../../../context/AppContext";
 
 const Container = styledE.div({});
 const Title = styledE.p({
@@ -54,9 +55,10 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 const DropDown = () => {
   const [expanded, setExpanded] = React.useState<string | false>("panel1");
-  const { workspaces } = useContext(WorkspaceContext);
+  const { workspaces, workspaceActive, proyectSelected } = useContext(WorkspaceContext);
+
   const Categories = [
-    `Areas ${workspaces.name}`,
+    `Areas ${proyectSelected?.name}`,
     "Archivos",
     "Canales",
     "Chat",
@@ -65,7 +67,10 @@ const DropDown = () => {
     (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
       setExpanded(newExpanded ? panel : false);
     };
-
+  useEffect(() => {
+    console.log("Worspace Actual")
+    console.log(proyectSelected)
+  }, [])
   return (
     <Grid container justifyContent={"center"}>
       <Grid item xs={11}>
@@ -88,7 +93,7 @@ const DropDown = () => {
                   >
                     <Title>{item}</Title>
                   </AccordionSummary>
-                  <AccordionDetails style={{ padding: "1vwb" }}>
+                  <AccordionDetails style={{ padding: "0.1vw" }}>
                     <div
                       style={{
                         borderRadius: 5,

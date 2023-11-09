@@ -1,6 +1,6 @@
-import React from "react";
+import React, { FC, useContext, useEffect } from "react";
 import styled from "@emotion/styled";
-import { Grid, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import { P } from "../../../components/BasicComponents";
 import { AppContext } from "../../../context/AppContext";
 import { Form, Formik } from "formik";
@@ -34,13 +34,14 @@ const Avatar = styled.img({
   borderRadius: 200,
   marginTop: 5,
 });
+//angelomonteroosorio@gmail.com
 const uploadSchema = Yup.object().shape({
   email: Yup.string()
     .email("Ingrese un email válido")
     .required("Este campo es requierod para añadir a alguien a tu equipo")
     .min(10),
 });
-const Staff = () => {
+const Staff: FC<{ clientsView?: boolean }> = ({ clientsView }) => {
   const {
     staff,
     setStaff,
@@ -48,19 +49,23 @@ const Staff = () => {
     setInvitations,
     selectedCompany,
     setLoader,
-  } = React.useContext(AppContext);
+    setClients,
+    clients
+  } = useContext(AppContext);
   const [update, setUpdate] = React.useState(true);
-  React.useEffect(() => {
+  useEffect(() => {
     if (update === true && selectedCompany._id) {
       setLoader(true);
       ApiController.GetInvitations({ id: selectedCompany._id }).then((e) => {
         setInvitations(e.data.invitation);
-        setStaff(e.data.staff);
-        setLoader(false);
+        clientsView ? setClients(e.data.staff.filter((staff: any) => staff.customerCompanies.includes(selectedCompany._id))) : setStaff(e.data.staff.filter((staff: any) => !staff.customerCompanies.includes(selectedCompany._id)));
         setUpdate(false);
       });
+      setLoader(false);
     }
   }, [update, selectedCompany]);
+  const renderInvitations = invitations.filter((invitation: any) => invitation.client === clientsView)
+  const renderData = clientsView ? clients : staff
   return (
     <>
       <ContainerStuff>
@@ -70,7 +75,7 @@ const Staff = () => {
               < Container justifyContent={"flex-start"} alignItems={"center"}>
                 <Item xs={8}>
                   <P style={{ textAlign: "left", fontSize: 14 }}>
-                    Personal añadido
+                    {clientsView ? "Supervisores añadidos" : "Personal añadido"}
                   </P>
                 </Item>
                 <Item xs={1}>
@@ -97,6 +102,7 @@ const Staff = () => {
                     nameCompany: selectedCompany.name,
                     company: selectedCompany._id,
                     email: values.email,
+                    client: clientsView
                   },
                 ])
                   .then((e) => {
@@ -141,7 +147,7 @@ const Staff = () => {
               }}
             </Formik>
           </Item>
-          {invitations ? (
+          {renderInvitations ? (
             <>
               <Item xs={12}>
                 <Container justifyContent={"space-around"}>
@@ -160,7 +166,7 @@ const Staff = () => {
                   </Item>
                 </Container>
               </Item>
-              {invitations.map((item, index) => {
+              {renderInvitations.map((item, index) => {
                 return (
                   <>
                     <Item key={index} style={{ marginBottom: 15 }} xs={12}>
@@ -193,7 +199,7 @@ const Staff = () => {
               })}
             </>
           ) : null}
-          {staff ? (
+          {renderData ? (
             <>
               <Item xs={12}>
                 <Container justifyContent={"space-around"}>
@@ -206,14 +212,14 @@ const Staff = () => {
                         borderBottom: "solid 1px rgba(100,100,100,0.1)",
                       }}
                     >
-                      Personal
+                      {clientsView ? "Lista de supervisores" : "Personal"}
                     </P>
                   </Item>
                 </Container>
               </Item>
               <Item xs={12}>
                 <Container justifyContent={"space-around"}>
-                  {staff.map((item, index) => {
+                  {renderData.map((item, index) => {
                     return (
                       <>
                         <Item xs={10} key={index}>
@@ -245,8 +251,9 @@ const Staff = () => {
             </>
           ) : null}
 
-          {!staff ? (
+          {renderData.length < 1 ? (
             <Item xs={12}>
+              <br />
               <P style={{ fontSize: 10, opacity: 0.9 }}>
                 Aun no has agrado a nadie{" "}
               </P>

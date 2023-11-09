@@ -145,7 +145,7 @@ const TaskDetail = ({ handleClose, open }: TypeAddBoard) => {
   const maxSize = 10485760
   const { setLoader, user, setSnackbarOpen } = useContext(AppContext);
   const router = useRouter();
-  const { workspaces, workspaceActive, selectedTask, lisprojects } =
+  const { workspaceActive, proyectSelected, selectedTask, lisprojects } =
     useContext(WorkspaceContext);
   const [files, setFiles] = useState<any>(selectedTask.files);
   const { workspace } = router.query;
@@ -266,7 +266,7 @@ const TaskDetail = ({ handleClose, open }: TypeAddBoard) => {
                 <Grid item xs={3}>
                   <ContainerTitle>
                     <Breadcrumbs separator="›">
-                      <Title>{workspaces.name}</Title>
+                      <Title>{proyectSelected?.name}</Title>
                       <Title>{workspaceActive.name}</Title>
                     </Breadcrumbs>
                   </ContainerTitle>

@@ -46,6 +46,7 @@ const DashBoard = () => {
           <Item md={8}>
             {panel === 0 && <Proyects />}
             {panel === 1 && <Staff />}
+            {panel === 2 && <Staff clientsView />}
           </Item>
           <Item xs={1}>
 

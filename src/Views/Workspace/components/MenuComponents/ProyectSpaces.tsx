@@ -20,21 +20,23 @@ import ClearIcon from "@mui/icons-material/Clear";
 import CheckIcon from "@mui/icons-material/Check";
 import { PRIMARY_COLOR } from "../../../../constants/Color";
 const WorkspaceName = styled.input({
-  fontSize: 12,
+  fontSize: 13,
   margin: "0.5vw 0",
   outline: "none",
   border: 0,
   width: "100%",
   cursor: "pointer",
+  display: 'flex',
+  alignItems: 'center',
   backgroundColor: "rgba(20,20,20,0)",
 });
 const Icon = styled(ArrowForwardIosIcon)({
   fontSize: 12,
-  margin:0
+  margin: 0
 });
 const ContainerButton = styled.div({
   margin: "1vw 0",
-  padding: "0.5vw 1vw",
+  padding: "0.5vw 0.5vw",
   borderRadius: " 0px 5px 5px 0",
   transition: "all 0.3s ease",
   "&:hover": {
@@ -45,7 +47,7 @@ const ContainerButton = styled.div({
 const Input = styled.input({
   border: 0,
   width: "100%",
-    margin:0,
+  margin: 0,
   textDecoration: "none",
   backgroundColor: "rgba(20,20,20,0)",
   outline: "none",
@@ -111,6 +113,7 @@ const ProyecSpaces = () => {
     setWorkspaceActive,
     workspaceActive,
     workspaces,
+    proyectSelected
   } = useContext(WorkspaceContext);
   const { setLoader, user } = useContext(AppContext);
   const [value, setValue] = useState("");
@@ -200,17 +203,16 @@ const ProyecSpaces = () => {
                   onClick={() => setWorkspaceActive(item)}
                   key={index}
                   style={{
-                    borderLeft: `solid 2px ${
-                      workspaceActive._id === item._id
-                        ? PRIMARY_COLOR
-                        : "rgba(0,0,0,0)"
-                    }`,
+                    borderLeft: `solid 2px ${workspaceActive._id === item._id
+                      ? PRIMARY_COLOR
+                      : "rgba(0,0,0,0)"
+                      }`,
                   }}
                 >
                   <Grid container alignItems={"center"}>
                     <Grid
                       item
-                      xs={4}
+                      xs={3}
                       style={{ display: "flex", alignItems: "center" }}
                     >
                       {user._id === workspaces.idOwner && (
@@ -229,7 +231,7 @@ const ProyecSpaces = () => {
                         />
                       )}
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={8}>
                       <WorkspaceName
                         readOnly={editable === item._id ? false : true}
                         onDoubleClick={() =>
@@ -239,7 +241,7 @@ const ProyecSpaces = () => {
                         onChange={handleInputChangeEdit}
                       />
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs={1}>
                       <Icon />
                     </Grid>
                   </Grid>

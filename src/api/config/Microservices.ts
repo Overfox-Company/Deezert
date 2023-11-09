@@ -1,3 +1,3 @@
-export const DeezertSessions = process.env.NEXT_PUBLIC_PRODUCTION_MICROSERVICES ? `https://deezertsessions.onrender.com/Deezertsessions/api` : `"http://localhost:8000/"}Deezertsessions/api`;
+export const DeezertSessions = process.env.NEXT_PUBLIC_PRODUCTION_MICROSERVICES == 'true' ? `https://deezertsessions.onrender.com/Deezertsessions/api` : `http://localhost:8000/Deezertsessions/api`;
 export const DeezertManagement = process.env.NEXT_PUBLIC_PRODUCTION_MICROSERVICES == 'true' ? "https://deezertmanagement.onrender.com/DeezertManagement/api" : "http://localhost:8080/DeezertManagement/api";
 export const DeezerWorkspaces = process.env.NEXT_PUBLIC_PRODUCTION_MICROSERVICES == 'true' ? "https://deezertworkspace.onrender.com/DeezertWorkspaces/api" : "http://localhost:10000/DeezertWorkspaces/api";

@@ -63,6 +63,10 @@ export type ContextData = {
   ResetAppContext: any;
   googleLoaded: boolean;
   setGoogleLoader: React.Dispatch<React.SetStateAction<boolean>>;
+  clients: any[],
+  setClients: React.Dispatch<React.SetStateAction<any>>,
+  proyectWorkspaces: any,
+  setProyectWorkspaces: React.Dispatch<React.SetStateAction<any>>
 };
 type Snackbar = {
   message: string;

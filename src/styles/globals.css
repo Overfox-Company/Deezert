@@ -323,3 +323,8 @@ a {
   font-style: normal;
   src: url('/fonts/Roboto-Regular.ttf')format('truetype');
 }
+
+.MuiInputBase-input {
+  padding: 0;
+  padding-left: 15px;
+}

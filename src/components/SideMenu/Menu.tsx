@@ -29,7 +29,7 @@ const FixedContainer = styled.div({
   overflow: "hidden",
   boxShadow: "0 10px 10px 0 rgba(20,20,30,1)",
 });
-const AdmFunctions = ["Proyectos", "Personal", "Configuracion"];
+const AdmFunctions = ["Proyectos", "Personal", "Supervisores", "Configuracion"];
 const UserFunctions = ["Proyectos"];
 const LogoutButton = styled.div({
   width: '100%',

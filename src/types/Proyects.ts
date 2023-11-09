@@ -24,6 +24,16 @@ export type WorksPaceType = {
   selectedTask: any;
   setSelectedTask: React.Dispatch<React.SetStateAction<any>>;
   RestWorkspaces: any;
+  staffAssigned: any[],
+  setStaffAssigned: React.Dispatch<React.SetStateAction<any>>,
+  staffUnassigned: any[],
+  setStaffUnasigned: React.Dispatch<React.SetStateAction<any>>,
+  clientsAssigned: any[],
+  setClientsAssigned: React.Dispatch<React.SetStateAction<any>>,
+  clientsUnassigned: any[],
+  setClientsUnasigned: React.Dispatch<React.SetStateAction<any>>,
+  proyectSelected: any
+  setProyectSelected: React.Dispatch<React.SetStateAction<any>>
 };
 export type TaskType = {
   _id: string;

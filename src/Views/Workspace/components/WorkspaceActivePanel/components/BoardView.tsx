@@ -9,11 +9,12 @@ import { useRouter } from "next/router";
 
 import { DeleteDialog } from "./DeleteBoardDialog";
 import { AppContext } from "../../../../../context/AppContext";
-
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AddTask from "./AddTask";
 import useSocket from "../../../../../hooks/useWebSocket";
 import TaskSection from "./TaskSection";
 import BoardSection from "./BoardSection";
+import { PAPER_DARK, PRIMARY_COLOR, PRIMARY_COLOR_HOVER } from "../../../../../constants/Color";
 type Board = {
   enableAddInput: any;
   setEnableAddInput: any;
@@ -34,6 +35,18 @@ const AddBoardButton = styled.input({
   backgroundColor: "rgba(0,0,0,0)",
   "::placeholder": {
     color: "rgb(100,100,100)",
+  },
+});
+const DoneBoard = styled.input({
+  color: "rgb(250,250,250)",
+  fontSize: "1vw",
+  outline: "none",
+  border: 0,
+  width: "100%",
+  fontWeight: 600,
+  backgroundColor: "rgba(0,0,0,0)",
+  "::placeholder": {
+    color: "rgb(250,250,250)",
   },
 });
 const AddTaskText = styled.p({
@@ -138,20 +151,7 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
       });
     console.log("borrar board");
   };
-  useEffect(() => {
-    console.log("compañia seleccionada");
-    if (workspaces._id) {
-      setLoader(true);
-      Promise.all([
-        ApiController.GetInvitations({ id: workspaces._id }),
-        ApiController.getAllTask({ id: workspace }),
-      ]).then(([invitationsResponse, taskResponse]) => {
-        setStaff(invitationsResponse.data.staff);
-        setTaskList(taskResponse.data);
-        setLoader(false);
-      });
-    }
-  }, [selectedCompany]);
+
   useSocket({
     channel: "task",
     setSocketData: setTaskList,
@@ -285,6 +285,24 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
               </ContainerBoards>
             </ColumnContainer>
           )}
+          <ColumnContainer>
+            <ContainerBoards
+              style={{ backgroundColor: PAPER_DARK, borderColor: PRIMARY_COLOR }}
+            >
+              <Grid container alignItems={"center"}>
+                <Grid item xs={10}>
+                  <DoneBoard
+                    disabled={true}
+                    placeholder="Done"
+                    style={{ cursor: enableAddInput ? "text" : "pointer" }}
+                  />
+                </Grid>
+                <Grid item xs={2}>
+                  <CheckCircleIcon style={{ color: PRIMARY_COLOR }} />
+                </Grid>
+              </Grid>
+            </ContainerBoards>
+          </ColumnContainer>
         </Grid>
       </Grid>
     </>

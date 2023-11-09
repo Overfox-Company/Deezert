@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Grid, Paper, Skeleton } from "@mui/material";
-import { ProyectsContext } from "../../../context/ProyectsContext";
 import AddIcon from "@mui/icons-material/Add";
 import AddWorkspace from "./components/AddWorkspaces";
 import { AppContext } from "../../../context/AppContext";
@@ -9,6 +8,7 @@ import { P } from "../../../components/BasicComponents";
 import { PAPER_DARK } from "../../../constants/Color";
 import Router from "next/router";
 import { Container, Item } from "../../../components/Container";
+import { WorkspaceContext } from "../../../context/WorkspaceContext";
 const ContainerProyects = styled.div({
   width: "100%",
   display: "flex",
@@ -52,22 +52,30 @@ const ContainertImage = styled.div({
 const ImageProyect = styled.img({
   width: "auto",
   height: "auto",
-  maxHeight: '20vh',
-  maxWidth: '36vh',
+  maxHeight: '100%',
+  maxWidth: '100%',
   objectFit: "contain"
 });
 const Proyects = () => {
-  const { user, selectedCompany } = React.useContext(AppContext);
-  const { workspaces } = React.useContext(ProyectsContext);
+  const { user, selectedCompany, proyectWorkspaces, } = React.useContext(AppContext);
+  const { clientsAssigned, staffAssigned } = React.useContext(WorkspaceContext)
+  const [filteredProjects, setFilteredprojects] = React.useState([])
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   React.useEffect(() => {
-    if (!workspaces) {
+    if (!proyectWorkspaces) {
       setLoading(true);
     } else {
+      const filterWorkspaces = proyectWorkspaces.filter((e: any) =>
+        e.members.includes(user._id) || selectedCompany.idOwner === user._id || e.clients.includes(user._id)
+      );
+
+      console.log(selectedCompany)
+      setFilteredprojects(filterWorkspaces)
       setLoading(false);
+
     }
-  }, [workspaces, selectedCompany]);
+  }, [proyectWorkspaces, selectedCompany]);
   return (
     <>
       <ContainerProyects>
@@ -97,7 +105,7 @@ const Proyects = () => {
               </Skeleton>
             </Item>
             : null}
-          {workspaces.map((item, index) => {
+          {filteredProjects.map((item: any, index: number) => {
             return (
               <>
                 <Item xs={12} md={3} key={index}>
@@ -107,7 +115,6 @@ const Proyects = () => {
                     <Container>
                       <Item xs={12}>
                         <ContainertImage>
-
                           <ImageProyect src={item.coverImage} />
                         </ContainertImage>
                       </Item>

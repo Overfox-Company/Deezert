@@ -4,30 +4,45 @@ import { WorksPaceType } from "../types/Proyects";
 export const WorkspaceContext = createContext<WorksPaceType>({
   workspaces: [],
   setWorkspaces: () => { },
-  listWorkspace:[],
+  listWorkspace: [],
   setListWorkspace: () => { },
-  workspaceActive:[],
+  workspaceActive: [],
   setWorkspaceActive: () => { },
-  viewActive:[],
+  viewActive: [],
   setViewActive: () => { },
   lisprojects: [],
   setLisprojects: () => { },
-  taskList:[],
+  taskList: [],
   setTaskList: () => { },
-  selectedTask:[],
+  selectedTask: [],
   setSelectedTask: () => { },
-  RestWorkspaces:()=>{}
+  RestWorkspaces: () => { },
+  staffAssigned: [],
+  setStaffAssigned: () => { },
+  staffUnassigned: [],
+  setStaffUnasigned: () => { },
+  clientsAssigned: [],
+  setClientsAssigned: () => { },
+  clientsUnassigned: [],
+  setClientsUnasigned: () => { },
+  proyectSelected: {},
+  setProyectSelected: () => { }
 });
 
 
 export const WorkspaceProvider: React.FC<ProviderProps> = ({ children }) => {
   const [workspaces, setWorkspaces] = useState([]);
   const [workspaceActive, setWorkspaceActive] = useState([]);
-  const [listWorkspace, setListWorkspace]=useState([])
+  const [listWorkspace, setListWorkspace] = useState([])
   const [viewActive, setViewActive] = useState('')
   const [lisprojects, setLisprojects] = useState([])
   const [taskList, setTaskList] = useState([])
   const [selectedTask, setSelectedTask] = useState([])
+  const [staffAssigned, setStaffAssigned] = useState([])
+  const [staffUnassigned, setStaffUnasigned] = useState([])
+  const [clientsAssigned, setClientsAssigned] = useState([])
+  const [clientsUnassigned, setClientsUnasigned] = useState([])
+  const [proyectSelected, setProyectSelected] = useState({})
   const RestWorkspaces = () => {
     setSelectedTask([])
     setTaskList([])
@@ -39,6 +54,16 @@ export const WorkspaceProvider: React.FC<ProviderProps> = ({ children }) => {
   return (
     <WorkspaceContext.Provider
       value={{
+        proyectSelected,
+        setProyectSelected,
+        clientsAssigned,
+        setClientsAssigned,
+        clientsUnassigned,
+        setClientsUnasigned,
+        staffAssigned,
+        setStaffAssigned,
+        staffUnassigned,
+        setStaffUnasigned,
         workspaces,
         setWorkspaces,
         listWorkspace,

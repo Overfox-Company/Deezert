@@ -1,8 +1,6 @@
 import React, { FC } from 'react'
-import { Container, Item } from '../../../../components/Container'
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 interface TabPanelProps {
     setValue: React.Dispatch<React.SetStateAction<number>>;

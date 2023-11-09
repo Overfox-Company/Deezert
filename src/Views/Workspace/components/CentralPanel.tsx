@@ -18,7 +18,8 @@ const CentralPanel = ({ panel }: Prop) => {
       {workspaceActive.length < 1 ? (
         <>
           {panel === 0 ? <InitPanel /> : null}
-          {panel === 1 && <ActivityPanel />}
+          {//panel === 1 && <ActivityPanel />
+          }
           {panel === 3 ? <ConfigurationWorkspacePanel /> : null}
         </>
       ) : (

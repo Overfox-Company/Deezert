@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Container, Item } from '../../../../components/Container';
 import SelectUser from '../../../../components/Select';
 import { AppContext } from '../../../../context/AppContext';

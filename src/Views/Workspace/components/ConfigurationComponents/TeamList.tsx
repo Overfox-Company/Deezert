@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import Avatar from "../../../../components/Avatar";
 import { Container, Item } from "../../../../components/Container";
 import ClearIcon from '@mui/icons-material/Clear';
 import IconButton from "@mui/material/IconButton";
 const Text = styled.p({
-
     color: "rgb(250,250,250)",
     fontFamily: "Comfortaa, cursive",
     fontSize: "1.8vh",

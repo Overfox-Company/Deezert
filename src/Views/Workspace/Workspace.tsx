@@ -53,7 +53,7 @@ const Workspace = () => {
           <SideMenuWorkspace panel={panel} setPanel={setPanel} />
         </Grid>
         <Grid item xs={10}>
-          {  /* <CentralPanel panel={panel} />*/}
+          <CentralPanel panel={panel} />
         </Grid>
       </Grid>
     </>

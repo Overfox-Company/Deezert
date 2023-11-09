@@ -50,10 +50,10 @@ const Workspace = () => {
     <>
       <Grid container>
         <Grid item xs={2}>
-          { /* <SideMenuWorkspace panel={panel} setPanel={setPanel} />*/}
+          <SideMenuWorkspace panel={panel} setPanel={setPanel} />
         </Grid>
         <Grid item xs={10}>
-          <CentralPanel panel={panel} />
+          {  /* <CentralPanel panel={panel} />*/}
         </Grid>
       </Grid>
     </>

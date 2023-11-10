@@ -58,13 +58,13 @@ const Staff: FC<{ clientsView?: boolean }> = ({ clientsView }) => {
       setLoader(true);
       ApiController.GetInvitations({ id: selectedCompany._id }).then((e) => {
         setInvitations(e.data.invitation);
-        clientsView ? setClients(e.data.staff.filter((staff: any) => staff.customerCompanies.includes(selectedCompany._id))) : setStaff(e.data.staff.filter((staff: any) => !staff.customerCompanies.includes(selectedCompany._id)));
+        clientsView ? setClients(e.data.staff?.filter((staff: any) => staff.customerCompanies.includes(selectedCompany._id))) : setStaff(e.data.staff?.filter((staff: any) => !staff.customerCompanies.includes(selectedCompany._id)));
         setUpdate(false);
       });
       setLoader(false);
     }
   }, [update, selectedCompany]);
-  const renderInvitations = invitations.filter((invitation: any) => invitation.client === clientsView)
+  const renderInvitations = invitations?.filter((invitation: any) => invitation.client === clientsView)
   const renderData = clientsView ? clients : staff
   return (
     <>
@@ -251,7 +251,7 @@ const Staff: FC<{ clientsView?: boolean }> = ({ clientsView }) => {
             </>
           ) : null}
 
-          {renderData.length < 1 ? (
+          {renderData?.length < 1 ? (
             <Item xs={12}>
               <br />
               <P style={{ fontSize: 10, opacity: 0.9 }}>

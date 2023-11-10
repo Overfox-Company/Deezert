@@ -44,7 +44,8 @@ export default function App({ Component, pageProps }: AppProps) {
 
 
 
-        <Banner />
+        {//<Banner />
+        }
       </ThemeContainer>
     </AppRouter>
   );

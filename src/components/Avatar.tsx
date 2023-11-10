@@ -13,7 +13,7 @@ const Avatar = ({ url, name, style }: any) => {
   return (
     <>
       <Tooltip title={name?.length <= 10 ? name : name.slice(0, 10) + "..."}>
-        <AvatarImg src={url} style={style} />
+        {url ? <AvatarImg src={url} style={style} /> : <AvatarImg style={style} >{name.slice(0, 1)}</AvatarImg>}
       </Tooltip>
     </>
   );

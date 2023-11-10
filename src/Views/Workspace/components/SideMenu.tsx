@@ -85,7 +85,7 @@ const SideMenuWorkspace = ({ panel, setPanel }: Props) => {
           <NameCompanyOwner>{proyectSelected?.name}</NameCompanyOwner>
         </Grid>
       </Grid>
-      <div style={{ height: '84vh', overflow: 'auto' }}>
+      <div style={{ height: '100vh', overflow: 'auto' }}>
         <List>
           {ListMenu.map((text, index) => (
             <ListItem key={text} disablePadding>

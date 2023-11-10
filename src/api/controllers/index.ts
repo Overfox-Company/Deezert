@@ -597,3 +597,20 @@ export const DeleteMemberController: ServerType = async (req, res) => {
     res.status(404).send("token no valido");
   }
 }
+export const DoneTask: ServerType = async (req, res) => {
+  try {
+    if (!req.headers.authorization) {
+      res.status(404).send("token no valido");
+      throw new Error("Invalid Token");
+    }
+
+    const body = req.body;
+
+    axios
+      .post(DeezerWorkspaces + "/DoneTask", body)
+      .then((e) => res.status(200).json(e.data));
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("token no valido");
+  }
+}

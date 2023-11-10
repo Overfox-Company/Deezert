@@ -114,7 +114,7 @@ const ColumnContainer = styled.div({
 });
 
 const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
-  const { lisprojects, workspaceActive, workspaces, setTaskList, setSelectedTask } =
+  const { lisprojects, workspaceActive, workspaces, taskList, setTaskList, setSelectedTask } =
     useContext(WorkspaceContext);
   const { setLoader, user, setStaff, selectedCompany } = useContext(AppContext);
   const [idDelete, setIdDelete] = useState(undefined);
@@ -171,7 +171,7 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
     event.preventDefault();
     const draggedItemId = event.dataTransfer.getData("text/plain");
     const targetDivId = event.target.id || id;
-    console.log(targetDivId)
+
     if (targetDivId && draggedItemId) {
       const values = {
         target: targetDivId,
@@ -179,10 +179,18 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
         workspaceID: workspace,
       };
       ApiController.dragTask(values).then((data) => console.log(data));
-      console.log("Elemento arrastrado:", draggedItemId);
-      console.log("Elemento de destino", targetDivId);
+
     }
   };
+  const handleDoneTask = async (event: any) => {
+    const draggedItemId = event.dataTransfer.getData("text/plain");
+
+    const data = {
+      id: draggedItemId
+    }
+    const result = await ApiController.doneTask(data)
+  }
+  const doneTask = taskList.filter((e: any) => e.done).length
   return (
     <>
       <DeleteDialog
@@ -196,7 +204,7 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
         idList={listSelected}
       />
       <AddBoard handleClose={handleDisabled} open={enableAddInput} />
-      <Grid container style={{ marginTop: "2vw", height: '76vh' }}>
+      <Grid container style={{ marginTop: "2vw", height: '80vh' }}>
         <Grid
           item
           xs={12}
@@ -229,7 +237,8 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
                     <TaskSection
                       id={item._id}
                       onDragOver={handleDragOver}
-                      onDrop={handleDrop} item={item} />
+                      onDrop={handleDrop}
+                      item={item} />
                   </ContainerTask>
                   <div
                     id={item._id}
@@ -264,6 +273,40 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
                 </ColumnContainer>
               )
           )}
+          <ColumnContainer
+            onDrop={(e) => handleDoneTask(e)}
+          >
+            <ContainerBoards
+
+              style={{ backgroundColor: PAPER_DARK, borderColor: PRIMARY_COLOR }}
+            >
+              <Grid container alignItems={"center"}>
+                <Grid item xs={10}>
+                  <DoneBoard
+                    disabled={true}
+                    placeholder="Done"
+                    style={{ cursor: enableAddInput ? "text" : "pointer" }}
+                  />
+                </Grid>
+                <Grid item xs={1}>
+                  <p>{
+                    doneTask
+                  }</p>
+                </Grid>
+                <Grid item xs={1}>
+
+                  <CheckCircleIcon style={{ color: PRIMARY_COLOR }} />
+                </Grid>
+              </Grid>
+            </ContainerBoards>
+            <ContainerTask
+              onDrop={(e) => handleDoneTask(e)}
+            >
+              <TaskSection
+
+                done />
+            </ContainerTask>
+          </ColumnContainer>
           {user._id === workspaces.idOwner && (
             <ColumnContainer>
               <ContainerBoards
@@ -285,24 +328,7 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
               </ContainerBoards>
             </ColumnContainer>
           )}
-          <ColumnContainer>
-            <ContainerBoards
-              style={{ backgroundColor: PAPER_DARK, borderColor: PRIMARY_COLOR }}
-            >
-              <Grid container alignItems={"center"}>
-                <Grid item xs={10}>
-                  <DoneBoard
-                    disabled={true}
-                    placeholder="Done"
-                    style={{ cursor: enableAddInput ? "text" : "pointer" }}
-                  />
-                </Grid>
-                <Grid item xs={2}>
-                  <CheckCircleIcon style={{ color: PRIMARY_COLOR }} />
-                </Grid>
-              </Grid>
-            </ContainerBoards>
-          </ColumnContainer>
+
         </Grid>
       </Grid>
     </>

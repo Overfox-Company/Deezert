@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../../../../context/AppContext";
 import { WorkspaceContext } from "../../../../../context/WorkspaceContext";
 import styled from "@emotion/styled";
@@ -60,7 +60,7 @@ const ToolBar = styled.div({
     color: "white",
   },
 });
-const TaskSection = ({ onDrag, onDragOver, id, item }: any) => {
+const TaskSection = ({ onDrag, onDragOver, id, item, done }: any) => {
   const { staff, setLoader } = useContext(AppContext);
   const [editName, setEdiName] = useState<any>({});
   const { taskList, setSelectedTask } = useContext(WorkspaceContext);
@@ -90,13 +90,117 @@ const TaskSection = ({ onDrag, onDragOver, id, item }: any) => {
   const handleCloseTask = () => {
     setOpenTask(false)
   }
+  const data = done ? taskList.filter((e: any) => e.done === done) :
+    taskList
+
   return (
     <>
       <TaskDetail handleClose={handleCloseTask} open={openTask} />
       {taskList.length > 0
-        ? taskList.map(
+        ? data.map(
           (task: TaskType, index: number) =>
-            task.list === item._id && (
+            task.list === item?._id && (
+              <Task
+                onDragOver={onDragOver}
+                onDrop={(e) => onDrag(e, id)}
+                onClick={() => handleTask(task)}
+                draggable
+                key={index}
+                onDragStart={(event) =>
+                  event.dataTransfer.setData("text/plain", task._id)
+                }
+              >
+                {editName._id !== task._id ? (
+                  <Grid container>
+                    <Grid item xs={12}>
+                      <Grid container justifyContent={"space-between"} alignItems={"center"}>
+                        <Grid item xs={4}>
+                          {<Title>
+                            {task.title.length <= 15
+                              ? task.title
+                              : task.title.slice(0, 15) + "..."}
+                          </Title>}
+                        </Grid>
+                        <Grid item xs={2}>
+                          <div style={{ display: 'flex', flexDirection: 'row' }}>
+                            {task.assigned.map(
+                              (avatar: string, indexa: number) => {
+                                const url = staff.filter((itemFilter) =>
+                                  itemFilter._id.includes(avatar)
+                                );
+
+                                return indexa < 2 ? (
+                                  <Avatar
+                                    url={url[0]?.avatar}
+                                    name={url[0]?.name}
+                                    key={indexa}
+                                  />
+                                ) : null;
+                              }
+                            )}
+                          </div>
+
+                        </Grid>
+                      </Grid>
+
+
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Grid container justifyContent={"space-between"} alignItems={"center"}>
+                        <Grid item xs={6}>
+                          {task.dateEnd ? (
+                            <DateEnd>
+                              {moment(task.dateEnd).format("DD/MM/YYYY")}
+                            </DateEnd>
+                          ) : <DateEnd>
+                          </DateEnd>}
+                        </Grid>
+                        <Grid item xs={6}>
+                          <ToolBar className="ToolBar">
+                            <TaskOptions task={task} setEdit={setEdiName} />
+                          </ToolBar>
+                        </Grid>
+                      </Grid>
+
+
+                    </Grid>
+                  </Grid>
+                ) : (
+                  <Grid container alignItems={"center"}>
+                    <Grid item xs={10}>
+                      <InputEdit
+                        value={editName.title}
+                        onChange={(e) => handleChangeEdiName(e)}
+                      />
+                    </Grid>
+                    <Grid item xs={2}>
+                      <Grid container alignItems={"center"}>
+                        <Grid item xs={6}>
+                          <ClearIcon
+                            onClick={() => setEdiName({})}
+                            style={{ fontSize: "2vh", cursor: "pointer" }}
+                            color={"error"}
+                          />
+                        </Grid>
+                        <Grid item xs={6}>
+                          <CheckIcon
+                            onClick={() => handleEditName()}
+                            style={{ fontSize: "2vh", cursor: "pointer" }}
+                            color={"primary"}
+                          />
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                )}
+              </Task>
+            )
+        )
+        : null}
+      {taskList.length > 0
+        ? data.map(
+          (task: TaskType, index: number) =>
+            done && (
               <Task
                 onDragOver={onDragOver}
                 onDrop={(e) => onDrag(e, id)}
@@ -194,6 +298,7 @@ const TaskSection = ({ onDrag, onDragOver, id, item }: any) => {
             )
         )
         : null}
+
     </>
   );
 };

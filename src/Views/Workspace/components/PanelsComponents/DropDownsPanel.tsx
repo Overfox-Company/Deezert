@@ -180,7 +180,7 @@ const DropDownPanels = () => {
           <Container>
             <div
               style={{
-                maxHeight: "85vh",
+                maxHeight: "95vh",
                 overflow: "auto",
                 paddingRight: "2vh",
               }}

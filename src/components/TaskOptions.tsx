@@ -55,17 +55,18 @@ const TaskOptions = ({ task, setEdit }: { setEdit: any, task: any }) => {
     e.stopPropagation()
     setAnchorEl(false);
   };
-  const handleAction = (event: string) => {
-    switch (event) {
+  const handleAction = (type: string, event: any) => {
+    switch (type) {
       case "delete":
-        return handleDelete();
+        return handleDelete(event);
       case "editName":
         return handleEditName();
       default:
         return null;
     }
   };
-  const handleDelete = () => {
+  const handleDelete = (event: any) => {
+    event.stopPropagation()
     setLoader(true);
     const values = {
       workspaceID: workspace,
@@ -74,6 +75,7 @@ const TaskOptions = ({ task, setEdit }: { setEdit: any, task: any }) => {
     ApiController.deleteTask(values).then((data) => {
       console.log(data);
       setLoader(false);
+      setAnchorEl(false);
     });
   };
   const handleEditName = () => {
@@ -102,7 +104,7 @@ const TaskOptions = ({ task, setEdit }: { setEdit: any, task: any }) => {
         >
           <Container>
             {options.map((item, index) => (
-              <Button key={index} onClick={() => handleAction(item.action)}>
+              <Button key={index} onClick={(e) => handleAction(item.action, e)}>
                 <Grid container alignItems={"center"}>
                   <Grid item xs={2}>
                     <item.icon

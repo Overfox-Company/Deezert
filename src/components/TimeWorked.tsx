@@ -47,14 +47,16 @@ const TimeWorked = () => {
 
   const router = useRouter();
   const { workspace } = router.query;
-  const handlePlay = () => {
+  const handlePlay = async () => {
     const values = {
       workspaceID: workspace,
       user: user._id,
       id: selectedTask._id,
 
     };
-    ApiController.playTask(values).then((data) => console.log(data));
+    const result = await ApiController.playTask(values);
+    console.log(result);
+
   };
   const handleStop = () => {
     const values = {
@@ -66,7 +68,7 @@ const TimeWorked = () => {
     ApiController.stopTask(values).then((data) => console.log(data));
   };
   const [currentTime, setCurrentTime] = useState(moment());
-
+  const [starTime, setStartTime] = useState()
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(moment());
@@ -76,17 +78,19 @@ const TimeWorked = () => {
       clearInterval(interval);
     };
   }, []);
-  const fecha = moment.utc(selectedTask.lastWork);
-  const zonaHorariaUsuario = moment().format('Z');
-  const converted = fecha.utcOffset(zonaHorariaUsuario);
-  const timeElapsed = moment
-    .utc(moment().diff(converted))
-    .format("HH:mm:ss");
+  const fecha = moment(selectedTask.lastWork).format();
+  const diferencia = moment().diff(moment(fecha).format());
+
+  // Formatear la diferencia en términos de días, horas, minutos y segundos
+  const duracion = moment.duration(diferencia);
+
+
   const totalTime = selectedTask.timeWorked;
+  const formatoPersonalizado = `${duracion.hours().toString().padStart(2, '0')}:${duracion.minutes().toString().padStart(2, '0')}:${duracion.seconds().toString().padStart(2, '0')}`;
+  const timeElapsed = formatoPersonalizado
 
 
-
-
+  console.log(moment(fecha).format())
 
   return (
     <>

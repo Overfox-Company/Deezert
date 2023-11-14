@@ -46,7 +46,7 @@ const SelectUser: FC<SelectType> = ({ data, onClick }) => {
                 <Item xs={7}>
                     <FormControl sx={{ width: '100%' }}>
                         <Select
-                            style={{ height: 45 }}
+                            style={{ height: 50, display: 'flex', alignItems: 'center' }}
 
                             variant='outlined'
                             value={personName}

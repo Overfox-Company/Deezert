@@ -3,17 +3,19 @@ import { AppContext } from "../../context/AppContext";
 import styled from "@emotion/styled";
 import AddIcon from "@mui/icons-material/Add";
 import { PRIMARY_COLOR } from "../../constants/Color";
-import { Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import AddCompany from "./AddCompany";
 const Avatar = styled.img({
-  width: "100%",
+  width: "auto",
+  height: 'auto',
+  maxHeight: '100%',
+  maxWidth: '100%'
+
 });
-const ContainerAvatar = styled(Button)({
+const ContainerAvatar = styled(IconButton)({
   position: "relative",
-  minWidth: "2.5vw",
-  minHeight: "2.5vw",
-  maxWidth: "10vw",
-  maxHeight: "10vw",
+  width: '6.5vh',
+  height: '6.5vh',
   margin: "0vw 1vw",
   border: "solid 1px rgba(0,0,0,0)",
   backgroundColor: "rgba(10,10,10,0.1)",
@@ -53,7 +55,7 @@ const ContainerV = styled.div({
   justifyContent: "flex-start",
   alignItems: "center",
   padding: "0.7vw 1vw",
-  height: "100vh",
+  height: "80vh",
   width: "100%",
 });
 const Companys = ({ v = "H" }: any) => {

@@ -11,9 +11,9 @@ import styled from "@emotion/styled";
 const Container = styled.div({
   width: "100%",
 });
-const FormAddCompany = ({ first = true }) => {
+const FormAddCompany = ({ first = true, setOpen }) => {
   const [images, setImages] = React.useState([]);
-  const { setLoader, user } = React.useContext(AppContext);
+  const { setLoader, user, setCompanys } = React.useContext(AppContext);
   const router = useRouter();
   const initialValues = {
     name: "",
@@ -46,6 +46,10 @@ const FormAddCompany = ({ first = true }) => {
             id: localStorage.getItem("id"),
           }).then((e) => {
             console.log(e);
+            if (setOpen) {
+              setOpen(false)
+              setCompanys(e.data.data)
+            }
             setLoader(false);
             router.push("dashBoard");
           });

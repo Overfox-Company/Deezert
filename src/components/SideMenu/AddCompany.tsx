@@ -52,7 +52,7 @@ const AddCompany = ({ open, setOpen }: any) => {
         <DialogContent
           style={{ backgroundColor: darkMode ? PAPER_DARK : PAPER }}
         >
-          <FormAddCompany first={false} />
+          <FormAddCompany first={false} setOpen={setOpen} />
         </DialogContent>
       </Dialog>
     </>

@@ -79,13 +79,12 @@ export const AddCompanyController: ServerType = async (req, res) => {
       res.status(404).send("token no valido");
       throw new Error("Invalid Token");
     }
-    axios
-      .post(DeezertManagement + "/addCompany", req.body)
-      .then((e) => console.log(e));
-    res.status(200).send("oksxdd");
+    const result = await axios.post(DeezertManagement + "/addCompany", req.body)
+
+    res.status(200).json(result.data);
   } catch (error) {
     console.log(error);
-    res.status(404).send("token no valido");
+    res.status(400).send(error);
   }
 };
 export const FirstSession: ServerType = async (req, res) => {

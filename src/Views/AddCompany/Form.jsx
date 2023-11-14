@@ -11,7 +11,7 @@ import styled from "@emotion/styled";
 const Container = styled.div({
   width: "100%",
 });
-const FormAddCompany = ({ first = true, setOpen }) => {
+const FormAddCompany = ({ first = true, setOpen = undefined }) => {
   const [images, setImages] = React.useState([]);
   const { setLoader, user, setCompanys } = React.useContext(AppContext);
   const router = useRouter();

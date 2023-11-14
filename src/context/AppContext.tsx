@@ -124,8 +124,8 @@ export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
       ApiController.GetInvitations({ id: searchBy }).then((e) => {
 
         setInvitations(e.data.invitation);
-        setClients(e.data?.staff?.filter((staff: any) => staff.customerCompanies.includes(searchBy)))
-        setStaff(e.data?.staff?.filter((staff: any) => !staff.customerCompanies.includes(searchBy)));
+        setClients(e.data?.clients)
+        setStaff(e.data?.staff);
       });
       setLoader(false);
     }
@@ -149,15 +149,17 @@ export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
     }
   }, [searchBy]);
   useEffect(() => {
-
     setProyectSelected(proyectWorkspaces.filter((proyect: any) => proyect._id === id)[0])
-    console.log(searchBy)
-    console.log(proyectWorkspaces)
-
   }, [id, proyectWorkspaces, searchBy])
   useEffect(() => {
-
-    if (proyectSelected && staff?.length > 0 && clients?.length > 0) {
+    console.log("staff")
+    console.log(staff)
+    console.log("proyectSelected")
+    console.log(proyectSelected)
+    console.log("clients")
+    console.log(clients)
+    if (proyectSelected._id && staff && clients) {
+      console.log("se ejecuta el if")
       const filterStaffA = staff.filter((e: any) => proyectSelected.members?.includes(e._id))
       const filterStaffU = staff.filter((e: any) => !proyectSelected.members?.includes(e._id))
       setStaffAssigned(filterStaffA)

@@ -57,8 +57,9 @@ const Staff: FC<{ clientsView?: boolean }> = ({ clientsView }) => {
     if (update === true && selectedCompany._id) {
       setLoader(true);
       ApiController.GetInvitations({ id: selectedCompany._id }).then((e) => {
-        setInvitations(e.data.invitation);
-        clientsView ? setClients(e.data.staff?.filter((staff: any) => staff.customerCompanies.includes(selectedCompany._id))) : setStaff(e.data.staff?.filter((staff: any) => !staff.customerCompanies.includes(selectedCompany._id)));
+        setInvitations(clientsView ? e.data.invitationClients : e.data.invitationWorkers);
+        console.log(e.data)
+        clientsView ? setClients(e.data.clients) : setStaff(e.data.staff);
         setUpdate(false);
       });
       setLoader(false);

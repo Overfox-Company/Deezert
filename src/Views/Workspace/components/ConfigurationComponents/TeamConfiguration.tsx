@@ -32,7 +32,7 @@ const ContainerLoader = styled.div({
 const TeamConfiguration = () => {
     const router = useRouter()
     const { workspace: WorkspaceID } = router.query;
-    const { setProyectWorkspaces } = useContext(AppContext)
+    const { setProyectWorkspaces, staff, } = useContext(AppContext)
     const [loadMembers, setLoadMembers] = useState(false)
     const [loadClients, setLoadClients] = useState(false)
     const { staffUnassigned, staffAssigned, clientsAssigned, clientsUnassigned } = useContext(WorkspaceContext)

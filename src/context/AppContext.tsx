@@ -122,7 +122,6 @@ export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
     if (searchBy) {
       setLoader(true);
       ApiController.GetInvitations({ id: searchBy }).then((e) => {
-
         setInvitations(e.data.invitation);
         setClients(e.data?.clients)
         setStaff(e.data?.staff);
@@ -158,7 +157,7 @@ export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
     console.log(proyectSelected)
     console.log("clients")
     console.log(clients)
-    if (proyectSelected._id && staff && clients) {
+    if (proyectSelected?._id && staff && clients) {
       console.log("se ejecuta el if")
       const filterStaffA = staff.filter((e: any) => proyectSelected.members?.includes(e._id))
       const filterStaffU = staff.filter((e: any) => !proyectSelected.members?.includes(e._id))

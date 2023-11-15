@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useRouter } from "next/router";
-import ApiController from "../../connection/ApiController";
+import ApiController, { Domain } from "../../connection/ApiController";
 import { AppContext } from "../../context/AppContext";
 import { Grid, Paper } from "@mui/material";
 import styled from "@emotion/styled";
@@ -32,7 +32,7 @@ const Text = styled.p({
 });
 const dark = "../../../static/images/logoLight.png";
 const Invitation = () => {
-    const router = useRouter();
+  const router = useRouter();
   const { invitation } = router.query;
   const [response, setResponse] = useState();
   const { setLoader, setSnackbarOpen } = useContext(AppContext);
@@ -43,50 +43,55 @@ const Invitation = () => {
       ApiController.AceptRoute(invitation).then((e) => {
         setLoader(false);
 
-        if (e.data == 500 || e.data == 501) {
+        if (e.data.code == 500 || e.data.code == 501) {
           setSnackbarOpen({
             message: "La direccion a la que estas accediendo no es valida",
             type: "error",
           });
         } else {
-          setResponse(e.data);
+          localStorage.setItem("invitationTo", e.data.company)
+          setResponse(e.data.code);
+
         }
       });
     }
   }, [invitation]);
   return (
     <>
-      <Grid
-        style={{ height: "50vh" }}
-        container
-        justifyContent={"center"}
-        alignItems={"center"}
-      >
-        <Grid item xs={5} md={4}>
-          <Logo src={dark} />
+      <div style={{ height: "100vh" }}>
+        <Grid
+          style={{ height: "60vh" }}
+          container
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
+          <Grid item xs={5} md={4}>
+            <Logo src={dark} />
+          </Grid>
+          <Grid item xs={12}>
+          </Grid>
+          <Grid item xs={11} md={5}>
+            {response == 200 && (
+              <Container>
+                <Text>Has aceptado la invitacion, inicia sesion llendo al </Text>
+                <br />
+                <Link href={Domain}>Inicio</Link>
+              </Container>
+            )}
+            {response == 300 && (
+              <Container>
+                <Text>
+                  Has aceptado la invitacion, pero aun no tienes cuenta, crea una
+                  accediend al{" "}
+                </Text>
+                <br />
+                <Link href={Domain}>Inicio</Link>
+              </Container>
+            )}
+          </Grid>
         </Grid>
-              <Grid item xs={12}>
-        </Grid>
-        <Grid item xs={11} md={5}>
-          {response == 200 && (
-            <Container>
-              <Text>Has aceptado la invitacion, inicia sesion llendo al </Text>
-              <br />
-              <Link href={"https://deezert.vercel.app/"}>Inicio</Link>
-            </Container>
-          )}
-          {response == 300 && (
-            <Container>
-              <Text>
-                Has aceptado la invitacion, pero aun no tienes cuenta, crea una
-                accediend al{" "}
-              </Text>
-              <br />
-              <Link href={"https://deezert.vercel.app/"}>Inicio</Link>
-            </Container>
-          )}
-        </Grid>
-      </Grid>
+      </div>
+
     </>
   );
 };

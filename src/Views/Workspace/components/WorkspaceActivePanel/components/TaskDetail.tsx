@@ -234,7 +234,7 @@ const TaskDetail = ({ handleClose, open }: TypeAddBoard) => {
       files: newFiles,
       id: selectedTask._id,
     };
-    ApiController.deleteFilesTask(values).then((data) => console.log(data));
+    ApiController.deleteFilesTask(values).then((data: any) => console.log(data));
   };
   const downloadFile = (e: any, file: any) => {
     e.stopPropagation()

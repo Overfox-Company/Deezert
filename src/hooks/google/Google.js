@@ -56,11 +56,15 @@ const GoogleLoginButton = () => {
     setUser(e);
     login();
     setLoader(f);
-    if (e.firstTime === true) {
+    const invitated = localStorage.getItem("invitationTo")
+
+    if (!invitated && e.firstTime === true) {
       Router.push("/addCompany");
     } else {
       Router.push("/dashBoard");
     }
+
+
   };
   const successGoogle = (response) => {
     const token = response.tokenId;

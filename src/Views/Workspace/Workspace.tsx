@@ -14,6 +14,7 @@ const Workspace = () => {
   const router = useRouter();
   const { workspace: id } = router.query;
   useEffect(() => {
+
     const fetchData = async () => {
       try {
         const workspaceDataPromise = ApiController.getCompanyOwner({ id: id });

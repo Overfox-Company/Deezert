@@ -17,9 +17,17 @@ const ContainerDashboard = styled.div({
   overflow: "hidden",
 });
 const DashBoard = () => {
-  const { user, setCompanys, panel, ResetAppContext } = useContext(AppContext);
+  const { user, setCompanys, panel } = useContext(AppContext);
   const { RestWorkspaces } = useContext(WorkspaceContext)
   useEffect(() => {
+    const invitated = localStorage.getItem("invitationTo")
+    localStorage.removeItem("invitationTo")
+    if (invitated) {
+      ApiController.FirstSession({ id: user._id }).then((e) => {
+        console.log(e)
+      });
+    }
+
     setCompanys([])
   }, [])
   useEffect(() => {

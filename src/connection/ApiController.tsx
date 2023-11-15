@@ -4,7 +4,7 @@ import { AddProject } from "../api/controllers";
 import { DeezerWorkspaces, DeezertManagement, DeezertSessions } from "../api/config/Microservices";
 
 // Define the base URL for the API
-const Domain = process.env.NEXT_PUBLIC_PRODUCTION == 'true' ? "https://deezert.vercel.app/" : "http://localhost:3000/";
+export const Domain = process.env.NEXT_PUBLIC_PRODUCTION == 'true' ? "https://deezert.vercel.app/" : "http://localhost:3000/";
 
 // Define the base route for the API
 const Route = `${Domain}api`;

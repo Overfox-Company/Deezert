@@ -74,6 +74,7 @@ const initialData: TaskType = {
   timeWorked: "",
   priority: "",
   list: "",
+  done: false
 };
 const NoTaskMessage = styledE.p({
   color: "rgb(250,250,250)",
@@ -85,18 +86,15 @@ const DropDownPanels = () => {
   const [todayTask, setTodayTask] = useState([]);
   const [tomorrowTask, setTomorrowTask] = useState([]);
   const [overdueTasks, setOverdueTask] = useState([]);
-  const [noDateTask, setNoDateTask] = useState<TaskType>(initialData);
+  const [noDateTask, setNoDateTask] = useState<any>([initialData]);
+  const [doneTask, setDoneTask] = useState([])
   const { taskList } = useContext(WorkspaceContext);
-  const { setWorkspaces, setListWorkspace, setLisprojects } =
-    useContext(WorkspaceContext);
+
   const {
-    lisprojects,
-    workspaceActive,
-    workspaces,
     setTaskList,
     setSelectedTask,
   } = useContext(WorkspaceContext);
-  const { setLoader, loader, user, setStaff, selectedCompany } =
+  const { setLoader, loader, user, } =
     useContext(AppContext);
   const [openTask, setOpenTask] = useState(false);
   const router = useRouter();
@@ -123,25 +121,36 @@ const DropDownPanels = () => {
     });
 
     const todayTasks = filteredTasks.filter((task: TaskType) => {
-      const taskDate = moment(task.dateEnd, "YYYY-MM-DD");
-      return taskDate.isSame(currentDate, "day");
+      if (!task.done) {
+        const taskDate = moment(task.dateEnd, "YYYY-MM-DD");
+        return taskDate.isSame(currentDate, "day");
+      }
+
     });
     setTodayTask(todayTasks);
 
     const tomorrowTasks = filteredTasks.filter((task: TaskType) => {
-      const taskDate = moment(task.dateEnd, "YYYY-MM-DD");
-      return taskDate.isSame(currentDate.clone().add(1, "day"), "day");
+      if (!task.done) {
+
+        const taskDate = moment(task.dateEnd, "YYYY-MM-DD");
+        return taskDate.isSame(currentDate.clone().add(1, "day"), "day");
+      }
     });
     setTomorrowTask(tomorrowTasks);
 
     const overdueTasks = filteredTasks.filter((task: TaskType) => {
-      const taskDate = moment(task.dateEnd, "YYYY-MM-DD");
-      return taskDate.isBefore(currentDate);
+      if (!task.done) {
+
+        const taskDate = moment(task.dateEnd, "YYYY-MM-DD");
+        return taskDate.isBefore(currentDate);
+      }
     });
     setOverdueTask(overdueTasks);
 
     const noDateTasks = filteredTasks.filter((task: TaskType) => !task.dateEnd);
     setNoDateTask(noDateTasks);
+    const DoneTask = filteredTasks.filter((task: TaskType) => task.done);
+    setDoneTask(DoneTask)
   }, [taskList, user]);
   useEffect(() => {
     if (loader) {
@@ -247,8 +256,8 @@ const DropDownPanels = () => {
                           )
                         ) : null}
                         {item === "No programadas" ? (
-                          overdueTasks.length > 0 ? (
-                            overdueTasks.map((data, index) => (
+                          noDateTask.length > 0 ? (
+                            noDateTask.map((data: TaskType, index: number) => (
                               <div key={index} onClick={() => handleTask(data)}>
                                 <TaskListView data={data} />
                               </div>
@@ -258,8 +267,8 @@ const DropDownPanels = () => {
                           )
                         ) : null}
                         {item === "Finalizadas" ? (
-                          overdueTasks.length > 0 ? (
-                            overdueTasks.map((data, index) => (
+                          doneTask.length > 0 ? (
+                            doneTask.map((data, index) => (
                               <div key={index} onClick={() => handleTask(data)}>
                                 <TaskListView data={data} />
                               </div>

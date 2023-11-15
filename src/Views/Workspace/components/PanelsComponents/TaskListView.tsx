@@ -6,6 +6,7 @@ import Avatar from "../../../../components/Avatar";
 import { AppContext } from "../../../../context/AppContext";
 import moment from "moment";
 import { WorkspaceContext } from "../../../../context/WorkspaceContext";
+import { PRIMARY_COLOR } from "../../../../constants/Color";
 const TitleTask = styled.p({
   color: "rgb(250,250,250)",
   fontFamily: "Comfortaa, cursive",
@@ -58,7 +59,7 @@ const TaskListView = ({ data }: any) => {
     <Container>
       <Grid container alignItems={"center"}>
         <Grid item xs={1}>
-          <Color style={{ backgroundColor: listSelected.color }} />
+          <Color style={{ backgroundColor: data.done ? PRIMARY_COLOR : listSelected.color }} />
         </Grid>
         <Grid item xs={2}>
           <TitleTask>
@@ -71,13 +72,13 @@ const TaskListView = ({ data }: any) => {
             {data.title}
           </TitleTask >
           <DateTask>
-            {moment(data.dateEnd).format(
+            {data.dateEnd ? moment(data.dateEnd).format(
               "MM/DD/YYYY"
-            )}
+            ) : null}
           </DateTask>
         </Grid>
 
-        <Grid item xs={2}>
+        <Grid item xs={2} style={{ display: 'flex', }}>
           {assigned.length > 0 && assigned.map((idUser: string, indexa: number) => {
             const url = staff ? staff.filter((itemFilter) =>
               itemFilter._id.includes(idUser)

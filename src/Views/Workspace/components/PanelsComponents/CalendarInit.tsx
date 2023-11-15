@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useCallback } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Calendar from "react-calendar";
@@ -15,6 +15,7 @@ const DynamicCalendar = dynamic<any>(
 const MyCalendar: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const { taskList, setSelectedTask } = useContext(WorkspaceContext);
+  const currentDate = moment().startOf("day");
   const { setLoader, loader, user, setStaff, selectedCompany } =
     useContext(AppContext);
 
@@ -42,37 +43,40 @@ const MyCalendar: React.FC = () => {
     setSelectedDate(date);
   };
 
-const renderCustomTile = ({ date }: { date: Date }) => {
-  const targetDate = moment(date);
+  const renderCustomTile = useCallback(({ date }: any) => {
+    const targetDate = moment(date).format();
 
-  // Filtrar las tareas en userTasks que tienen la misma fecha que targetDate
-  const tasksForSameDay = userTasks.filter((task:any) => {
-    const taskDate = moment(task.dateEnd);
-    return taskDate.isSame(targetDate, 'day');
-  });
+    const dateFiltered = taskList.filter((task: TaskType) => {
+      const taskDate = moment(task.dateEnd);
+      return taskDate.isSameOrAfter(currentDate, 'day');
+    });
 
-  const taskCount = tasksForSameDay.length;
+    const tasksForSameDay = dateFiltered.filter((task: TaskType) => {
+      const taskDate = moment(task.dateEnd);
+      return taskDate.isSame(targetDate, 'day') && !task.done;
+    });
 
-  if (taskCount > 0) {
-    return (
-      <div className="dot">
-        <span className="dot-number">{taskCount}</span>
-      </div>
-    );
-  }
-  
-  return null;
-};
+    const taskCount = tasksForSameDay.length;
 
+    if (taskCount > 0) {
+      return (
+        <div className="dot">
+          <span className="dot-number">{taskCount}</span>
+        </div>
+      );
+    }
+
+    return null;
+  }, [taskList, currentDate]);
 
   return (
-  <div>
-    <DynamicCalendar
-      onClickDay={handleDateClick}
-      tileContent={({ date }:any) => renderCustomTile({ date })}
-      value={selectedDate}
-    />
-  </div>
+    <div>
+      <DynamicCalendar
+        onClickDay={handleDateClick}
+        tileContent={({ date }: any) => renderCustomTile({ date })}
+        value={selectedDate}
+      />
+    </div>
   );
 };
 

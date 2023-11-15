@@ -49,4 +49,5 @@ export type TaskType = {
   timeWorked: string;
   priority: string;
   list: any;
+  done: boolean
 };

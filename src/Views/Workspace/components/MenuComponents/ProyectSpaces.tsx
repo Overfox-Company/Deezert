@@ -201,7 +201,8 @@ const ProyecSpaces = () => {
             {listWorkspace.map((item: any, index: number) => {
               return (
                 <ContainerButton
-                  onClick={() => setWorkspaceActive(item)}
+                  onClick={() => { setWorkspaceActive(item); setIdProject(item._id) }}
+
                   key={index}
                   style={{
                     borderLeft: `solid 2px ${workspaceActive._id === item._id
@@ -234,7 +235,7 @@ const ProyecSpaces = () => {
                     </Grid>
                     <Grid item xs={8}>
                       <WorkspaceName
-                        onClick={() => setIdProject(item._id)}
+
                         readOnly={editable === item._id ? false : true}
                         onDoubleClick={() =>
                           toggleEditable(item._id, item.name)

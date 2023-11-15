@@ -93,7 +93,7 @@ const HeaderTaskDetails = ({
   const router = useRouter();
   const { workspace } = router.query;
   const [anchorEl, setAnchorEl] = useState<boolean>(false);
-  const { setSelectedTask, selectedTask, lisprojects } =
+  const { setSelectedTask, selectedTask, lisprojects, taskList } =
     useContext(WorkspaceContext);
   const { staff } = useContext(AppContext);
   const [ListSelected, setListSelected] = useState<any>([]);
@@ -165,7 +165,7 @@ const HeaderTaskDetails = ({
       setListSelected([]);
     }
     setSelectedDate(selectedTask.dateEnd);
-  }, [selectedTask, lisprojects]);
+  }, [selectedTask, lisprojects, taskList]);
 
   return (
     <>

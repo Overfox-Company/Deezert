@@ -89,9 +89,6 @@ const TimeWorked = () => {
   const formatoPersonalizado = `${duracion.hours().toString().padStart(2, '0')}:${duracion.minutes().toString().padStart(2, '0')}:${duracion.seconds().toString().padStart(2, '0')}`;
   const timeElapsed = formatoPersonalizado
 
-
-  console.log(moment(fecha).format())
-
   return (
     <>
       <FlexContainer>

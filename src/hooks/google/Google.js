@@ -7,7 +7,6 @@ import { AppContext } from "../../context/AppContext";
 import Router from "next/router";
 const GoogleIcon = styled.img({
   width: "100%",
-  marginRight: 5,
   objectFit: "cover",
 });
 const SignInGoogleButton = styled(IconButton)({
@@ -15,6 +14,8 @@ const SignInGoogleButton = styled(IconButton)({
   padding: 10,
   width: "100%",
   fontSize: 16,
+  display: 'flex',
+  justifyContent: 'center',
   marginTop: 15,
 });
 const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;

@@ -113,12 +113,13 @@ const ProyecSpaces = () => {
     setWorkspaceActive,
     workspaceActive,
     workspaces,
-    proyectSelected
+    idProject,
+    setIdProject
   } = useContext(WorkspaceContext);
   const { setLoader, user } = useContext(AppContext);
   const [value, setValue] = useState("");
   const [editValue, setEditValue] = useState("");
-  const [idProject, setIdProject] = useState();
+
   const router = useRouter();
   const { workspace: id } = router.query;
   const [open, setOpen] = React.useState(false);
@@ -134,7 +135,7 @@ const ProyecSpaces = () => {
 
   const handleClose = () => {
     setOpen(false);
-    setIdProject(undefined);
+    setIdProject("");
   };
 
   const handleDelete = (idProject: any) => {
@@ -233,6 +234,7 @@ const ProyecSpaces = () => {
                     </Grid>
                     <Grid item xs={8}>
                       <WorkspaceName
+                        onClick={() => setIdProject(item._id)}
                         readOnly={editable === item._id ? false : true}
                         onDoubleClick={() =>
                           toggleEditable(item._id, item.name)

@@ -63,7 +63,7 @@ const ToolBar = styled.div({
 const TaskSection = ({ onDrag, onDragOver, id, item, done }: any) => {
   const { staff, setLoader } = useContext(AppContext);
   const [editName, setEdiName] = useState<any>({});
-  const { taskList, setSelectedTask } = useContext(WorkspaceContext);
+  const { taskList, setSelectedTask, idProject } = useContext(WorkspaceContext);
   const router = useRouter();
   const [openTask, setOpenTask] = useState(false);
   const { workspace } = router.query;
@@ -90,7 +90,7 @@ const TaskSection = ({ onDrag, onDragOver, id, item, done }: any) => {
   const handleCloseTask = () => {
     setOpenTask(false)
   }
-  const data = done ? taskList.filter((e: any) => e.done === done) :
+  const data = done ? taskList.filter((e: any) => e.done === done && e.area === idProject) :
     taskList
 
   return (

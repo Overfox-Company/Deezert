@@ -114,7 +114,7 @@ const ColumnContainer = styled.div({
 });
 
 const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
-  const { lisprojects, workspaceActive, workspaces, taskList, setTaskList, setSelectedTask } =
+  const { lisprojects, workspaceActive, workspaces, taskList, setTaskList, setSelectedTask, idProject } =
     useContext(WorkspaceContext);
   const { setLoader, user, setStaff, selectedCompany } = useContext(AppContext);
   const [idDelete, setIdDelete] = useState(undefined);
@@ -190,7 +190,7 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
     }
     const result = await ApiController.doneTask(data)
   }
-  const doneTask = taskList.filter((e: any) => e.done).length
+  const doneTask = taskList.filter((e: any) => e.done && e.area === idProject).length
   return (
     <>
       <DeleteDialog
@@ -290,7 +290,7 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
                 </Grid>
                 <Grid item xs={1}>
                   <p>{
-                    doneTask
+                    doneTask > 0 ? doneTask : null
                   }</p>
                 </Grid>
                 <Grid item xs={1}>

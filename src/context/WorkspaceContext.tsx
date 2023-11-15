@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import { ProviderProps } from "../types/app";
 import { WorksPaceType } from "../types/Proyects";
 export const WorkspaceContext = createContext<WorksPaceType>({
@@ -26,7 +26,9 @@ export const WorkspaceContext = createContext<WorksPaceType>({
   clientsUnassigned: [],
   setClientsUnasigned: () => { },
   proyectSelected: {},
-  setProyectSelected: () => { }
+  setProyectSelected: () => { },
+  idProject: "",
+  setIdProject: () => { },
 });
 
 
@@ -43,6 +45,7 @@ export const WorkspaceProvider: React.FC<ProviderProps> = ({ children }) => {
   const [clientsAssigned, setClientsAssigned] = useState([])
   const [clientsUnassigned, setClientsUnasigned] = useState([])
   const [proyectSelected, setProyectSelected] = useState({})
+  const [idProject, setIdProject] = useState("")
   const RestWorkspaces = () => {
     setSelectedTask([])
     setTaskList([])
@@ -51,9 +54,14 @@ export const WorkspaceProvider: React.FC<ProviderProps> = ({ children }) => {
     setWorkspaces([])
     setWorkspaceActive([])
   }
+  useEffect(() => {
+    console.log(idProject)
+  }, [idProject])
   return (
     <WorkspaceContext.Provider
       value={{
+        idProject,
+        setIdProject,
         proyectSelected,
         setProyectSelected,
         clientsAssigned,

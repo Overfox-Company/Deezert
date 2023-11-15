@@ -34,6 +34,8 @@ export type WorksPaceType = {
   setClientsUnasigned: React.Dispatch<React.SetStateAction<any>>,
   proyectSelected: any
   setProyectSelected: React.Dispatch<React.SetStateAction<any>>
+  idProject: string,
+  setIdProject: React.Dispatch<React.SetStateAction<string>>,
 };
 export type TaskType = {
   _id: string;

@@ -131,6 +131,7 @@ const AddTask = ({ handleClose, open, idList }: TypeAddBoard) => {
   const [description, setDescription] = useState("");
   const router = useRouter();
   const { workspace } = router.query;
+  const { idProject } = useContext(WorkspaceContext)
   const [selectedDate, setSelectedDate] = useState(null);
 
   const handleDateChange = (date: any) => {
@@ -149,6 +150,7 @@ const AddTask = ({ handleClose, open, idList }: TypeAddBoard) => {
     } else {
 
       const values = {
+        area: idProject,
         //  files: convertedFiles,
         name: nameTask,
         description: description,

@@ -389,11 +389,11 @@ const TaskDetail = ({ handleClose, open }: TypeAddBoard) => {
                   <Label>Archivos abjuntos</Label>
                   <DropZone
                     {...getRootProps({ className: "dropzone" })}
-                    style={{ padding: "2vw" }}
+
                   >
                     <input {...getInputProps()} />
-                    {!loadingFile ? <div style={{ display: 'flex', justifyContent: 'center' }}>
-                      <Grid container columnSpacing={7} rowSpacing={4}>
+                    {!loadingFile ? <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                      <Grid container columnSpacing={4} rowSpacing={4}>
 
                         {files
                           ? files.map((i: any, index: number) => {

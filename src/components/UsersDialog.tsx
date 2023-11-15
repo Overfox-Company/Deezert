@@ -8,6 +8,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { PRIMARY_COLOR } from "../constants/Color";
 import type { userType } from "../types/global";
 import Avatar from "./Avatar";
+import { WorkspaceContext } from "../context/WorkspaceContext";
 const InputSearch = styled.input({
   width: "100%",
   outline: "none",
@@ -50,6 +51,7 @@ const UsersDialog = ({
   setSelectedUser,
 }: any) => {
   const { staff } = useContext(AppContext);
+  const { staffAssigned } = useContext(WorkspaceContext)
   const [searchUser, setSearchUser] = useState("");
   const handleUserClick = (item: any) => {
     if (selectedUser.some((user: any) => user._id === item._id)) {
@@ -80,7 +82,7 @@ const UsersDialog = ({
           </Grid>
           <Grid item xs={10}>
             <ListUsers>
-              {staff ? staff
+              {staffAssigned ? staffAssigned
                 .filter((item) =>
                   item.name.toLowerCase().includes(searchUser.toLowerCase())
                 )

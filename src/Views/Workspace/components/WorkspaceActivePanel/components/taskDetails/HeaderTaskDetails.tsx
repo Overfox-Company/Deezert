@@ -97,6 +97,7 @@ const HeaderTaskDetails = ({
     useContext(WorkspaceContext);
   const { staff } = useContext(AppContext);
   const [ListSelected, setListSelected] = useState<any>([]);
+
   const handleDateChange = (date: any) => {
     setSelectedDate(date);
   };
@@ -125,6 +126,15 @@ const HeaderTaskDetails = ({
       handleClose();
     });
   };
+  const handleDoneTask = async () => {
+
+
+    const data = {
+      id: selectedTask._id
+    }
+    const result = await ApiController.doneTask(data)
+    console.log(result)
+  }
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
   const Element = useRef(null);
@@ -179,10 +189,10 @@ const HeaderTaskDetails = ({
                   onClick={() => handleClick()}
                   ref={Element}
                   style={{
-                    borderLeft: `solid 2px ${ListSelected.color}`,
+                    borderLeft: `solid 2px ${selectedTask.done ? PRIMARY_COLOR : ListSelected.color}`,
                   }}
                 >
-                  {ListSelected.name}
+                  {selectedTask.done ? "Done" : ListSelected.name}
                 </TaskList>
                 <Popover
                   id={id}
@@ -214,6 +224,18 @@ const HeaderTaskDetails = ({
                       {list.name}
                     </ListItem>
                   ))}
+                  <ListItem
+                    onClick={() => handleDoneTask()}
+                    style={{
+                      marginTop: "0.5vw",
+                      borderLeft: `solid 3px ${PRIMARY_COLOR}`,
+                      backgroundColor: selectedTask.done
+                        ? "rgba(150,150,150,0.5)"
+                        : "rgb(0,0,0,0)"
+                    }}
+                  >
+                    Done
+                  </ListItem>
                 </Popover>
               </Grid>
               <Grid item xs={4}>

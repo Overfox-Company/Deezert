@@ -100,8 +100,9 @@ const DropDownPanels = () => {
   const router = useRouter();
   const { workspace: id } = router.query;
   useEffect(() => {
+    const currentTasks = taskList.filter((e: any) => e.workspaceID === id)
     const currentDate = moment().startOf("day");
-    const userTasks = taskList.filter((task: TaskType) => {
+    const userTasks = currentTasks.filter((task: TaskType) => {
       return task.assigned.includes(user._id);
     });
     const filteredTasks = userTasks.filter((task: TaskType) => {
@@ -168,11 +169,13 @@ const DropDownPanels = () => {
     channel: "task",
     setSocketData: setTaskList,
     server: "workspace",
+    id: id
   });
   useSocket({
     channel: "taskSelected",
     setSocketData: setSelectedTask,
     server: "workspace",
+    id: id
   });
   const handleTask = (task: TaskType) => {
     setSelectedTask(task);

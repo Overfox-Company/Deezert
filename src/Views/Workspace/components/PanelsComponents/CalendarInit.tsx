@@ -15,16 +15,20 @@ const DynamicCalendar = dynamic<any>(
 const MyCalendar: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const { taskList, setSelectedTask } = useContext(WorkspaceContext);
+  const router = useRouter()
+  const { workspace: id } = router.query
   const currentDate = moment().startOf("day");
   const { setLoader, loader, user, setStaff, selectedCompany } =
     useContext(AppContext);
 
   const [userTasks, setUserTask] = useState([]);
   useEffect(() => {
+    const filterbyUser = taskList.filter((task: TaskType) => {
+      return task.assigned.includes(user._id);
+    })
+    const filterByWorkspace = filterbyUser.filter((e: any) => e.workspaceID == id)
     setUserTask(
-      taskList.filter((task: TaskType) => {
-        return task.assigned.includes(user._id);
-      })
+      filterByWorkspace
     );
   }, [user]);
   useEffect(() => {
@@ -46,7 +50,7 @@ const MyCalendar: React.FC = () => {
   const renderCustomTile = useCallback(({ date }: any) => {
     const targetDate = moment(date).format();
 
-    const dateFiltered = taskList.filter((task: TaskType) => {
+    const dateFiltered = userTasks.filter((task: TaskType) => {
       const taskDate = moment(task.dateEnd);
       return taskDate.isSameOrAfter(currentDate, 'day');
     });

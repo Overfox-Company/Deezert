@@ -54,7 +54,7 @@ const Staff: FC<{ clientsView?: boolean }> = ({ clientsView }) => {
   } = useContext(AppContext);
   const [update, setUpdate] = React.useState(true);
   useEffect(() => {
-    if (update === true && selectedCompany._id) {
+    if (selectedCompany._id) {
       setLoader(true);
       ApiController.GetInvitations({ id: selectedCompany._id }).then((e) => {
         setInvitations(clientsView ? e.data.invitationClients : e.data.invitationWorkers);
@@ -64,8 +64,8 @@ const Staff: FC<{ clientsView?: boolean }> = ({ clientsView }) => {
       });
       setLoader(false);
     }
-  }, [update, selectedCompany]);
-  const renderInvitations = invitations?.filter((invitation: any) => invitation.client === clientsView)
+  }, [update, selectedCompany,]);
+  const renderInvitations = invitations
   const renderData = clientsView ? clients : staff
   return (
     <>

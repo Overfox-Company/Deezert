@@ -186,6 +186,7 @@ const ProyecSpaces = () => {
     channel: "proyects",
     setSocketData: setListWorkspace,
     server: "workspace",
+    id: id
   });
   return (
     <>

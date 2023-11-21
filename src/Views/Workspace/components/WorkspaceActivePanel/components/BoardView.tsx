@@ -156,11 +156,13 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
     channel: "task",
     setSocketData: setTaskList,
     server: "workspace",
+    id: workspace
   });
   useSocket({
     channel: "taskSelected",
     setSocketData: setSelectedTask,
     server: "workspace",
+    id: workspace
   });
   const handleDragOver = (event: any) => {
     event.preventDefault();

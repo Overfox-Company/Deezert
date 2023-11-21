@@ -149,6 +149,7 @@ const HeaderTaskDetails = ({
   useSocket({
     channel: "task",
     setSocketData: handleSocketData,
+    id: workspace,
     server: "workspace",
   });
   useEffect(() => {

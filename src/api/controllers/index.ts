@@ -395,12 +395,8 @@ export const GetListTaskController: ServerType = async (req, res) => {
       throw new Error("Invalid Token");
     }
 
-    const { id } = req.body;
-
     axios
-      .post(DeezerWorkspaces + "/getAllTask", {
-        id: id,
-      })
+      .post(DeezerWorkspaces + "/getAllTask", req.body)
       .then((e) => res.status(200).json(e.data));
   } catch (error) {
     console.log(error);

@@ -130,15 +130,16 @@ export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
     }
   }, [selectedCompany, user, id]);
   useEffect(() => {
-    if (workspaces._id) {
+    if (id) {
+      console.log('id' + id)
       Promise.all([
-        ApiController.getAllTask({ id: id }),
+        ApiController.getAllTask({ workspaceID: id }),
       ]).then(([taskResponse]) => {
-        setTaskList(taskResponse.data);
+        setTaskList(taskResponse.data.filter((e: any) => e.workspaceID === id));
         setLoader(false);
       });
     }
-  }, [workspaces, user, id]);
+  }, [user, id]);
   useEffect(() => {
     if (searchBy) {
       ApiController.GetWorkspace({ id: searchBy }).then((e) => {

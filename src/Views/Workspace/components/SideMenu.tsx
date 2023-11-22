@@ -9,9 +9,9 @@ import { Grid } from "@mui/material";
 import { CONTAINER_DARK } from "../../../constants/Color";
 import { WorkspaceContext } from "../../../context/WorkspaceContext";
 import { AppContext } from "../../../context/AppContext";
-const ListMenuAmin = ["Inicio", "Actividad", "Resumen", "Configuracion"];
-const ListMenuSuperVisor = ["Inicio", "Actividad", "Resumen"];
-const ListMenuUser = ["Inicio", "Resumen"];
+const ListMenuAmin = ["Inicio", "Análisis", "Actividad", "Configuracion"];
+const ListMenuSuperVisor = ["Inicio", "Análisis", "Actividad"];
+const ListMenuUser = ["Inicio", "Actividad"];
 
 const Container = styled.div({
   width: "100%",

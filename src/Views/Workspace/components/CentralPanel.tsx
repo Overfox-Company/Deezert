@@ -6,6 +6,7 @@ import WorkspaceActivePanel from "./WorkspaceActivePanel/WorkspaceActivePanel";
 import NavBarWorkspaceActive from "./WorkspaceActivePanel/components/NavBarWorkspaceActive";
 import CommicSoon from "../../../components/CommicSoon";
 import ConfigurationWorkspacePanel from "./ConfigurationPanel";
+import Analysis from "./AnalysisPanel";
 type Prop = {
   panel: number;
 };
@@ -18,7 +19,7 @@ const CentralPanel = ({ panel }: Prop) => {
       {workspaceActive.length < 1 ? (
         <>
           {panel === 0 ? <InitPanel /> : null}
-          {//panel === 1 && <ActivityPanel />
+          {panel === 1 ? <Analysis /> : null
           }
           {panel === 3 ? <ConfigurationWorkspacePanel /> : null
           }

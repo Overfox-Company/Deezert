@@ -188,6 +188,7 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
     const draggedItemId = event.dataTransfer.getData("text/plain");
 
     const data = {
+      workspaceID: workspace,
       id: draggedItemId
     }
     const result = await ApiController.doneTask(data)

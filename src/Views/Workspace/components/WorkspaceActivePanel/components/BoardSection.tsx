@@ -66,7 +66,7 @@ const BoardSection = ({ item, setIdDelete, setOpenDialogDelete }: any) => {
   };
   const [Task, setTask] = useState([]);
   useEffect(() => {
-   if(taskList.length>0){ setTask(taskList.filter((task: any) => task.list === item._id));}
+    if (taskList.length > 0) { setTask(taskList.filter((task: any) => task.list === item._id)); }
     console.log(Task);
   }, [taskList]);
 
@@ -85,7 +85,7 @@ const BoardSection = ({ item, setIdDelete, setOpenDialogDelete }: any) => {
           <Grid item xs={2}>
             <CountTask>{Task.length !== 0 ? Task.length : null}</CountTask>
           </Grid>
-          {user._id === workspaces.idOwner && (
+          {user._id === workspaces.idOwner || workspaces?.clients?.includes(user._id) && (
             <Grid item xs={3}>
               {editable != item._id && (
                 <div>

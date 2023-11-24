@@ -310,19 +310,25 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
                 done />
             </ContainerTask>
           </ColumnContainer>
-          {user._id === workspaces.idOwner && (
-            <ColumnContainer>
+          {user._id === workspaces.idOwner || workspaces?.clients?.includes(user._id) && (
+            <ColumnContainer
+
+            >
               <ContainerBoards
                 onClick={() => handleEnable("board")}
                 style={{ cursor: enableAddInput ? "auto" : "pointer" }}
               >
-                <Grid container alignItems={"center"}>
+                <Grid container alignItems={"center"} >
                   <Grid item xs={10}>
+
                     <AddBoardButton
+                      onClick={() => handleEnable("board")}
                       disabled={true}
                       placeholder="Añadir Nueva lista"
                       style={{ cursor: enableAddInput ? "text" : "pointer" }}
                     />
+
+
                   </Grid>
                   <Grid item xs={2}>
                     <Icon style={{ color: "rgb(100,100,100)" }} />

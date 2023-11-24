@@ -54,8 +54,11 @@ const TimeWorked = () => {
       id: selectedTask._id,
 
     };
-    const result = await ApiController.playTask(values);
-    console.log(result);
+    if (selectedTask.assigned.includes(user._id)) {
+      const result = await ApiController.playTask(values);
+      console.log(result);
+
+    }
 
   };
   const handleStop = () => {
@@ -65,7 +68,11 @@ const TimeWorked = () => {
       id: selectedTask._id,
 
     };
-    ApiController.stopTask(values).then((data) => console.log(data));
+    if (selectedTask.assigned.includes(user._id)) {
+      ApiController.stopTask(values).then((data) => console.log(data));
+
+    }
+
   };
   const [currentTime, setCurrentTime] = useState(moment());
   const [starTime, setStartTime] = useState()
@@ -96,9 +103,9 @@ const TimeWorked = () => {
         <Grid container alignItems={"center"}>
           <Grid item xs={4}>
             {!selectedTask.isWorking ? (
-              <PlayIcon onClick={() => handlePlay()} />
+              <PlayIcon style={{ opacity: selectedTask.assigned.includes(user._id) ? 1 : 0.5 }} onClick={() => handlePlay()} />
             ) : (
-              <StopIcon onClick={() => handleStop()} />
+              <StopIcon style={{ opacity: selectedTask.assigned.includes(user._id) ? 1 : 0.5 }} onClick={() => handleStop()} />
             )}
           </Grid>
           <Grid item xs={8}>

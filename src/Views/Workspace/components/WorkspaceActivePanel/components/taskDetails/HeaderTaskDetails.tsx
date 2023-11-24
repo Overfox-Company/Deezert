@@ -93,7 +93,7 @@ const HeaderTaskDetails = ({
   const router = useRouter();
   const { workspace } = router.query;
   const [anchorEl, setAnchorEl] = useState<boolean>(false);
-  const { setSelectedTask, selectedTask, lisprojects, taskList } =
+  const { setSelectedTask, selectedTask, workspaceActive, lisprojects, taskList } =
     useContext(WorkspaceContext);
   const { staff } = useContext(AppContext);
   const [ListSelected, setListSelected] = useState<any>([]);
@@ -130,10 +130,12 @@ const HeaderTaskDetails = ({
 
 
     const data = {
-      id: selectedTask._id
+      id: selectedTask._id,
+      workspaceID: workspace,
     }
     const result = await ApiController.doneTask(data)
     console.log(result)
+    setAnchorEl(false)
   }
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -209,7 +211,7 @@ const HeaderTaskDetails = ({
                     horizontal: "left",
                   }}
                 >
-                  {lisprojects.map((list: any, index: number) => (
+                  {lisprojects.filter((item: any) => workspaceActive._id === item.project).map((list: any, index: number) => (
                     <ListItem
                       onClick={() => handleChangeList(list._id)}
                       key={index}

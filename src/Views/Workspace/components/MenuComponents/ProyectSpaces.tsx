@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "@emotion/styled";
 import {
   Grid,
@@ -188,6 +188,10 @@ const ProyecSpaces = () => {
     server: "workspace",
     id: id
   });
+  useEffect(() => {
+    console.log("xd")
+    console.log(workspaces?.clients?.includes(user._id))
+  }, [workspaces])
   return (
     <>
       <SimpleDialog
@@ -255,7 +259,7 @@ const ProyecSpaces = () => {
           </div>
         </Grid>
         <Grid item xs={11}>
-          {user._id === workspaces.idOwner && (
+          {workspaces ? user._id === workspaces.idOwner || workspaces?.clients?.includes(user._id) && (
             <Grid
               container
               alignItems={"center"}
@@ -275,7 +279,7 @@ const ProyecSpaces = () => {
                 />
               </Grid>
             </Grid>
-          )}
+          ) : null}
         </Grid>
       </Grid>
     </>

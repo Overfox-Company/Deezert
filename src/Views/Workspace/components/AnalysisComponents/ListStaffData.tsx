@@ -41,7 +41,7 @@ const ListStaffData = () => {
 
         const filterByWorkspace = taskList.filter((e: any) => e.workspaceID == id)
         setUserTask(
-            filterByWorkspace
+            filterByWorkspace.filter((e: any) => !e.done)
         );
         setUserTaskDone(
             filterByWorkspace.filter((e: any) => e.done)
@@ -70,7 +70,7 @@ const ListStaffData = () => {
                                     </Text>
 
                                     <Text>
-                                        {userTasksDone.filter((task: TaskType) => {
+                                        {userTasks.filter((task: TaskType) => {
                                             return task.assigned.includes(staff._id);
                                         }).length}
 

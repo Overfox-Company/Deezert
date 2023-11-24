@@ -152,7 +152,7 @@ const Staff: FC<{ clientsView?: boolean }> = ({ clientsView }) => {
             <>
               <Item xs={12}>
                 <Container justifyContent={"space-around"}>
-                  <Item xs={11}>
+                  <Item xs={11} >
                     <P
                       style={{
                         textAlign: "left",
@@ -167,9 +167,10 @@ const Staff: FC<{ clientsView?: boolean }> = ({ clientsView }) => {
                   </Item>
                 </Container>
               </Item>
-              {renderInvitations.map((item, index) => {
-                return (
-                  <>
+              <Container style={{ maxHeight: 150, height: 'auto', overflow: 'auto' }}>
+                {renderInvitations.map((item, index) => {
+                  return (
+
                     <Item key={index} style={{ marginBottom: 15 }} xs={12}>
                       <Container
                         alignItems={"center"}
@@ -195,9 +196,11 @@ const Staff: FC<{ clientsView?: boolean }> = ({ clientsView }) => {
                         </Item>
                       </Container>
                     </Item>
-                  </>
-                );
-              })}
+
+                  );
+                })}
+              </Container>
+
             </>
           ) : null}
           {renderData ? (
@@ -219,7 +222,7 @@ const Staff: FC<{ clientsView?: boolean }> = ({ clientsView }) => {
                 </Container>
               </Item>
               <Item xs={12}>
-                <Container justifyContent={"space-around"}>
+                <Container justifyContent={"space-around"} style={{ maxHeight: 220, height: 'auto', overflow: 'auto' }}>
                   {renderData.map((item, index) => {
                     return (
                       <>

@@ -85,7 +85,7 @@ const BoardSection = ({ item, setIdDelete, setOpenDialogDelete }: any) => {
           <Grid item xs={2}>
             <CountTask>{Task.length !== 0 ? Task.length : null}</CountTask>
           </Grid>
-          {user._id === workspaces.idOwner || workspaces?.clients?.includes(user._id) && (
+          {user._id === workspaces.idOwner || workspaces?.clients?.includes(user._id) ? (
             <Grid item xs={3}>
               {editable != item._id && (
                 <div>
@@ -135,7 +135,7 @@ const BoardSection = ({ item, setIdDelete, setOpenDialogDelete }: any) => {
                 </div>
               )}
             </Grid>
-          )}
+          ) : null}
         </Grid>
       </ContainerBoards>
     </>

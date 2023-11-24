@@ -310,7 +310,7 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
                 done />
             </ContainerTask>
           </ColumnContainer>
-          {user._id === workspaces.idOwner || workspaces?.clients?.includes(user._id) && (
+          {user._id === workspaces.idOwner || workspaces?.clients?.includes(user._id) ? (
             <ColumnContainer
 
             >
@@ -336,7 +336,7 @@ const BoardView = ({ enableAddInput, setEnableAddInput }: Board) => {
                 </Grid>
               </ContainerBoards>
             </ColumnContainer>
-          )}
+          ) : null}
 
         </Grid>
       </Grid>

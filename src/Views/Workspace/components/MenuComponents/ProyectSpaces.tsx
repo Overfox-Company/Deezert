@@ -259,7 +259,7 @@ const ProyecSpaces = () => {
           </div>
         </Grid>
         <Grid item xs={11}>
-          {workspaces ? user._id === workspaces.idOwner || workspaces?.clients?.includes(user._id) && (
+          {user._id === workspaces.idOwner || workspaces?.clients?.includes(user._id) ? (
             <Grid
               container
               alignItems={"center"}

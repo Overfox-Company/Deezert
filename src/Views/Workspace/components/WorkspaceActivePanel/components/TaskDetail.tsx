@@ -386,7 +386,7 @@ const TaskDetail = ({ handleClose, open }: TypeAddBoard) => {
                   </Grid>
                 </Grid>
                 <Grid item xs={6}>
-                  <Label>Archivos abjuntos</Label>
+                  <Label>Archivos adjuntos</Label>
                   <DropZone
                     {...getRootProps({ className: "dropzone" })}
 

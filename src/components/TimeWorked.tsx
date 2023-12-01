@@ -36,7 +36,7 @@ const Divider = styled.div({
   backgroundColor: "rgb(250,250,250)",
 });
 const Time = styled.p({
-  color: "rgb(240,240,240)",
+  color: "rgb(250,250,250)",
   fontFamily: "Comfortaa, cursive",
   fontSize: "2vh",
   letterSpacing: "0.1vh",
@@ -100,7 +100,7 @@ const TimeWorked = () => {
     <>
       <FlexContainer>
         <Divider />
-        <Grid container alignItems={"center"}>
+        <Grid container alignItems={"center"} >
           <Grid item xs={4}>
             {!selectedTask.isWorking ? (
               <PlayIcon style={{ opacity: selectedTask.assigned.includes(user._id) ? 1 : 0.5 }} onClick={() => handlePlay()} />
@@ -116,6 +116,13 @@ const TimeWorked = () => {
                   : totalTime
                 : timeElapsed}
             </Time>
+
+          </Grid>
+          <Grid item xs={12}>
+            {selectedTask.isWorking ?
+              <Time style={{ fontSize: 10, color: 'rgb(230,230,230)' }}>
+                Trabajado: {totalTime}
+              </Time> : null}
           </Grid>
         </Grid>
       </FlexContainer>

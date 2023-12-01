@@ -23,14 +23,17 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import DownloadIcon from "@mui/icons-material/Download";
 import EditIcon from "@mui/icons-material/Edit";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { PAPER_DARK } from "../../../../../constants/Color";
 type TypeAddBoard = {
   handleClose: any;
   open: boolean;
 };
 const Input = styled.input({
-  color: "rgb(250,250,250)",
+  color: "rgb(230,230,230)",
   borderRadius: 4,
-  fontSize: "1vw",
+  fontFamily: 'roboto',
+  fontSize: 14,
+  fontWeight: 300,
   outline: "none",
   width: "100%",
   padding: "0.5vw",
@@ -47,10 +50,13 @@ const Title = styled.p({
 const Textarea = styled.textarea({
   color: "rgb(250,250,250)",
   borderRadius: 4,
-  fontSize: "1vw",
+  fontFamily: 'roboto',
+  fontSize: 14,
+  fontWeight: 300,
   outline: "none",
   resize: "none",
   width: "100%",
+  letterSpacing: '0.2px',
   padding: "0.5vw",
   border: "solid 1px rgb(100,100,100)",
   backgroundColor: "rgba(0,0,0,0)",
@@ -60,7 +66,7 @@ const Textarea = styled.textarea({
 });
 const DropZone = styled.div({
   overflow: "auto",
-  height: "30vh",
+  height: "87%",
   width: "100%",
   display: "flex",
   justifyContent: "center",
@@ -260,8 +266,8 @@ const TaskDetail = ({ handleClose, open }: TypeAddBoard) => {
     <>
       <Grid container>
         <Grid item xs={12}>
-          <Dialog maxWidth="lg" onClose={handleClose} open={open}>
-            <DialogTitle>
+          <Dialog maxWidth="lg" onClose={handleClose} open={open} fullWidth>
+            <DialogTitle >
               <Grid container>
                 <Grid item xs={3}>
                   <ContainerTitle>
@@ -275,9 +281,10 @@ const TaskDetail = ({ handleClose, open }: TypeAddBoard) => {
             </DialogTitle>
             <DialogContent
               style={{
-                width: "65vw",
+                width: "100%",
                 display: "flex",
                 justifyContent: "center",
+
               }}
             >
               <Grid
@@ -344,7 +351,7 @@ const TaskDetail = ({ handleClose, open }: TypeAddBoard) => {
                       <Grid container alignItems={"flex-start"}>
                         <Grid item xs={11} onDoubleClick={() => setEditD(true)}>
                           <Textarea
-                            rows={5}
+                            rows={20}
                             disabled={!editD}
                             placeholder="Descripcion"
                             value={editDescription}

@@ -8,6 +8,7 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
+  IconButton,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import useSocket from "../../../../hooks/useWebSocket";
@@ -19,6 +20,7 @@ import { AppContext } from "../../../../context/AppContext";
 import ClearIcon from "@mui/icons-material/Clear";
 import CheckIcon from "@mui/icons-material/Check";
 import { PRIMARY_COLOR } from "../../../../constants/Color";
+import { isNullishCoalesce } from "typescript";
 const WorkspaceName = styled.input({
   fontSize: 13,
   margin: "0.5vw 0",
@@ -27,6 +29,7 @@ const WorkspaceName = styled.input({
   width: "100%",
   cursor: "pointer",
   display: 'flex',
+  color: 'white',
   alignItems: 'center',
   backgroundColor: "rgba(20,20,20,0)",
 });
@@ -157,7 +160,7 @@ const ProyecSpaces = () => {
   };
 
   const toggleEditable = (value: any, name: any) => {
-    if (user._id === workspaces.idOwner) {
+    if (user._id === workspaces.idOwner || workspaces?.clients?.includes(user._id)) {
       setEditable(editable ? undefined : value);
       setEditValue(name);
     }
@@ -222,14 +225,14 @@ const ProyecSpaces = () => {
                       xs={3}
                       style={{ display: "flex", alignItems: "center" }}
                     >
-                      {user._id === workspaces.idOwner && (
+                      {user._id === workspaces.idOwner || workspaces?.clients?.includes(user._id) ? (
                         <DeleteIcon
                           style={{
                             color: editable === item._id ? "red" : "white",
                           }}
                           onClick={() => handleClickOpen(item._id)}
                         />
-                      )}
+                      ) : null}
                       {editable === item._id && (
                         <CheckIcon
                           onClick={() => handleEdit(item._id)}
@@ -273,10 +276,15 @@ const ProyecSpaces = () => {
                 />
               </Grid>
               <Grid item xs={2}>
-                <AddIcon
-                  style={{ fontSize: 18, cursor: "pointer" }}
-                  onClick={() => handleSend()}
-                />
+                <IconButton onClick={() => handleSend()}
+                  disabled={!value}>
+                  <AddIcon
+
+                    style={{ fontSize: 20, cursor: "pointer", color: value ? 'white' : 'rgb(130,130,130)' }}
+
+                  />
+                </IconButton>
+
               </Grid>
             </Grid>
           ) : null}

@@ -101,7 +101,7 @@ const SideMenuWorkspace = ({ panel, setPanel }: Props) => {
                     solid 2px rgba(0,0,0,0)`,
                 }}
               >
-                <ListItemText style={{ fontFamily: "roboto" }} primary={text} />
+                <ListItemText style={{ fontFamily: "roboto", color: 'white' }} primary={text} />
               </ListItemButton>
             </ListItem>
           ))}

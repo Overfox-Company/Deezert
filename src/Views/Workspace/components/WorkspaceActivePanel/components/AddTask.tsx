@@ -35,7 +35,9 @@ type TypeAddBoard = {
 const Input = styled.input({
   color: "rgb(250,250,250)",
   borderRadius: 6,
-  fontSize: "1vw",
+  fontFamily: 'roboto',
+  fontSize: 14,
+  fontWeight: 300,
   outline: "none",
 
   width: "100%",
@@ -49,7 +51,9 @@ const Input = styled.input({
 const Textarea = styled.textarea({
   color: "rgb(250,250,250)",
   borderRadius: 6,
-  fontSize: "1vw",
+  fontFamily: 'roboto',
+  fontSize: 14,
+  fontWeight: 300,
   outline: "none",
   resize: "none",
   width: "100%",
@@ -191,7 +195,7 @@ const AddTask = ({ handleClose, open, idList }: TypeAddBoard) => {
       <Dialog onClose={handleClose} open={open}>
         <DialogTitle>Añadir nueva tarea</DialogTitle>
         <DialogContent
-          style={{ width: "25vw", display: "flex", justifyContent: "center" }}
+          style={{ width: "35vw", display: "flex", justifyContent: "center" }}
         >
           <Grid container justifyContent={"space-around"} rowSpacing={1}>
             <Grid item xs={12}>
@@ -229,7 +233,7 @@ const AddTask = ({ handleClose, open, idList }: TypeAddBoard) => {
             </Grid>
             <Grid item xs={12}>
               <Textarea
-                rows={4}
+                rows={15}
                 placeholder="Descripcion"
                 value={description}
                 onChange={handleChangeDescription}
@@ -269,7 +273,7 @@ const AddTask = ({ handleClose, open, idList }: TypeAddBoard) => {
                 </Grid>*/}
           </Grid>
         </DialogContent>
-        <DialogActions>
+        <DialogActions >
           <Button variant={"outlined"} onClick={handleClose}>
             Cancelar
           </Button>

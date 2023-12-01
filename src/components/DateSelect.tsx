@@ -59,10 +59,10 @@ const DateSelect = ({ value, onChange, handleSave, addTask }: TypeComponent) => 
   return (
     <div>
       <ContainerDate>
-        <Container ref={Element}>
+        <Container>
           {value && (
-            <Item xs={12}>
-              <ContainerDate onClick={() => handleClick()}>
+            <Item xs={12} >
+              <ContainerDate ref={Element} onClick={() => handleClick()}>
                 <Container justifyContent={'space-around'} alignItems={"center"}>
                   <Item xs={10}>
                     <DateText>{dayjs(value).format("YYYY/MM/DD")}</DateText>
@@ -75,8 +75,8 @@ const DateSelect = ({ value, onChange, handleSave, addTask }: TypeComponent) => 
             </Item>
           )}
           {!value && (
-            <Item xs={12}>
-              <AddDateIcon onClick={() => handleClick()} />
+            <Item xs={12} >
+              <AddDateIcon ref={Element} onClick={() => handleClick()} />
             </Item>
           )}
         </Container>
@@ -98,6 +98,7 @@ const DateSelect = ({ value, onChange, handleSave, addTask }: TypeComponent) => 
       >
         <LocalizationProvider dateAdapter={AdapterMoment}>
           <StaticDatePicker
+
             displayStaticWrapperAs="desktop"
             value={value}
             onChange={(event) => {

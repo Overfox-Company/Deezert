@@ -7,6 +7,7 @@ import {
   DialogActions,
   DialogContent,
   CircularProgress,
+  IconButton,
 } from "@mui/material";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import styled from "@emotion/styled";
@@ -24,6 +25,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import EditIcon from "@mui/icons-material/Edit";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { PAPER_DARK } from "../../../../../constants/Color";
+import CancelIcon from '@mui/icons-material/Cancel';
 type TypeAddBoard = {
   handleClose: any;
   open: boolean;
@@ -59,7 +61,6 @@ const Textarea = styled.textarea({
   letterSpacing: '0.2px',
   padding: "0.5vw",
   border: "solid 1px rgb(100,100,100)",
-  backgroundColor: "rgba(0,0,0,0)",
   "::placeholder": {
     color: "rgb(200,200,200)",
   },
@@ -309,7 +310,7 @@ const TaskDetail = ({ handleClose, open }: TypeAddBoard) => {
                       <Grid container alignItems={"center"}>
                         <Grid item xs={11} onDoubleClick={() => setEditT(true)}>
                           <Input
-
+                            style={{ backgroundColor: editT ? "rgba(0,0,10,0.1)" : "rgba(0,0,0,0)" }}
                             placeholder="Nombre de la tarea"
                             value={editTitle}
                             disabled={!editT}
@@ -325,21 +326,28 @@ const TaskDetail = ({ handleClose, open }: TypeAddBoard) => {
                           {editT && (
                             <Grid container alignItems={"center"}>
                               <Grid item xs={6}>
-                                <DeleteIcon
-                                  onClick={() => {
-                                    setEditT(false);
-                                    setEditTitle(selectedTask.title);
-                                  }}
-                                  style={{ fontSize: "3vh", cursor: "pointer" }}
-                                  color={"error"}
-                                />
+                                <IconButton onClick={() => {
+                                  setEditT(false);
+                                  setEditTitle(selectedTask.title);
+                                }}>
+                                  <CancelIcon
+                                    style={{ fontSize: "3vh", cursor: "pointer" }}
+                                    color={"error"}
+                                  />
+                                </IconButton>
+
                               </Grid>
                               <Grid item xs={6}>
-                                <CheckCircleIcon
+                                <IconButton
                                   onClick={() => handleSave()}
-                                  style={{ fontSize: "3vh", cursor: "pointer" }}
-                                  color={"primary"}
-                                />
+                                >
+                                  <CheckCircleIcon
+
+                                    style={{ fontSize: "3vh", cursor: "pointer" }}
+                                    color={"primary"}
+                                  />
+                                </IconButton>
+
                               </Grid>
                             </Grid>
                           )}
@@ -353,6 +361,7 @@ const TaskDetail = ({ handleClose, open }: TypeAddBoard) => {
                           <Textarea
                             rows={20}
                             disabled={!editD}
+                            style={{ backgroundColor: editD ? "rgba(0,0,10,0.1)" : "rgba(0,0,0,0)" }}
                             placeholder="Descripcion"
                             value={editDescription}
                             onChange={(event: any) =>
@@ -367,23 +376,29 @@ const TaskDetail = ({ handleClose, open }: TypeAddBoard) => {
                           {editD && (
                             <Grid container alignItems={"center"}>
                               <Grid item xs={6}>
-                                <DeleteIcon
-                                  onClick={() => {
-                                    setEditD(false);
-                                    setEditDescription(
-                                      selectedTask.description
-                                    );
-                                  }}
-                                  style={{ fontSize: "3vh", cursor: "pointer" }}
-                                  color={"error"}
-                                />
+                                <IconButton onClick={() => {
+                                  setEditD(false);
+                                  setEditDescription(
+                                    selectedTask.description
+                                  );
+                                }}>
+                                  <CancelIcon
+
+                                    style={{ fontSize: "3vh", cursor: "pointer" }}
+                                    color={"error"}
+                                  />
+                                </IconButton>
+
                               </Grid>
                               <Grid item xs={6}>
-                                <CheckCircleIcon
-                                  onClick={() => handleSave()}
-                                  style={{ fontSize: "3vh", cursor: "pointer" }}
-                                  color={"primary"}
-                                />
+                                <IconButton onClick={() => handleSave()}>
+                                  <CheckCircleIcon
+
+                                    style={{ fontSize: "3vh", cursor: "pointer" }}
+                                    color={"primary"}
+                                  />
+                                </IconButton>
+
                               </Grid>
                             </Grid>
                           )}
